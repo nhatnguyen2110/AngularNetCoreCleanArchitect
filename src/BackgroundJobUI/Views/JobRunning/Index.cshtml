@@ -1,0 +1,32 @@
+﻿@model BackgroundJobUI.Models.JobRunningModel
+
+@{
+    ViewData["Title"] = "Running Jobs";
+}
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+ }
+}
+@using (Html.BeginForm("Index", "JobRunning", FormMethod.Post))
+{
+    <div>
+        <h4>Update Historical Weather Job</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-12">
+                <span class="text-danger"> @Html.DisplayTextFor(model=>model.Message)</span>
+            </dt>
+            <dt class="col-sm-2">
+                Running Datetime:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.EditorFor(model => model.RunningDate)
+                @Html.ValidationMessageFor(model => model.RunningDate, "", new { @class = "text-danger" })
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <button class="btn btn-primary">Submit</button>
+    </div>
+}

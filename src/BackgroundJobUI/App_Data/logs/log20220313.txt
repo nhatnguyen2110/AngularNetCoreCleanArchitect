@@ -1,0 +1,383 @@
+2022-03-13 10:42:07.499 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 10:42:07.715 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 10:42:07.717 +07:00 [INF] Hosting environment: Development
+2022-03-13 10:42:07.719 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 10:42:11.502 +07:00 [INF] Serilog works well!
+2022-03-13 11:18:16.794 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 11:18:16.974 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 11:18:16.977 +07:00 [INF] Hosting environment: Development
+2022-03-13 11:18:16.979 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 11:18:21.609 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-13 11:18:32.096 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-13 11:18:32.110 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-13 11:18:33.130 +07:00 [INF] Received HTTP response headers after 1005.4313ms - 200
+2022-03-13 11:18:33.137 +07:00 [INF] End processing HTTP request after 1061.7194ms - 200
+2022-03-13 11:20:02.205 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-13 11:21:15.179 +07:00 [WRN] Long Running Request: GetWeatherForecastIn7daysQuery (72962 milliseconds)   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-13 11:39:13.160 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 11:39:17.914 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 11:39:21.371 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 11:39:21.376 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 11:39:21.379 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 11:39:21.489 +07:00 [DBG] Execution loop BackgroundServerProcess:dd175905 has started in 84.584 ms
+2022-03-13 11:39:21.880 +07:00 [INF] Server nhat-laptop:7868:3996c7f7 successfully announced in 322.2664 ms
+2022-03-13 11:39:21.913 +07:00 [DBG] Execution loop ServerHeartbeatProcess:e4f8f280 has started in 28.0735 ms
+2022-03-13 11:39:21.928 +07:00 [INF] Server nhat-laptop:7868:3996c7f7 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 11:39:21.950 +07:00 [DBG] Execution loop ServerWatchdog:79fd4d86 has started in 16.3083 ms
+2022-03-13 11:39:21.963 +07:00 [DBG] Execution loop ServerJobCancellationWatcher:be1f7fe4 has started in 29.0423 ms
+2022-03-13 11:39:21.977 +07:00 [DBG] Execution loop ExpirationManager:596a47aa has started in 23.6143 ms
+2022-03-13 11:39:21.996 +07:00 [DBG] Execution loop CountersAggregator:d7a86d6b has started in 24.2995 ms
+2022-03-13 11:39:21.999 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 11:39:22.000 +07:00 [DBG] Removing outdated records from the 'AggregatedCounter' table...
+2022-03-13 11:39:22.093 +07:00 [DBG] Aggregating records in 'Counter' table...
+2022-03-13 11:39:22.061 +07:00 [DBG] Execution loop SqlServerHeartbeatProcess:f7f28776 has started in 77.3015 ms
+2022-03-13 11:39:22.258 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 11:39:22.082 +07:00 [DBG] Execution loop Worker:e8e1c77f has started in 79.2007 ms
+2022-03-13 11:39:22.326 +07:00 [INF] Hosting environment: Development
+2022-03-13 11:39:22.568 +07:00 [INF] Server nhat-laptop:7868:3996c7f7 all the dispatchers started
+2022-03-13 11:39:22.568 +07:00 [DBG] Removing outdated records from the 'Job' table...
+2022-03-13 11:39:22.093 +07:00 [DBG] Execution loop Worker:b91c0ecc has started in 90.5962 ms
+2022-03-13 11:39:22.105 +07:00 [DBG] Execution loop Worker:93473953 has started in 101.9268 ms
+2022-03-13 11:39:22.115 +07:00 [DBG] Execution loop Worker:bcddc2fb has started in 112.6532 ms
+2022-03-13 11:39:22.125 +07:00 [DBG] Execution loop Worker:cb8a9529 has started in 122.9819 ms
+2022-03-13 11:39:22.621 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 11:39:22.140 +07:00 [DBG] Execution loop Worker:11eb0ccf has started in 137.9225 ms
+2022-03-13 11:39:22.146 +07:00 [DBG] Execution loop Worker:7a02eb2d has started in 143.8166 ms
+2022-03-13 11:39:22.159 +07:00 [DBG] Execution loop Worker:fff3e263 has started in 157.0137 ms
+2022-03-13 11:39:22.175 +07:00 [DBG] Execution loop Worker:15a38fa7 has started in 172.9263 ms
+2022-03-13 11:39:22.188 +07:00 [DBG] Execution loop Worker:0ecf7c11 has started in 185.3559 ms
+2022-03-13 11:39:22.199 +07:00 [DBG] Execution loop Worker:7151c000 has started in 196.1552 ms
+2022-03-13 11:39:22.225 +07:00 [DBG] Execution loop Worker:a76f3dcb has started in 222.9618 ms
+2022-03-13 11:39:22.234 +07:00 [DBG] Execution loop Worker:1cba4ba8 has started in 231.4682 ms
+2022-03-13 11:39:22.255 +07:00 [DBG] Execution loop Worker:b9655b0b has started in 252.7644 ms
+2022-03-13 11:39:22.304 +07:00 [DBG] Execution loop Worker:b1fe7fae has started in 301.3569 ms
+2022-03-13 11:39:22.317 +07:00 [DBG] Execution loop Worker:3a1a9d21 has started in 314.8444 ms
+2022-03-13 11:39:22.338 +07:00 [DBG] Execution loop Worker:70004a4c has started in 335.6161 ms
+2022-03-13 11:39:22.355 +07:00 [DBG] Execution loop Worker:e26e2b7d has started in 352.31 ms
+2022-03-13 11:39:22.484 +07:00 [DBG] Execution loop Worker:284b2afb has started in 481.1639 ms
+2022-03-13 11:39:22.509 +07:00 [DBG] Execution loop Worker:fb084e82 has started in 507.0983 ms
+2022-03-13 11:39:22.550 +07:00 [DBG] Execution loop DelayedJobScheduler:081b64f3 has started in 66.1955 ms
+2022-03-13 11:39:22.600 +07:00 [DBG] Execution loop RecurringJobScheduler:fa0fe1fd has started in 86.7732 ms
+2022-03-13 11:39:22.871 +07:00 [DBG] Removing outdated records from the 'List' table...
+2022-03-13 11:39:22.978 +07:00 [DBG] Removing outdated records from the 'Set' table...
+2022-03-13 11:39:23.166 +07:00 [DBG] Removing outdated records from the 'Hash' table...
+2022-03-13 11:39:51.981 +07:00 [DBG] Server nhat-laptop:7868:3996c7f7 heartbeat successfully sent
+2022-03-13 11:40:21.995 +07:00 [DBG] Server nhat-laptop:7868:3996c7f7 heartbeat successfully sent
+2022-03-13 11:40:52.029 +07:00 [DBG] Server nhat-laptop:7868:3996c7f7 heartbeat successfully sent
+2022-03-13 11:41:22.048 +07:00 [DBG] Server nhat-laptop:7868:3996c7f7 heartbeat successfully sent
+2022-03-13 11:41:52.073 +07:00 [DBG] Server nhat-laptop:7868:3996c7f7 heartbeat successfully sent
+2022-03-13 11:42:22.101 +07:00 [DBG] Server nhat-laptop:7868:3996c7f7 heartbeat successfully sent
+2022-03-13 11:42:52.184 +07:00 [DBG] Server nhat-laptop:7868:3996c7f7 heartbeat successfully sent
+2022-03-13 11:44:07.089 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 11:44:08.516 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 11:44:10.722 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 11:44:10.724 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 11:44:10.726 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 11:44:10.783 +07:00 [DBG] Execution loop BackgroundServerProcess:d3f64207 has started in 37.7877 ms
+2022-03-13 11:44:11.007 +07:00 [INF] Server nhat-laptop:5212:bbf8bf93 successfully announced in 192.3345 ms
+2022-03-13 11:44:11.028 +07:00 [DBG] Execution loop ServerHeartbeatProcess:04545fd7 has started in 15.9462 ms
+2022-03-13 11:44:11.031 +07:00 [INF] Server nhat-laptop:5212:bbf8bf93 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 11:44:11.051 +07:00 [DBG] Execution loop ServerWatchdog:b8293712 has started in 17.9723 ms
+2022-03-13 11:44:11.068 +07:00 [DBG] Execution loop ServerJobCancellationWatcher:2f4e5a89 has started in 24.37 ms
+2022-03-13 11:44:11.085 +07:00 [DBG] Execution loop ExpirationManager:93d0c4a5 has started in 16.6612 ms
+2022-03-13 11:44:11.090 +07:00 [DBG] Execution loop CountersAggregator:55079a45 has started in 20.1099 ms
+2022-03-13 11:44:11.101 +07:00 [DBG] Execution loop SqlServerHeartbeatProcess:0a89aea8 has started in 20.3252 ms
+2022-03-13 11:44:11.104 +07:00 [DBG] Removing outdated records from the 'AggregatedCounter' table...
+2022-03-13 11:44:11.107 +07:00 [DBG] Aggregating records in 'Counter' table...
+2022-03-13 11:44:11.113 +07:00 [DBG] Execution loop Worker:c240ace7 has started in 22.9667 ms
+2022-03-13 11:44:11.124 +07:00 [DBG] Execution loop Worker:62799a59 has started in 33.6955 ms
+2022-03-13 11:44:11.136 +07:00 [DBG] Execution loop Worker:75a3140f has started in 46.4886 ms
+2022-03-13 11:44:11.204 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 11:44:11.146 +07:00 [DBG] Execution loop Worker:276ff575 has started in 56.0369 ms
+2022-03-13 11:44:11.172 +07:00 [DBG] Execution loop Worker:6900a705 has started in 80.4163 ms
+2022-03-13 11:44:11.180 +07:00 [DBG] Execution loop Worker:1bb73e51 has started in 90.2989 ms
+2022-03-13 11:44:11.312 +07:00 [DBG] Execution loop Worker:bf27b72c has started in 222.0903 ms
+2022-03-13 11:44:11.282 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 11:44:11.381 +07:00 [DBG] Removing outdated records from the 'Job' table...
+2022-03-13 11:44:11.394 +07:00 [INF] Hosting environment: Development
+2022-03-13 11:44:11.381 +07:00 [INF] Server nhat-laptop:5212:bbf8bf93 all the dispatchers started
+2022-03-13 11:44:11.191 +07:00 [DBG] Execution loop Worker:d3aaea83 has started in 101.5031 ms
+2022-03-13 11:44:11.204 +07:00 [DBG] Execution loop Worker:bda34fc6 has started in 114.1947 ms
+2022-03-13 11:44:11.216 +07:00 [DBG] Execution loop Worker:1e1400e7 has started in 125.9463 ms
+2022-03-13 11:44:11.227 +07:00 [DBG] Execution loop Worker:b976674e has started in 136.7182 ms
+2022-03-13 11:44:11.238 +07:00 [DBG] Execution loop Worker:ce84373c has started in 147.7388 ms
+2022-03-13 11:44:11.266 +07:00 [DBG] Execution loop Worker:ad29ba13 has started in 176.0377 ms
+2022-03-13 11:44:11.399 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 11:44:11.281 +07:00 [DBG] Execution loop Worker:a53a12e9 has started in 191.3829 ms
+2022-03-13 11:44:11.302 +07:00 [DBG] Execution loop Worker:c8624417 has started in 211.8827 ms
+2022-03-13 11:44:11.328 +07:00 [DBG] Execution loop Worker:1a8de9b2 has started in 238.4413 ms
+2022-03-13 11:44:11.472 +07:00 [DBG] Removing outdated records from the 'List' table...
+2022-03-13 11:44:11.336 +07:00 [DBG] Execution loop Worker:87768781 has started in 245.7386 ms
+2022-03-13 11:44:11.346 +07:00 [DBG] Execution loop Worker:0a34454d has started in 256.4331 ms
+2022-03-13 11:44:11.358 +07:00 [DBG] Execution loop Worker:8ee299db has started in 267.8308 ms
+2022-03-13 11:44:11.369 +07:00 [DBG] Execution loop Worker:5cf79fc4 has started in 279.0511 ms
+2022-03-13 11:44:11.381 +07:00 [DBG] Execution loop DelayedJobScheduler:1a3810a4 has started in 23.3064 ms
+2022-03-13 11:44:11.394 +07:00 [DBG] Execution loop RecurringJobScheduler:4dd89cd9 has started in 25.0371 ms
+2022-03-13 11:44:11.558 +07:00 [DBG] Removing outdated records from the 'Set' table...
+2022-03-13 11:44:11.570 +07:00 [DBG] Removing outdated records from the 'Hash' table...
+2022-03-13 11:44:41.072 +07:00 [DBG] Server nhat-laptop:5212:bbf8bf93 heartbeat successfully sent
+2022-03-13 11:45:11.097 +07:00 [DBG] Server nhat-laptop:5212:bbf8bf93 heartbeat successfully sent
+2022-03-13 11:45:41.115 +07:00 [DBG] Server nhat-laptop:5212:bbf8bf93 heartbeat successfully sent
+2022-03-13 11:46:11.142 +07:00 [DBG] Server nhat-laptop:5212:bbf8bf93 heartbeat successfully sent
+2022-03-13 11:46:41.153 +07:00 [DBG] Server nhat-laptop:5212:bbf8bf93 heartbeat successfully sent
+2022-03-13 11:47:34.937 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 11:47:36.429 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 11:47:39.011 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 11:47:39.013 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 11:47:39.016 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 11:47:39.298 +07:00 [INF] Server nhat-laptop:11560:3190d8ef successfully announced in 197.6499 ms
+2022-03-13 11:47:39.322 +07:00 [INF] Server nhat-laptop:11560:3190d8ef is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 11:47:39.556 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 11:47:39.740 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 11:47:39.762 +07:00 [INF] Server nhat-laptop:11560:3190d8ef all the dispatchers started
+2022-03-13 11:47:39.796 +07:00 [INF] Hosting environment: Development
+2022-03-13 11:47:39.802 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 15:06:02.900 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 15:06:05.176 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 15:06:06.599 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 15:06:06.602 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 15:06:06.604 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 15:06:07.110 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 15:06:07.122 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 15:06:07.124 +07:00 [INF] Hosting environment: Development
+2022-03-13 15:06:07.126 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 15:06:07.591 +07:00 [INF] Server nhat-laptop:32512:ae4af99b successfully announced in 891.5842 ms
+2022-03-13 15:06:07.622 +07:00 [INF] Server nhat-laptop:32512:ae4af99b is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 15:06:07.761 +07:00 [INF] 3 servers were removed due to timeout
+2022-03-13 15:06:07.964 +07:00 [INF] Server nhat-laptop:32512:ae4af99b all the dispatchers started
+2022-03-13 15:06:20.058 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: StatusCode cannot be set because the response has already started.
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ThrowResponseAlreadyStartedException(String value)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.set_StatusCode(Int32 value)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.Microsoft.AspNetCore.Http.Features.IHttpResponseFeature.set_StatusCode(Int32 value)
+   at Microsoft.AspNetCore.Http.DefaultHttpResponse.set_StatusCode(Int32 value)
+   at Hangfire.Dashboard.AspNetCoreDashboardMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Builder.Extensions.MapMiddleware.InvokeCore(HttpContext context, String matchedPath, String remainingPath)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-03-13 15:06:20.343 +07:00 [WRN] The response has already started, the error page middleware will not be executed.
+2022-03-13 15:06:20.384 +07:00 [ERR] Connection id "0HMG4P1A1K8IN", Request id "0HMG4P1A1K8IN:00000002": An unhandled exception was thrown by the application.
+System.InvalidOperationException: StatusCode cannot be set because the response has already started.
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ThrowResponseAlreadyStartedException(String value)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.set_StatusCode(Int32 value)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.Microsoft.AspNetCore.Http.Features.IHttpResponseFeature.set_StatusCode(Int32 value)
+   at Microsoft.AspNetCore.Http.DefaultHttpResponse.set_StatusCode(Int32 value)
+   at Hangfire.Dashboard.AspNetCoreDashboardMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Builder.Extensions.MapMiddleware.InvokeCore(HttpContext context, String matchedPath, String remainingPath)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.ExecuteWithFilterAsync(IHttpSocketAdapter injectScriptSocket, String requestId, HttpContext httpContext)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2022-03-13 15:13:43.870 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 15:13:45.678 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 15:13:46.516 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 15:13:46.518 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 15:13:46.520 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 15:13:46.986 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 15:13:47.002 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 15:13:47.010 +07:00 [INF] Hosting environment: Development
+2022-03-13 15:13:47.012 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 15:13:47.532 +07:00 [INF] Server nhat-laptop:32884:d343c7d6 successfully announced in 908.8747 ms
+2022-03-13 15:13:47.555 +07:00 [INF] Server nhat-laptop:32884:d343c7d6 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 15:13:47.633 +07:00 [INF] 1 servers were removed due to timeout
+2022-03-13 15:13:47.866 +07:00 [INF] Server nhat-laptop:32884:d343c7d6 all the dispatchers started
+2022-03-13 15:15:47.559 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 15:15:48.872 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 15:15:49.586 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 15:15:49.589 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 15:15:49.592 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 15:15:49.995 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 15:15:50.010 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 15:15:50.013 +07:00 [INF] Hosting environment: Development
+2022-03-13 15:15:50.015 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 15:15:50.613 +07:00 [INF] Server nhat-laptop:20936:3731da74 successfully announced in 926.473 ms
+2022-03-13 15:15:50.633 +07:00 [INF] Server nhat-laptop:20936:3731da74 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 15:15:51.346 +07:00 [INF] Server nhat-laptop:20936:3731da74 all the dispatchers started
+2022-03-13 15:15:53.793 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot override the 'href' attribute for <a>. An <a> with a specified 'href' must not have attributes starting with 'asp-route-' or an 'asp-action', 'asp-controller', 'asp-area', 'asp-route', 'asp-protocol', 'asp-host', 'asp-fragment', 'asp-page' or 'asp-page-handler' attribute.
+   at Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Process(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.TagHelpers.TagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.RunAsync(TagHelperExecutionContext executionContext)
+   at AspNetCoreGeneratedDocument.Views_Shared__Layout.<ExecuteAsync>b__26_1() in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\Views\Shared\_Layout.cshtml:line 0
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync()
+   at AspNetCoreGeneratedDocument.Views_Shared__Layout.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-03-13 15:16:59.007 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 15:17:00.253 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 15:17:01.082 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 15:17:01.084 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 15:17:01.086 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 15:17:01.463 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 15:17:01.478 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 15:17:01.481 +07:00 [INF] Hosting environment: Development
+2022-03-13 15:17:01.483 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 15:17:02.048 +07:00 [INF] Server nhat-laptop:10544:5183da2a successfully announced in 884.5844 ms
+2022-03-13 15:17:02.070 +07:00 [INF] Server nhat-laptop:10544:5183da2a is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 15:17:02.415 +07:00 [INF] Server nhat-laptop:10544:5183da2a all the dispatchers started
+2022-03-13 15:19:12.668 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 15:19:13.663 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 15:19:14.497 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 15:19:14.510 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 15:19:14.512 +07:00 [INF] Hosting environment: Development
+2022-03-13 15:19:14.513 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 17:05:56.074 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 17:05:59.992 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 17:06:02.788 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 17:06:02.793 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 17:06:02.796 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 17:06:03.272 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 17:06:03.288 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 17:06:03.292 +07:00 [INF] Hosting environment: Development
+2022-03-13 17:06:03.294 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 17:06:03.934 +07:00 [INF] Server nhat-laptop:11344:f8d50399 successfully announced in 1046.2785 ms
+2022-03-13 17:06:03.955 +07:00 [INF] Server nhat-laptop:11344:f8d50399 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 17:06:04.088 +07:00 [INF] 3 servers were removed due to timeout
+2022-03-13 17:06:04.351 +07:00 [INF] Server nhat-laptop:11344:f8d50399 all the dispatchers started
+2022-03-13 17:07:46.086 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 17:07:47.190 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 17:07:49.578 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 17:07:49.582 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 17:07:49.584 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 17:07:49.918 +07:00 [INF] Server nhat-laptop:31948:5c49b78a successfully announced in 235.5687 ms
+2022-03-13 17:07:49.944 +07:00 [INF] Server nhat-laptop:31948:5c49b78a is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 17:07:50.225 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 17:07:50.525 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 17:07:50.566 +07:00 [INF] Server nhat-laptop:31948:5c49b78a all the dispatchers started
+2022-03-13 17:07:50.606 +07:00 [INF] Hosting environment: Development
+2022-03-13 17:07:50.617 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 17:09:09.080 +07:00 [WRN] Failed to process the job '4': an exception occurred. Retry attempt 1 of 10 will be performed in 00:00:36.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at BackgroundJobUI.Services.JobHandlerService.ExecuteUpdateHistoricalWeather() in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\Services\JobHandlerService.cs:line 28
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2022-03-13 17:10:55.143 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 17:10:56.491 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 17:11:01.324 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 17:11:01.327 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 17:11:01.329 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 17:11:01.675 +07:00 [INF] Server nhat-laptop:31296:81c5fcb6 successfully announced in 229.437 ms
+2022-03-13 17:11:01.696 +07:00 [INF] Server nhat-laptop:31296:81c5fcb6 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 17:11:02.016 +07:00 [INF] Server nhat-laptop:31296:81c5fcb6 all the dispatchers started
+2022-03-13 17:11:02.024 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 17:11:02.067 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 17:11:02.099 +07:00 [INF] Hosting environment: Development
+2022-03-13 17:11:02.102 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 17:11:56.127 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-13 17:12:23.164 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-13 21:39:09.189 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 21:39:12.279 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 21:39:14.909 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 21:39:14.911 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 21:39:14.913 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 21:39:15.183 +07:00 [INF] Server nhat-laptop:8300:1592d164 successfully announced in 171.6529 ms
+2022-03-13 21:39:15.230 +07:00 [INF] Server nhat-laptop:8300:1592d164 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 21:39:15.309 +07:00 [INF] 3 servers were removed due to timeout
+2022-03-13 21:39:15.583 +07:00 [INF] Server nhat-laptop:8300:1592d164 all the dispatchers started
+2022-03-13 21:39:15.697 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 21:39:15.726 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 21:39:15.729 +07:00 [INF] Hosting environment: Development
+2022-03-13 21:39:15.733 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 21:40:34.467 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-13 21:48:20.774 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 21:48:21.870 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 21:48:24.264 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 21:48:24.266 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 21:48:24.268 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 21:48:24.528 +07:00 [INF] Server nhat-laptop:20888:69aa56df successfully announced in 165.4371 ms
+2022-03-13 21:48:24.565 +07:00 [INF] Server nhat-laptop:20888:69aa56df is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 21:48:24.627 +07:00 [INF] 1 servers were removed due to timeout
+2022-03-13 21:48:24.916 +07:00 [INF] Server nhat-laptop:20888:69aa56df all the dispatchers started
+2022-03-13 21:48:24.917 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 21:48:24.986 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 21:48:24.990 +07:00 [INF] Hosting environment: Development
+2022-03-13 21:48:24.994 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 21:48:48.160 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-13 21:50:19.434 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-13 21:50:21.473 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-13 21:50:24.464 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-13 21:50:24.467 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-13 21:50:24.470 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-13 21:50:24.795 +07:00 [INF] Server nhat-laptop:8824:6a18e8b6 successfully announced in 219.6794 ms
+2022-03-13 21:50:24.819 +07:00 [INF] Server nhat-laptop:8824:6a18e8b6 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-13 21:50:24.983 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-13 21:50:25.236 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-13 21:50:25.282 +07:00 [INF] Hosting environment: Development
+2022-03-13 21:50:25.287 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-13 21:50:25.362 +07:00 [INF] Server nhat-laptop:8824:6a18e8b6 all the dispatchers started
+2022-03-13 21:51:01.973 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}

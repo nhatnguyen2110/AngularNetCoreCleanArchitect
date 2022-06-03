@@ -1,0 +1,984 @@
+2022-03-10 16:14:39.139 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-10 16:14:39.872 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-10 16:14:41.058 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-10 16:14:41.058 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-10 16:14:41.060 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-10 16:14:41.061 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-10 16:14:41.061 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-10 16:14:41.062 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-10 16:14:42.788 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-10 16:14:42.788 +07:00 [INF] Hosting environment: Development
+2022-03-10 16:14:42.788 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-10 16:14:44.045 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-10 16:14:44.049 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-10 16:14:44.049 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-10 16:14:44.050 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-10 16:14:44.051 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-10 16:14:44.052 +07:00 [DBG] Error Url: /Home
+2022-03-10 16:14:44.052 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-10 16:18:15.597 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:18:15.915 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:18:15.917 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:18:15.922 +07:00 [DBG] Start discovery request
+2022-03-10 16:18:15.966 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:18:15.973 +07:00 [DBG] Cache miss when loading all keys.
+2022-03-10 16:18:15.978 +07:00 [DBG] Loading keys from store.
+2022-03-10 16:18:16.332 +07:00 [DBG] Keys successfully returned from store.
+2022-03-10 16:18:16.336 +07:00 [DBG] Caching keys with KeyCacheDuration for "1.00:00:00"
+2022-03-10 16:18:16.350 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:18:16.351 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:18:16.360 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:16.360 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:16.369 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:16.369 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:36:03"
+2022-03-10 16:18:16.417 +07:00 [DBG] Getting the current key.
+2022-03-10 16:18:16.418 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:18:16.418 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:18:16.418 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:18:16.419 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:16.419 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:16.419 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:16.419 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:36:03"
+2022-03-10 16:18:16.420 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:36:03". Retires in "87.18:36:03"
+2022-03-10 16:18:16.481 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2022-03-10 16:18:16.523 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: Duende.IdentityServer.Endpoints.AuthorizeEndpoint
+2022-03-10 16:18:16.524 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.AuthorizeEndpoint for /connect/authorize
+2022-03-10 16:18:16.529 +07:00 [DBG] Start authorize request
+2022-03-10 16:18:16.565 +07:00 [DBG] User in authorize request: 21e5069d-a790-49de-8b3b-3cc4584d9470
+2022-03-10 16:18:16.930 +07:00 [DBG] Start authorize request protocol validation
+2022-03-10 16:18:16.966 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:18:17.005 +07:00 [DBG] Checking for PKCE parameters
+2022-03-10 16:18:17.092 +07:00 [DBG] Calling into custom validator: Duende.IdentityServer.Validation.DefaultCustomAuthorizeRequestValidator
+2022-03-10 16:18:17.137 +07:00 [DBG] ValidatedAuthorizeRequest
+{"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","AllowedRedirectUris":["/authentication/login-callback"],"SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","ResponseType":"code","ResponseMode":"query","GrantType":"authorization_code","RequestedScopes":"CleanArchitecture.WebUIAPI openid profile","State":"8c171f073fde459eb9763a0dbf871b14","UiLocales":null,"Nonce":null,"AuthenticationContextReferenceClasses":null,"DisplayMode":null,"PromptMode":"none","MaxAge":null,"LoginHint":null,"SessionId":"73632BDFA38B1AA4D88ADC0CF580F5E9","Raw":{"client_id":"CleanArchitecture.WebUI","redirect_uri":"https://localhost:44312/authentication/login-callback","response_type":"code","scope":"CleanArchitecture.WebUIAPI openid profile","state":"8c171f073fde459eb9763a0dbf871b14","code_challenge":"SglBW45znzvxm047yRdYYGmxqwNznSzqpvDWe79rsWk","code_challenge_method":"S256","prompt":"none","response_mode":"query"},"$type":"AuthorizeRequestValidationLog"}
+2022-03-10 16:18:17.231 +07:00 [DBG] Client is configured to not require consent, no consent is required
+2022-03-10 16:18:17.238 +07:00 [DBG] Creating Authorization Code Flow response.
+2022-03-10 16:18:17.315 +07:00 [DBG] NHHVr/ATDg9ysl0+0X5YeTgao6WOwd5hkeBuuwEKTm4= not found in database
+2022-03-10 16:18:18.390 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","Endpoint":"Authorize","SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","Scopes":"CleanArchitecture.WebUIAPI openid profile","GrantType":"authorization_code","Tokens":[{"TokenType":"code","TokenValue":"****1CBF","$type":"Token"}],"Category":"Token","Name":"Token Issued Success","EventType":"Success","Id":2000,"Message":null,"ActivityId":"80000006-0003-fb00-b63f-84710c7967bb","TimeStamp":"2022-03-10T09:18:18.0000000Z","ProcessId":24208,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"TokenIssuedSuccessEvent"}
+2022-03-10 16:18:18.395 +07:00 [DBG] Authorize endpoint response
+{"SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","ClientId":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","State":"8c171f073fde459eb9763a0dbf871b14","Scope":"CleanArchitecture.WebUIAPI openid profile","Error":null,"ErrorDescription":null,"$type":"AuthorizeResponseLog"}
+2022-03-10 16:18:21.507 +07:00 [DBG] Request path /connect/token matched to endpoint type Token
+2022-03-10 16:18:21.524 +07:00 [DBG] Endpoint enabled: Token, successfully created handler: Duende.IdentityServer.Endpoints.TokenEndpoint
+2022-03-10 16:18:21.524 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.TokenEndpoint for /connect/token
+2022-03-10 16:18:21.534 +07:00 [DBG] Start token request.
+2022-03-10 16:18:21.540 +07:00 [DBG] Start client validation
+2022-03-10 16:18:21.550 +07:00 [DBG] Start parsing Basic Authentication secret
+2022-03-10 16:18:21.553 +07:00 [DBG] Start parsing for secret in post body
+2022-03-10 16:18:21.568 +07:00 [DBG] client id without secret found
+2022-03-10 16:18:21.569 +07:00 [DBG] Parser found secret: PostBodySecretParser
+2022-03-10 16:18:21.569 +07:00 [DBG] Secret id found: CleanArchitecture.WebUI
+2022-03-10 16:18:21.569 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:18:21.570 +07:00 [DBG] Public Client - skipping secret validation success
+2022-03-10 16:18:21.570 +07:00 [DBG] Client validation success
+2022-03-10 16:18:21.572 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","AuthenticationMethod":"NoSecret","Category":"Authentication","Name":"Client Authentication Success","EventType":"Success","Id":1010,"Message":null,"ActivityId":"80000168-0004-ff00-b63f-84710c7967bb","TimeStamp":"2022-03-10T09:18:21.0000000Z","ProcessId":24208,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"ClientAuthenticationSuccessEvent"}
+2022-03-10 16:18:21.578 +07:00 [DBG] Start token request validation
+2022-03-10 16:18:21.589 +07:00 [DBG] Start validation of authorization code token request
+2022-03-10 16:18:21.645 +07:00 [DBG] NHHVr/ATDg9ysl0+0X5YeTgao6WOwd5hkeBuuwEKTm4= found in database: true
+2022-03-10 16:18:21.682 +07:00 [DBG] removing NHHVr/ATDg9ysl0+0X5YeTgao6WOwd5hkeBuuwEKTm4= persisted grant from database
+2022-03-10 16:18:21.749 +07:00 [DBG] Client required a proof key for code exchange. Starting PKCE validation
+2022-03-10 16:18:21.760 +07:00 [DBG] Validation of authorization code token request success
+2022-03-10 16:18:21.768 +07:00 [INF] Token request validation success, {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","GrantType":"authorization_code","Scopes":null,"AuthorizationCode":"****1CBF","RefreshToken":"********","UserName":null,"AuthenticationContextReferenceClasses":null,"Tenant":null,"IdP":null,"Raw":{"client_id":"CleanArchitecture.WebUI","code":"DD333E5ED854624148AA4B22F2BDBB41639C648AC21330F1900A163B32DD1CBF","redirect_uri":"https://localhost:44312/authentication/login-callback","code_verifier":"a31aaf339836495bb370cbffd83b28ab33c93b6f7ce4443b8134fb1270f24f3888fd97ad407041bdb37d92f7b1125df7","grant_type":"authorization_code"},"$type":"TokenRequestValidationLog"}
+2022-03-10 16:18:21.784 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:18:21.815 +07:00 [DBG] Getting claims for access token for client: CleanArchitecture.WebUI
+2022-03-10 16:18:21.816 +07:00 [DBG] Getting claims for access token for subject: 21e5069d-a790-49de-8b3b-3cc4584d9470
+2022-03-10 16:18:22.500 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:18:22.515 +07:00 [DBG] Getting claims for identity token for subject: 21e5069d-a790-49de-8b3b-3cc4584d9470 and client: CleanArchitecture.WebUI
+2022-03-10 16:18:22.515 +07:00 [DBG] In addition to an id_token, an access_token was requested. No claims other than sub are included in the id_token. To obtain more user claims, either use the user info endpoint or set AlwaysIncludeUserClaimsInIdToken on the client configuration.
+2022-03-10 16:18:22.525 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":null,"Endpoint":"Token","SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","Scopes":"CleanArchitecture.WebUIAPI openid profile","GrantType":"authorization_code","Tokens":[{"TokenType":"id_token","TokenValue":"****TmmQ","$type":"Token"},{"TokenType":"access_token","TokenValue":"****e3uQ","$type":"Token"}],"Category":"Token","Name":"Token Issued Success","EventType":"Success","Id":2000,"Message":null,"ActivityId":"80000168-0004-ff00-b63f-84710c7967bb","TimeStamp":"2022-03-10T09:18:22.0000000Z","ProcessId":24208,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"TokenIssuedSuccessEvent"}
+2022-03-10 16:18:22.526 +07:00 [DBG] Token request success.
+2022-03-10 16:18:22.736 +07:00 [DBG] Request path /connect/userinfo matched to endpoint type Userinfo
+2022-03-10 16:18:22.738 +07:00 [DBG] Endpoint enabled: Userinfo, successfully created handler: Duende.IdentityServer.Endpoints.UserInfoEndpoint
+2022-03-10 16:18:22.738 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.UserInfoEndpoint for /connect/userinfo
+2022-03-10 16:18:22.744 +07:00 [DBG] Start userinfo request
+2022-03-10 16:18:22.748 +07:00 [DBG] Bearer token found in header
+2022-03-10 16:18:22.758 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:18:22.759 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:18:22.759 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:18:22.759 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:18:22.759 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:22.759 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:22.760 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:18:22.760 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:35:57"
+2022-03-10 16:18:22.818 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:18:22.823 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:18:22.836 +07:00 [DBG] Calling into custom token validator: Duende.IdentityServer.Validation.DefaultCustomTokenValidator
+2022-03-10 16:18:22.838 +07:00 [DBG] Token validation success
+{"ClientId":null,"ClientName":null,"ValidateLifetime":true,"AccessTokenType":"Jwt","ExpectedScope":"openid","TokenHandle":null,"JwtId":"9FB5E80AD53E2A53034F4A95D12BF71A","Claims":{"iss":"https://localhost:44312","nbf":1646903901,"iat":1646903901,"exp":1646907501,"aud":"CleanArchitecture.WebUIAPI","scope":["CleanArchitecture.WebUIAPI","openid","profile"],"amr":"pwd","client_id":"CleanArchitecture.WebUI","sub":"21e5069d-a790-49de-8b3b-3cc4584d9470","auth_time":1645502403,"idp":"local","sid":"73632BDFA38B1AA4D88ADC0CF580F5E9","jti":"9FB5E80AD53E2A53034F4A95D12BF71A"},"$type":"TokenValidationLog"}
+2022-03-10 16:18:22.854 +07:00 [DBG] Creating userinfo response
+2022-03-10 16:18:22.858 +07:00 [DBG] Scopes in access token: CleanArchitecture.WebUIAPI openid profile
+2022-03-10 16:18:22.864 +07:00 [DBG] Requested claim types: sub name family_name given_name middle_name nickname preferred_username profile picture website gender birthdate zoneinfo locale updated_at
+2022-03-10 16:18:22.879 +07:00 [INF] Profile service returned the following claim types: sub preferred_username name
+2022-03-10 16:18:22.879 +07:00 [DBG] End userinfo request
+2022-03-10 16:18:22.908 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:18:22.908 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:18:22.909 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:18:22.910 +07:00 [DBG] Rendering check session result
+2022-03-10 16:19:31.592 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 16:19:41.680 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:19:41.766 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:19:42.231 +07:00 [INF] Received HTTP response headers after 454.1743ms - 200
+2022-03-10 16:19:42.254 +07:00 [INF] End processing HTTP request after 586.6491ms - 200
+2022-03-10 16:21:55.790 +07:00 [INF] Request: CreateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:21:56.388 +07:00 [ERR] Failed executing DbCommand (124ms) [Parameters=[@p0='?' (DbType = Double), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000), @p3='?' (DbType = Double), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (DbType = DateTime2), @p7='?' (Size = 4000), @p8='?' (DbType = Double), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Double), @p15='?' (DbType = Double), @p16='?' (DbType = Double), @p17='?' (DbType = Double), @p18='?' (DbType = Double), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (Size = 4000), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (Size = 4000), @p27='?' (DbType = Int32), @p28='?' (DbType = Int32), @p29='?' (DbType = Int32), @p30='?' (DbType = Int32), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (Size = 4000), @p35='?' (Size = 4000), @p36='?' (Size = 4000), @p37='?' (DbType = Int32), @p38='?' (Size = 4000), @p39='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [HistoricalWeatherDatas] ([Clouds], [Created], [CreatedBy], [Dew_point], [Dt], [Humidity], [LastModified], [LastModifiedBy], [Pop], [ProvinceId], [Sunrise], [Sunset], [Temp_avg], [Temp_day], [Temp_eve], [Temp_max], [Temp_min], [Temp_morn], [Temp_night], [WeatherDesc_day], [WeatherDesc_eve], [WeatherDesc_morn], [WeatherDesc_night], [WeatherIcon_day], [WeatherIcon_eve], [WeatherIcon_morn], [WeatherIcon_night], [WeatherId_day], [WeatherId_eve], [WeatherId_morn], [WeatherId_night], [WeatherMain_day], [WeatherMain_eve], [WeatherMain_morn], [WeatherMain_night], [Weather_description], [Weather_icon], [Weather_id], [Weather_main], [Wind_speed])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39);
+SELECT [Id]
+FROM [HistoricalWeatherDatas]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-03-10 16:21:56.660 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2022-03-10 16:22:11.776 +07:00 [ERR] Failed to create weather data (Request: {"ProvinceId":0,"Dt":1646888400.0,"Sunrise":1646867026.0,"Sunset":1646910244.0,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43.0,"Dew_point":18.86,"Pop":0.0,"Wind_speed":6.7,"Clouds":88.0,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d"}). Response: {"Data":0,"Succeeded":false,"Message":"Something went wrong. Please try again","SystemError":"An error occurred while saving the entity changes. See the inner exception for details.","Title":"Failed to Create Weather Data","RequestTime":null,"ResponseTime":null}
+2022-03-10 16:22:17.082 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:22:17.082 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:22:17.082 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:22:17.083 +07:00 [DBG] Start discovery request
+2022-03-10 16:22:17.083 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:22:17.084 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:22:17.084 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:22:17.084 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:22:17.084 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.084 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.085 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.085 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:32:02"
+2022-03-10 16:22:17.086 +07:00 [DBG] Getting the current key.
+2022-03-10 16:22:17.086 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:22:17.086 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:22:17.086 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:22:17.086 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.086 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.087 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.087 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:32:02"
+2022-03-10 16:22:17.087 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:32:02". Retires in "87.18:32:02"
+2022-03-10 16:22:17.141 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:22:17.142 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:22:17.142 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:22:17.142 +07:00 [DBG] Rendering check session result
+2022-03-10 16:22:17.145 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:22:17.156 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:22:17.156 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:22:17.157 +07:00 [DBG] Start discovery request
+2022-03-10 16:22:17.157 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:22:17.157 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:22:17.157 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:22:17.158 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:22:17.158 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.158 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.158 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.158 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:32:02"
+2022-03-10 16:22:17.159 +07:00 [DBG] Getting the current key.
+2022-03-10 16:22:17.160 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:22:17.160 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:22:17.160 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:22:17.160 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.161 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.161 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.161 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:32:02"
+2022-03-10 16:22:17.162 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:32:02". Retires in "87.18:32:02"
+2022-03-10 16:22:17.170 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:22:17.171 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:22:17.172 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:22:17.172 +07:00 [DBG] Start discovery request
+2022-03-10 16:22:17.172 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:22:17.172 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:22:17.173 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:22:17.173 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:22:17.173 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.173 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.173 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.174 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:32:02"
+2022-03-10 16:22:17.174 +07:00 [DBG] Getting the current key.
+2022-03-10 16:22:17.174 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:22:17.174 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:22:17.175 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:22:17.175 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.175 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.175 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:22:17.175 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:32:02"
+2022-03-10 16:22:17.176 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:32:02". Retires in "87.18:32:02"
+2022-03-10 16:22:17.503 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:22:17.504 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:22:17.505 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:22:17.505 +07:00 [DBG] Rendering check session result
+2022-03-10 16:22:17.515 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:22:17.515 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:22:17.515 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:22:17.516 +07:00 [DBG] Rendering check session result
+2022-03-10 16:23:21.380 +07:00 [INF] Request: CreateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:23:54.410 +07:00 [ERR] Failed executing DbCommand (93ms) [Parameters=[@p0='?' (DbType = Double), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000), @p3='?' (DbType = Double), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (DbType = DateTime2), @p7='?' (Size = 4000), @p8='?' (DbType = Double), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Double), @p15='?' (DbType = Double), @p16='?' (DbType = Double), @p17='?' (DbType = Double), @p18='?' (DbType = Double), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (Size = 4000), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (Size = 4000), @p27='?' (DbType = Int32), @p28='?' (DbType = Int32), @p29='?' (DbType = Int32), @p30='?' (DbType = Int32), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (Size = 4000), @p35='?' (Size = 4000), @p36='?' (Size = 4000), @p37='?' (DbType = Int32), @p38='?' (Size = 4000), @p39='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [HistoricalWeatherDatas] ([Clouds], [Created], [CreatedBy], [Dew_point], [Dt], [Humidity], [LastModified], [LastModifiedBy], [Pop], [ProvinceId], [Sunrise], [Sunset], [Temp_avg], [Temp_day], [Temp_eve], [Temp_max], [Temp_min], [Temp_morn], [Temp_night], [WeatherDesc_day], [WeatherDesc_eve], [WeatherDesc_morn], [WeatherDesc_night], [WeatherIcon_day], [WeatherIcon_eve], [WeatherIcon_morn], [WeatherIcon_night], [WeatherId_day], [WeatherId_eve], [WeatherId_morn], [WeatherId_night], [WeatherMain_day], [WeatherMain_eve], [WeatherMain_morn], [WeatherMain_night], [Weather_description], [Weather_icon], [Weather_id], [Weather_main], [Wind_speed])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39);
+SELECT [Id]
+FROM [HistoricalWeatherDatas]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-03-10 16:23:54.421 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2022-03-10 16:24:47.817 +07:00 [WRN] Long Running Request: CreateWeatherDataCommand (86337 milliseconds) 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:24:47.820 +07:00 [ERR] Failed to create weather data (Request: {"ProvinceId":0,"Dt":1646888400.0,"Sunrise":1646867026.0,"Sunset":1646910244.0,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43.0,"Dew_point":18.86,"Pop":0.0,"Wind_speed":6.7,"Clouds":88.0,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d"}). Response: {"Data":0,"Succeeded":false,"Message":"Something went wrong. Please try again","SystemError":"An error occurred while saving the entity changes. See the inner exception for details.","Title":"Failed to Create Weather Data","RequestTime":null,"ResponseTime":null}
+2022-03-10 16:24:54.414 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:24:54.414 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:24:54.415 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:24:54.415 +07:00 [DBG] Start discovery request
+2022-03-10 16:24:54.415 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:24:54.415 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:24:54.415 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:24:54.415 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:24:54.416 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.416 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.416 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.417 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:29:25"
+2022-03-10 16:24:54.417 +07:00 [DBG] Getting the current key.
+2022-03-10 16:24:54.417 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:24:54.418 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:24:54.418 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:24:54.418 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.418 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.418 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.419 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:29:25"
+2022-03-10 16:24:54.419 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:29:25". Retires in "87.18:29:25"
+2022-03-10 16:24:54.438 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:24:54.439 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:24:54.439 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:24:54.439 +07:00 [DBG] Start discovery request
+2022-03-10 16:24:54.439 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:24:54.439 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:24:54.439 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:24:54.440 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:24:54.440 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.440 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.440 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.440 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:29:25"
+2022-03-10 16:24:54.441 +07:00 [DBG] Getting the current key.
+2022-03-10 16:24:54.441 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:24:54.441 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:24:54.441 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:24:54.441 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.441 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.441 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.442 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:29:25"
+2022-03-10 16:24:54.442 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:29:25". Retires in "87.18:29:25"
+2022-03-10 16:24:54.448 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:24:54.449 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:24:54.449 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:24:54.449 +07:00 [DBG] Start discovery request
+2022-03-10 16:24:54.450 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:24:54.450 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:24:54.450 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:24:54.450 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:24:54.451 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.451 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.451 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.452 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:29:25"
+2022-03-10 16:24:54.452 +07:00 [DBG] Getting the current key.
+2022-03-10 16:24:54.452 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:24:54.452 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:24:54.453 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:24:54.453 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.453 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.453 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:24:54.453 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:29:25"
+2022-03-10 16:24:54.453 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:29:25". Retires in "87.18:29:25"
+2022-03-10 16:24:54.504 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:24:54.504 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:24:54.504 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:24:54.504 +07:00 [DBG] Rendering check session result
+2022-03-10 16:24:54.518 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:24:54.518 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:24:54.519 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:24:54.519 +07:00 [DBG] Rendering check session result
+2022-03-10 16:24:54.773 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:24:54.773 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:24:54.773 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:24:54.773 +07:00 [DBG] Rendering check session result
+2022-03-10 16:25:38.487 +07:00 [INF] Request: CreateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:25:54.645 +07:00 [ERR] Failed executing DbCommand (19ms) [Parameters=[@p0='?' (DbType = Double), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000), @p3='?' (DbType = Double), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (DbType = DateTime2), @p7='?' (Size = 4000), @p8='?' (DbType = Double), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Double), @p15='?' (DbType = Double), @p16='?' (DbType = Double), @p17='?' (DbType = Double), @p18='?' (DbType = Double), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (Size = 4000), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (Size = 4000), @p27='?' (DbType = Int32), @p28='?' (DbType = Int32), @p29='?' (DbType = Int32), @p30='?' (DbType = Int32), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (Size = 4000), @p35='?' (Size = 4000), @p36='?' (Size = 4000), @p37='?' (DbType = Int32), @p38='?' (Size = 4000), @p39='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [HistoricalWeatherDatas] ([Clouds], [Created], [CreatedBy], [Dew_point], [Dt], [Humidity], [LastModified], [LastModifiedBy], [Pop], [ProvinceId], [Sunrise], [Sunset], [Temp_avg], [Temp_day], [Temp_eve], [Temp_max], [Temp_min], [Temp_morn], [Temp_night], [WeatherDesc_day], [WeatherDesc_eve], [WeatherDesc_morn], [WeatherDesc_night], [WeatherIcon_day], [WeatherIcon_eve], [WeatherIcon_morn], [WeatherIcon_night], [WeatherId_day], [WeatherId_eve], [WeatherId_morn], [WeatherId_night], [WeatherMain_day], [WeatherMain_eve], [WeatherMain_morn], [WeatherMain_night], [Weather_description], [Weather_icon], [Weather_id], [Weather_main], [Wind_speed])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39);
+SELECT [Id]
+FROM [HistoricalWeatherDatas]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-03-10 16:25:54.656 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2022-03-10 16:26:00.309 +07:00 [ERR] Failed to create weather data (Request: {"ProvinceId":0,"Dt":1646888400.0,"Sunrise":1646867026.0,"Sunset":1646910244.0,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43.0,"Dew_point":18.86,"Pop":0.0,"Wind_speed":6.7,"Clouds":88.0,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d"}). Response: {"Data":0,"Succeeded":false,"Message":"Something went wrong. Please try again","SystemError":"An error occurred while saving the entity changes. See the inner exception for details.","Title":"Failed to Create Weather Data","RequestTime":null,"ResponseTime":null}
+2022-03-10 16:26:25.142 +07:00 [INF] Request: CreateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:28:55.072 +07:00 [ERR] Failed executing DbCommand (45ms) [Parameters=[@p0='?' (DbType = Double), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000), @p3='?' (DbType = Double), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (DbType = DateTime2), @p7='?' (Size = 4000), @p8='?' (DbType = Double), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Double), @p15='?' (DbType = Double), @p16='?' (DbType = Double), @p17='?' (DbType = Double), @p18='?' (DbType = Double), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (Size = 4000), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (Size = 4000), @p27='?' (DbType = Int32), @p28='?' (DbType = Int32), @p29='?' (DbType = Int32), @p30='?' (DbType = Int32), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (Size = 4000), @p35='?' (Size = 4000), @p36='?' (Size = 4000), @p37='?' (DbType = Int32), @p38='?' (Size = 4000), @p39='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [HistoricalWeatherDatas] ([Clouds], [Created], [CreatedBy], [Dew_point], [Dt], [Humidity], [LastModified], [LastModifiedBy], [Pop], [ProvinceId], [Sunrise], [Sunset], [Temp_avg], [Temp_day], [Temp_eve], [Temp_max], [Temp_min], [Temp_morn], [Temp_night], [WeatherDesc_day], [WeatherDesc_eve], [WeatherDesc_morn], [WeatherDesc_night], [WeatherIcon_day], [WeatherIcon_eve], [WeatherIcon_morn], [WeatherIcon_night], [WeatherId_day], [WeatherId_eve], [WeatherId_morn], [WeatherId_night], [WeatherMain_day], [WeatherMain_eve], [WeatherMain_morn], [WeatherMain_night], [Weather_description], [Weather_icon], [Weather_id], [Weather_main], [Wind_speed])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39);
+SELECT [Id]
+FROM [HistoricalWeatherDatas]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-03-10 16:28:55.100 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_HistoricalWeatherDatas_Provinces_ProvinceId". The conflict occurred in database "CleanArchitectureDb", table "dbo.Provinces", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:504ba97a-c96f-48ab-a8d7-041ad7b8fa79
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2022-03-10 16:28:55.409 +07:00 [ERR] Failed to create weather data (Request: {"ProvinceId":0,"Dt":1646888400.0,"Sunrise":1646867026.0,"Sunset":1646910244.0,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43.0,"Dew_point":18.86,"Pop":0.0,"Wind_speed":6.7,"Clouds":88.0,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d"}). Response: {"Data":0,"Succeeded":false,"Message":"Something went wrong. Please try again","SystemError":"An error occurred while saving the entity changes. See the inner exception for details.","Title":"Failed to Create Weather Data","RequestTime":null,"ResponseTime":null}
+2022-03-10 16:31:48.131 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-10 16:31:48.367 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-10 16:31:48.927 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-10 16:31:48.928 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-10 16:31:48.928 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-10 16:31:48.929 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-10 16:31:48.929 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-10 16:31:48.929 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-10 16:31:49.746 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-10 16:31:49.746 +07:00 [INF] Hosting environment: Development
+2022-03-10 16:31:49.747 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-10 16:31:50.235 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-10 16:31:50.238 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-10 16:31:50.238 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-10 16:31:50.238 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-10 16:31:50.239 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-10 16:31:50.239 +07:00 [DBG] Error Url: /Home
+2022-03-10 16:31:50.239 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-10 16:35:51.421 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:35:51.427 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:35:51.430 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:35:51.435 +07:00 [DBG] Start discovery request
+2022-03-10 16:35:51.495 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:35:51.506 +07:00 [DBG] Cache miss when loading all keys.
+2022-03-10 16:35:51.515 +07:00 [DBG] Loading keys from store.
+2022-03-10 16:35:52.190 +07:00 [DBG] Keys successfully returned from store.
+2022-03-10 16:35:52.195 +07:00 [DBG] Caching keys with KeyCacheDuration for "1.00:00:00"
+2022-03-10 16:35:52.210 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:35:52.211 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:35:52.221 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:52.221 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:52.230 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:52.230 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:18:27"
+2022-03-10 16:35:52.281 +07:00 [DBG] Getting the current key.
+2022-03-10 16:35:52.282 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:35:52.282 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:35:52.282 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:35:52.283 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:52.283 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:52.283 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:52.283 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:18:27"
+2022-03-10 16:35:52.284 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:18:27". Retires in "87.18:18:27"
+2022-03-10 16:35:52.348 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2022-03-10 16:35:52.362 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: Duende.IdentityServer.Endpoints.AuthorizeEndpoint
+2022-03-10 16:35:52.363 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.AuthorizeEndpoint for /connect/authorize
+2022-03-10 16:35:52.368 +07:00 [DBG] Start authorize request
+2022-03-10 16:35:52.406 +07:00 [DBG] User in authorize request: 21e5069d-a790-49de-8b3b-3cc4584d9470
+2022-03-10 16:35:52.432 +07:00 [DBG] Start authorize request protocol validation
+2022-03-10 16:35:52.463 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:35:52.495 +07:00 [DBG] Checking for PKCE parameters
+2022-03-10 16:35:52.564 +07:00 [DBG] Calling into custom validator: Duende.IdentityServer.Validation.DefaultCustomAuthorizeRequestValidator
+2022-03-10 16:35:52.604 +07:00 [DBG] ValidatedAuthorizeRequest
+{"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","AllowedRedirectUris":["/authentication/login-callback"],"SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","ResponseType":"code","ResponseMode":"query","GrantType":"authorization_code","RequestedScopes":"CleanArchitecture.WebUIAPI openid profile","State":"366bde04c8ca4b80a1de7a80a7afe09b","UiLocales":null,"Nonce":null,"AuthenticationContextReferenceClasses":null,"DisplayMode":null,"PromptMode":"none","MaxAge":null,"LoginHint":null,"SessionId":"73632BDFA38B1AA4D88ADC0CF580F5E9","Raw":{"client_id":"CleanArchitecture.WebUI","redirect_uri":"https://localhost:44312/authentication/login-callback","response_type":"code","scope":"CleanArchitecture.WebUIAPI openid profile","state":"366bde04c8ca4b80a1de7a80a7afe09b","code_challenge":"PNL4AdqRZTBDJnVsXCsoTjvUf21hnFh8utudtRXE0aQ","code_challenge_method":"S256","prompt":"none","response_mode":"query"},"$type":"AuthorizeRequestValidationLog"}
+2022-03-10 16:35:53.037 +07:00 [DBG] Client is configured to not require consent, no consent is required
+2022-03-10 16:35:53.045 +07:00 [DBG] Creating Authorization Code Flow response.
+2022-03-10 16:35:53.123 +07:00 [DBG] y86ErfAdHx/M7PYFE9Cjr2qSMzvS5ZzGsEnOvaxyhOk= not found in database
+2022-03-10 16:35:54.073 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","Endpoint":"Authorize","SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","Scopes":"CleanArchitecture.WebUIAPI openid profile","GrantType":"authorization_code","Tokens":[{"TokenType":"code","TokenValue":"****6863","$type":"Token"}],"Category":"Token","Name":"Token Issued Success","EventType":"Success","Id":2000,"Message":null,"ActivityId":"8000008e-0005-fc00-b63f-84710c7967bb","TimeStamp":"2022-03-10T09:35:54.0000000Z","ProcessId":31456,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"TokenIssuedSuccessEvent"}
+2022-03-10 16:35:54.081 +07:00 [DBG] Authorize endpoint response
+{"SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","ClientId":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","State":"366bde04c8ca4b80a1de7a80a7afe09b","Scope":"CleanArchitecture.WebUIAPI openid profile","Error":null,"ErrorDescription":null,"$type":"AuthorizeResponseLog"}
+2022-03-10 16:35:57.028 +07:00 [DBG] Request path /connect/token matched to endpoint type Token
+2022-03-10 16:35:57.034 +07:00 [DBG] Endpoint enabled: Token, successfully created handler: Duende.IdentityServer.Endpoints.TokenEndpoint
+2022-03-10 16:35:57.034 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.TokenEndpoint for /connect/token
+2022-03-10 16:35:57.047 +07:00 [DBG] Start token request.
+2022-03-10 16:35:57.053 +07:00 [DBG] Start client validation
+2022-03-10 16:35:57.062 +07:00 [DBG] Start parsing Basic Authentication secret
+2022-03-10 16:35:57.066 +07:00 [DBG] Start parsing for secret in post body
+2022-03-10 16:35:57.079 +07:00 [DBG] client id without secret found
+2022-03-10 16:35:57.080 +07:00 [DBG] Parser found secret: PostBodySecretParser
+2022-03-10 16:35:57.080 +07:00 [DBG] Secret id found: CleanArchitecture.WebUI
+2022-03-10 16:35:57.081 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:35:57.081 +07:00 [DBG] Public Client - skipping secret validation success
+2022-03-10 16:35:57.081 +07:00 [DBG] Client validation success
+2022-03-10 16:35:57.084 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","AuthenticationMethod":"NoSecret","Category":"Authentication","Name":"Client Authentication Success","EventType":"Success","Id":1010,"Message":null,"ActivityId":"8000022e-0005-ff00-b63f-84710c7967bb","TimeStamp":"2022-03-10T09:35:57.0000000Z","ProcessId":31456,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"ClientAuthenticationSuccessEvent"}
+2022-03-10 16:35:57.090 +07:00 [DBG] Start token request validation
+2022-03-10 16:35:57.100 +07:00 [DBG] Start validation of authorization code token request
+2022-03-10 16:35:57.158 +07:00 [DBG] y86ErfAdHx/M7PYFE9Cjr2qSMzvS5ZzGsEnOvaxyhOk= found in database: true
+2022-03-10 16:35:57.198 +07:00 [DBG] removing y86ErfAdHx/M7PYFE9Cjr2qSMzvS5ZzGsEnOvaxyhOk= persisted grant from database
+2022-03-10 16:35:57.267 +07:00 [DBG] Client required a proof key for code exchange. Starting PKCE validation
+2022-03-10 16:35:57.283 +07:00 [DBG] Validation of authorization code token request success
+2022-03-10 16:35:57.291 +07:00 [INF] Token request validation success, {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","GrantType":"authorization_code","Scopes":null,"AuthorizationCode":"****6863","RefreshToken":"********","UserName":null,"AuthenticationContextReferenceClasses":null,"Tenant":null,"IdP":null,"Raw":{"client_id":"CleanArchitecture.WebUI","code":"21080C8C61884314414FF96CB6AB4997645F9290123C11FE447513070E4A6863","redirect_uri":"https://localhost:44312/authentication/login-callback","code_verifier":"398823ef431e427d9d3e2f714fe37e61c774b68819f04423a64dfb246debf1c79f578761ec5c4b8aa05b6d127e5fb9b2","grant_type":"authorization_code"},"$type":"TokenRequestValidationLog"}
+2022-03-10 16:35:57.306 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:35:57.335 +07:00 [DBG] Getting claims for access token for client: CleanArchitecture.WebUI
+2022-03-10 16:35:57.336 +07:00 [DBG] Getting claims for access token for subject: 21e5069d-a790-49de-8b3b-3cc4584d9470
+2022-03-10 16:35:58.027 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:35:58.042 +07:00 [DBG] Getting claims for identity token for subject: 21e5069d-a790-49de-8b3b-3cc4584d9470 and client: CleanArchitecture.WebUI
+2022-03-10 16:35:58.042 +07:00 [DBG] In addition to an id_token, an access_token was requested. No claims other than sub are included in the id_token. To obtain more user claims, either use the user info endpoint or set AlwaysIncludeUserClaimsInIdToken on the client configuration.
+2022-03-10 16:35:58.052 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":null,"Endpoint":"Token","SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","Scopes":"CleanArchitecture.WebUIAPI openid profile","GrantType":"authorization_code","Tokens":[{"TokenType":"id_token","TokenValue":"****WmRA","$type":"Token"},{"TokenType":"access_token","TokenValue":"****pYaw","$type":"Token"}],"Category":"Token","Name":"Token Issued Success","EventType":"Success","Id":2000,"Message":null,"ActivityId":"8000022e-0005-ff00-b63f-84710c7967bb","TimeStamp":"2022-03-10T09:35:58.0000000Z","ProcessId":31456,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"TokenIssuedSuccessEvent"}
+2022-03-10 16:35:58.053 +07:00 [DBG] Token request success.
+2022-03-10 16:35:58.237 +07:00 [DBG] Request path /connect/userinfo matched to endpoint type Userinfo
+2022-03-10 16:35:58.239 +07:00 [DBG] Endpoint enabled: Userinfo, successfully created handler: Duende.IdentityServer.Endpoints.UserInfoEndpoint
+2022-03-10 16:35:58.240 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.UserInfoEndpoint for /connect/userinfo
+2022-03-10 16:35:58.245 +07:00 [DBG] Start userinfo request
+2022-03-10 16:35:58.249 +07:00 [DBG] Bearer token found in header
+2022-03-10 16:35:58.260 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:35:58.261 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:35:58.261 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:35:58.261 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:35:58.261 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:58.261 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:58.261 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:35:58.262 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:18:21"
+2022-03-10 16:35:58.331 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:35:58.338 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 16:35:58.351 +07:00 [DBG] Calling into custom token validator: Duende.IdentityServer.Validation.DefaultCustomTokenValidator
+2022-03-10 16:35:58.353 +07:00 [DBG] Token validation success
+{"ClientId":null,"ClientName":null,"ValidateLifetime":true,"AccessTokenType":"Jwt","ExpectedScope":"openid","TokenHandle":null,"JwtId":"FDFED4360D11419D10CB8ECD9D12D6EF","Claims":{"iss":"https://localhost:44312","nbf":1646904957,"iat":1646904957,"exp":1646908557,"aud":"CleanArchitecture.WebUIAPI","scope":["CleanArchitecture.WebUIAPI","openid","profile"],"amr":"pwd","client_id":"CleanArchitecture.WebUI","sub":"21e5069d-a790-49de-8b3b-3cc4584d9470","auth_time":1645502403,"idp":"local","sid":"73632BDFA38B1AA4D88ADC0CF580F5E9","jti":"FDFED4360D11419D10CB8ECD9D12D6EF"},"$type":"TokenValidationLog"}
+2022-03-10 16:35:58.367 +07:00 [DBG] Creating userinfo response
+2022-03-10 16:35:58.371 +07:00 [DBG] Scopes in access token: CleanArchitecture.WebUIAPI openid profile
+2022-03-10 16:35:58.377 +07:00 [DBG] Requested claim types: sub name family_name given_name middle_name nickname preferred_username profile picture website gender birthdate zoneinfo locale updated_at
+2022-03-10 16:35:58.394 +07:00 [INF] Profile service returned the following claim types: sub preferred_username name
+2022-03-10 16:35:58.395 +07:00 [DBG] End userinfo request
+2022-03-10 16:35:58.424 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:35:58.424 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:35:58.425 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:35:58.427 +07:00 [DBG] Rendering check session result
+2022-03-10 16:37:39.574 +07:00 [INF] Request: CreateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:37:56.752 +07:00 [ERR] Unhandled Exception for Request CreateWeatherDataCommand {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+CleanArchitecture.Application.Common.Exceptions.ValidationException: One or more validation failures have occurred.
+   at CleanArchitecture.Application.Common.Behaviours.ValidationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\ValidationBehaviour.cs:line 33
+   at CleanArchitecture.Application.Common.Behaviours.AuthorizationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\AuthorizationBehaviour.cs:line 78
+   at CleanArchitecture.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\UnhandledExceptionBehaviour.cs:line 19
+2022-03-10 16:37:57.185 +07:00 [ERR] Failed to create weather data (Request: {"ProvinceId":0,"Dt":1646888400.0,"Sunrise":1646867026.0,"Sunset":1646910244.0,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43.0,"Dew_point":18.86,"Pop":0.0,"Wind_speed":6.7,"Clouds":88.0,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d"}). Message: One or more validation failures have occurred.
+CleanArchitecture.Application.Common.Exceptions.ValidationException: One or more validation failures have occurred.
+   at CleanArchitecture.Application.Common.Behaviours.ValidationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\ValidationBehaviour.cs:line 33
+   at CleanArchitecture.Application.Common.Behaviours.AuthorizationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\AuthorizationBehaviour.cs:line 78
+   at CleanArchitecture.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\UnhandledExceptionBehaviour.cs:line 19
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at CleanArchitecture.WebUI.Controllers.WeatherController.Create(CreateWeatherDataCommand request) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI\Controllers\WeatherController.cs:line 49
+2022-03-10 16:38:34.016 +07:00 [INF] Request: CreateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:40:05.530 +07:00 [ERR] Unhandled Exception for Request CreateWeatherDataCommand {"ProvinceId":0,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+CleanArchitecture.Application.Common.Exceptions.ValidationException: One or more validation failures have occurred.
+   at CleanArchitecture.Application.Common.Behaviours.ValidationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\ValidationBehaviour.cs:line 33
+   at CleanArchitecture.Application.Common.Behaviours.AuthorizationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\AuthorizationBehaviour.cs:line 78
+   at CleanArchitecture.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\UnhandledExceptionBehaviour.cs:line 19
+2022-03-10 16:40:58.048 +07:00 [ERR] Failed to create weather data (Request: {"ProvinceId":0,"Dt":1646888400.0,"Sunrise":1646867026.0,"Sunset":1646910244.0,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43.0,"Dew_point":18.86,"Pop":0.0,"Wind_speed":6.7,"Clouds":88.0,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d"}). Message: One or more validation failures have occurred.
+CleanArchitecture.Application.Common.Exceptions.ValidationException: One or more validation failures have occurred.
+   at CleanArchitecture.Application.Common.Behaviours.ValidationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\ValidationBehaviour.cs:line 33
+   at CleanArchitecture.Application.Common.Behaviours.AuthorizationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\AuthorizationBehaviour.cs:line 78
+   at CleanArchitecture.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\UnhandledExceptionBehaviour.cs:line 19
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at CleanArchitecture.WebUI.Controllers.WeatherController.Create(CreateWeatherDataCommand request) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI\Controllers\WeatherController.cs:line 49
+2022-03-10 16:41:03.391 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:41:03.391 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:41:03.392 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:41:03.392 +07:00 [DBG] Start discovery request
+2022-03-10 16:41:03.393 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:41:03.393 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:41:03.393 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:41:03.393 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:41:03.394 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.394 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.394 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.394 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:13:16"
+2022-03-10 16:41:03.395 +07:00 [DBG] Getting the current key.
+2022-03-10 16:41:03.395 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:41:03.395 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:41:03.396 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:41:03.396 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.396 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.396 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.396 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:13:16"
+2022-03-10 16:41:03.396 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:13:16". Retires in "87.18:13:16"
+2022-03-10 16:41:03.427 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:41:03.427 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:41:03.427 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:41:03.428 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:41:03.429 +07:00 [DBG] Rendering check session result
+2022-03-10 16:41:03.436 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:41:03.436 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:41:03.437 +07:00 [DBG] Start discovery request
+2022-03-10 16:41:03.437 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:41:03.437 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:41:03.437 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:41:03.437 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:41:03.438 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.438 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.438 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.439 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:13:16"
+2022-03-10 16:41:03.439 +07:00 [DBG] Getting the current key.
+2022-03-10 16:41:03.440 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:41:03.440 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:41:03.440 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:41:03.440 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.440 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.441 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.441 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:13:16"
+2022-03-10 16:41:03.441 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:13:16". Retires in "87.18:13:16"
+2022-03-10 16:41:03.449 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:41:03.449 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:41:03.449 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:41:03.449 +07:00 [DBG] Start discovery request
+2022-03-10 16:41:03.449 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:41:03.449 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:41:03.449 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:41:03.449 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:41:03.450 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.450 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.450 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.450 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:13:16"
+2022-03-10 16:41:03.451 +07:00 [DBG] Getting the current key.
+2022-03-10 16:41:03.451 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:41:03.451 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:41:03.451 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:41:03.451 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.451 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.452 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:41:03.452 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:13:16"
+2022-03-10 16:41:03.452 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:13:16". Retires in "87.18:13:16"
+2022-03-10 16:41:03.709 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:41:03.711 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:41:03.711 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:41:03.711 +07:00 [DBG] Rendering check session result
+2022-03-10 16:41:03.724 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:41:03.724 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:41:03.725 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:41:03.725 +07:00 [DBG] Rendering check session result
+2022-03-10 16:43:29.295 +07:00 [INF] Request: CreateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":131,"Dt":1646888400,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":28.42,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}
+2022-03-10 16:45:21.791 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 16:45:27.376 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:45:27.407 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:45:27.843 +07:00 [INF] Received HTTP response headers after 424.0955ms - 200
+2022-03-10 16:45:27.854 +07:00 [INF] End processing HTTP request after 490.6485ms - 200
+2022-03-10 16:46:40.451 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 16:46:56.655 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:46:56.655 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:46:56.943 +07:00 [INF] Received HTTP response headers after 287.7169ms - 200
+2022-03-10 16:46:56.944 +07:00 [INF] End processing HTTP request after 289.4431ms - 200
+2022-03-10 16:49:01.137 +07:00 [WRN] Long Running Request: GetWeatherForecastIn7daysQuery (140627 milliseconds) 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 16:49:08.433 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:49:08.433 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:49:08.433 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:49:08.434 +07:00 [DBG] Start discovery request
+2022-03-10 16:49:08.434 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:49:08.434 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:49:08.434 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:49:08.434 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:49:08.435 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.435 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.435 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.435 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:05:11"
+2022-03-10 16:49:08.437 +07:00 [DBG] Getting the current key.
+2022-03-10 16:49:08.437 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:49:08.437 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:49:08.437 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:49:08.437 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.438 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.438 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.438 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:05:11"
+2022-03-10 16:49:08.438 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:05:11". Retires in "87.18:05:11"
+2022-03-10 16:49:08.461 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:49:08.461 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:49:08.461 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:49:08.462 +07:00 [DBG] Start discovery request
+2022-03-10 16:49:08.462 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:49:08.462 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:49:08.462 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:49:08.462 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:49:08.462 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.463 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.463 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.464 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:05:11"
+2022-03-10 16:49:08.464 +07:00 [DBG] Getting the current key.
+2022-03-10 16:49:08.464 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:49:08.464 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:49:08.465 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:49:08.465 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.465 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.465 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.465 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:05:11"
+2022-03-10 16:49:08.465 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:05:11". Retires in "87.18:05:11"
+2022-03-10 16:49:08.473 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 16:49:08.473 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 16:49:08.473 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 16:49:08.474 +07:00 [DBG] Start discovery request
+2022-03-10 16:49:08.474 +07:00 [DBG] Getting all the keys.
+2022-03-10 16:49:08.474 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:49:08.474 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:49:08.474 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:49:08.475 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.475 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.475 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.475 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:05:11"
+2022-03-10 16:49:08.476 +07:00 [DBG] Getting the current key.
+2022-03-10 16:49:08.476 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 16:49:08.476 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 16:49:08.476 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 16:49:08.476 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.477 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.477 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 16:49:08.477 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.18:05:11"
+2022-03-10 16:49:08.477 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.18:05:11". Retires in "87.18:05:11"
+2022-03-10 16:49:08.556 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:49:08.556 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:49:08.556 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:49:08.557 +07:00 [DBG] Rendering check session result
+2022-03-10 16:49:08.746 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:49:08.746 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:49:08.747 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:49:08.747 +07:00 [DBG] Rendering check session result
+2022-03-10 16:49:08.775 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 16:49:08.776 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 16:49:08.776 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 16:49:08.776 +07:00 [DBG] Rendering check session result
+2022-03-10 16:53:33.594 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-10 16:53:33.890 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-10 16:53:34.485 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-10 16:53:34.486 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-10 16:53:34.486 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-10 16:53:34.487 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-10 16:53:34.487 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-10 16:53:34.488 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-10 16:53:35.466 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-10 16:53:35.467 +07:00 [INF] Hosting environment: Development
+2022-03-10 16:53:35.467 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-10 16:53:36.054 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-10 16:53:36.058 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-10 16:53:36.058 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-10 16:53:36.058 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-10 16:53:36.058 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-10 16:53:36.059 +07:00 [DBG] Error Url: /Home
+2022-03-10 16:53:36.059 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-10 16:54:09.821 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 16:54:18.823 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:54:18.868 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 16:54:19.325 +07:00 [INF] Received HTTP response headers after 442.4054ms - 200
+2022-03-10 16:54:19.336 +07:00 [INF] End processing HTTP request after 527.4915ms - 200
+2022-03-10 16:55:03.318 +07:00 [WRN] Long Running Request: GetWeatherForecastIn7daysQuery (53355 milliseconds)   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 21:05:58.830 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-10 21:05:59.131 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-10 21:05:59.778 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-10 21:05:59.778 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-10 21:05:59.778 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-10 21:05:59.779 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-10 21:05:59.779 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-10 21:05:59.780 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-10 21:06:00.839 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-10 21:06:00.839 +07:00 [INF] Hosting environment: Development
+2022-03-10 21:06:00.839 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-10 21:06:02.246 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-10 21:06:02.250 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-10 21:06:02.250 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-10 21:06:02.250 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-10 21:06:02.250 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-10 21:06:02.250 +07:00 [DBG] Error Url: /Home
+2022-03-10 21:06:02.250 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-10 21:06:18.081 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2022-03-10 21:06:18.088 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: Duende.IdentityServer.Endpoints.DiscoveryEndpoint
+2022-03-10 21:06:18.090 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2022-03-10 21:06:18.094 +07:00 [DBG] Start discovery request
+2022-03-10 21:06:18.140 +07:00 [DBG] Getting all the keys.
+2022-03-10 21:06:18.147 +07:00 [DBG] Cache miss when loading all keys.
+2022-03-10 21:06:18.153 +07:00 [DBG] Loading keys from store.
+2022-03-10 21:06:18.877 +07:00 [DBG] Keys successfully returned from store.
+2022-03-10 21:06:18.881 +07:00 [DBG] Caching keys with KeyCacheDuration for "1.00:00:00"
+2022-03-10 21:06:18.895 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 21:06:18.896 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 21:06:18.903 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:18.904 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:18.914 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:18.914 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.13:48:01"
+2022-03-10 21:06:19.015 +07:00 [DBG] Getting the current key.
+2022-03-10 21:06:19.015 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 21:06:19.015 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 21:06:19.015 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 21:06:19.015 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:19.016 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:19.016 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:19.016 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.13:48:00"
+2022-03-10 21:06:19.017 +07:00 [INF] Active signing key found with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C for alg RS256. Expires in "73.13:48:00". Retires in "87.13:48:00"
+2022-03-10 21:06:19.073 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2022-03-10 21:06:19.086 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: Duende.IdentityServer.Endpoints.AuthorizeEndpoint
+2022-03-10 21:06:19.087 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.AuthorizeEndpoint for /connect/authorize
+2022-03-10 21:06:19.092 +07:00 [DBG] Start authorize request
+2022-03-10 21:06:19.123 +07:00 [DBG] User in authorize request: 21e5069d-a790-49de-8b3b-3cc4584d9470
+2022-03-10 21:06:19.195 +07:00 [DBG] Start authorize request protocol validation
+2022-03-10 21:06:19.222 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 21:06:19.253 +07:00 [DBG] Checking for PKCE parameters
+2022-03-10 21:06:19.322 +07:00 [DBG] Calling into custom validator: Duende.IdentityServer.Validation.DefaultCustomAuthorizeRequestValidator
+2022-03-10 21:06:19.356 +07:00 [DBG] ValidatedAuthorizeRequest
+{"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","AllowedRedirectUris":["/authentication/login-callback"],"SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","ResponseType":"code","ResponseMode":"query","GrantType":"authorization_code","RequestedScopes":"CleanArchitecture.WebUIAPI openid profile","State":"6f3158d57b734b27bea8def0834fc511","UiLocales":null,"Nonce":null,"AuthenticationContextReferenceClasses":null,"DisplayMode":null,"PromptMode":"none","MaxAge":null,"LoginHint":null,"SessionId":"73632BDFA38B1AA4D88ADC0CF580F5E9","Raw":{"client_id":"CleanArchitecture.WebUI","redirect_uri":"https://localhost:44312/authentication/login-callback","response_type":"code","scope":"CleanArchitecture.WebUIAPI openid profile","state":"6f3158d57b734b27bea8def0834fc511","code_challenge":"_S1SyYlq38XB7OhwtgVs52e0mUXowji38ld5GGYSj4c","code_challenge_method":"S256","prompt":"none","response_mode":"query"},"$type":"AuthorizeRequestValidationLog"}
+2022-03-10 21:06:19.471 +07:00 [DBG] Client is configured to not require consent, no consent is required
+2022-03-10 21:06:19.482 +07:00 [DBG] Creating Authorization Code Flow response.
+2022-03-10 21:06:19.561 +07:00 [DBG] sMDnAUZnWvuPUkz97X/VGYH4PsYsjNBEc/WMPE8oX2w= not found in database
+2022-03-10 21:06:20.609 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","Endpoint":"Authorize","SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","Scopes":"CleanArchitecture.WebUIAPI openid profile","GrantType":"authorization_code","Tokens":[{"TokenType":"code","TokenValue":"****FACB","$type":"Token"}],"Category":"Token","Name":"Token Issued Success","EventType":"Success","Id":2000,"Message":null,"ActivityId":"80000381-0006-fa00-b63f-84710c7967bb","TimeStamp":"2022-03-10T14:06:20.0000000Z","ProcessId":33440,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"TokenIssuedSuccessEvent"}
+2022-03-10 21:06:20.614 +07:00 [DBG] Authorize endpoint response
+{"SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","ClientId":"CleanArchitecture.WebUI","RedirectUri":"https://localhost:44312/authentication/login-callback","State":"6f3158d57b734b27bea8def0834fc511","Scope":"CleanArchitecture.WebUIAPI openid profile","Error":null,"ErrorDescription":null,"$type":"AuthorizeResponseLog"}
+2022-03-10 21:06:21.405 +07:00 [DBG] Request path /connect/token matched to endpoint type Token
+2022-03-10 21:06:21.410 +07:00 [DBG] Endpoint enabled: Token, successfully created handler: Duende.IdentityServer.Endpoints.TokenEndpoint
+2022-03-10 21:06:21.410 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.TokenEndpoint for /connect/token
+2022-03-10 21:06:21.418 +07:00 [DBG] Start token request.
+2022-03-10 21:06:21.422 +07:00 [DBG] Start client validation
+2022-03-10 21:06:21.433 +07:00 [DBG] Start parsing Basic Authentication secret
+2022-03-10 21:06:21.437 +07:00 [DBG] Start parsing for secret in post body
+2022-03-10 21:06:21.454 +07:00 [DBG] client id without secret found
+2022-03-10 21:06:21.456 +07:00 [DBG] Parser found secret: PostBodySecretParser
+2022-03-10 21:06:21.456 +07:00 [DBG] Secret id found: CleanArchitecture.WebUI
+2022-03-10 21:06:21.457 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 21:06:21.457 +07:00 [DBG] Public Client - skipping secret validation success
+2022-03-10 21:06:21.457 +07:00 [DBG] Client validation success
+2022-03-10 21:06:21.460 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","AuthenticationMethod":"NoSecret","Category":"Authentication","Name":"Client Authentication Success","EventType":"Success","Id":1010,"Message":null,"ActivityId":"8000019a-0002-fd00-b63f-84710c7967bb","TimeStamp":"2022-03-10T14:06:21.0000000Z","ProcessId":33440,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"ClientAuthenticationSuccessEvent"}
+2022-03-10 21:06:21.468 +07:00 [DBG] Start token request validation
+2022-03-10 21:06:21.479 +07:00 [DBG] Start validation of authorization code token request
+2022-03-10 21:06:21.531 +07:00 [DBG] sMDnAUZnWvuPUkz97X/VGYH4PsYsjNBEc/WMPE8oX2w= found in database: true
+2022-03-10 21:06:21.569 +07:00 [DBG] removing sMDnAUZnWvuPUkz97X/VGYH4PsYsjNBEc/WMPE8oX2w= persisted grant from database
+2022-03-10 21:06:21.629 +07:00 [DBG] Client required a proof key for code exchange. Starting PKCE validation
+2022-03-10 21:06:21.638 +07:00 [DBG] Validation of authorization code token request success
+2022-03-10 21:06:21.646 +07:00 [INF] Token request validation success, {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","GrantType":"authorization_code","Scopes":null,"AuthorizationCode":"****FACB","RefreshToken":"********","UserName":null,"AuthenticationContextReferenceClasses":null,"Tenant":null,"IdP":null,"Raw":{"client_id":"CleanArchitecture.WebUI","code":"16F0B20DB9102CC05CD8896DF4AEC673E16A47FD9FCAFAC42EA2F29324E7FACB","redirect_uri":"https://localhost:44312/authentication/login-callback","code_verifier":"42c8df1950bb436f9383055cdb33d983eb7cd02f3296404fa768ecc965b8fa8bd12f0a1a9c984084887f41212d35a7c3","grant_type":"authorization_code"},"$type":"TokenRequestValidationLog"}
+2022-03-10 21:06:21.662 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 21:06:21.695 +07:00 [DBG] Getting claims for access token for client: CleanArchitecture.WebUI
+2022-03-10 21:06:21.696 +07:00 [DBG] Getting claims for access token for subject: 21e5069d-a790-49de-8b3b-3cc4584d9470
+2022-03-10 21:06:22.279 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 21:06:22.294 +07:00 [DBG] Getting claims for identity token for subject: 21e5069d-a790-49de-8b3b-3cc4584d9470 and client: CleanArchitecture.WebUI
+2022-03-10 21:06:22.294 +07:00 [DBG] In addition to an id_token, an access_token was requested. No claims other than sub are included in the id_token. To obtain more user claims, either use the user info endpoint or set AlwaysIncludeUserClaimsInIdToken on the client configuration.
+2022-03-10 21:06:22.303 +07:00 [INF] {"ClientId":"CleanArchitecture.WebUI","ClientName":"CleanArchitecture.WebUI","RedirectUri":null,"Endpoint":"Token","SubjectId":"21e5069d-a790-49de-8b3b-3cc4584d9470","Scopes":"CleanArchitecture.WebUIAPI openid profile","GrantType":"authorization_code","Tokens":[{"TokenType":"id_token","TokenValue":"****TB6w","$type":"Token"},{"TokenType":"access_token","TokenValue":"****ELQA","$type":"Token"}],"Category":"Token","Name":"Token Issued Success","EventType":"Success","Id":2000,"Message":null,"ActivityId":"8000019a-0002-fd00-b63f-84710c7967bb","TimeStamp":"2022-03-10T14:06:22.0000000Z","ProcessId":33440,"LocalIpAddress":"::1:44312","RemoteIpAddress":"::1","$type":"TokenIssuedSuccessEvent"}
+2022-03-10 21:06:22.304 +07:00 [DBG] Token request success.
+2022-03-10 21:06:22.517 +07:00 [DBG] Request path /connect/userinfo matched to endpoint type Userinfo
+2022-03-10 21:06:22.520 +07:00 [DBG] Endpoint enabled: Userinfo, successfully created handler: Duende.IdentityServer.Endpoints.UserInfoEndpoint
+2022-03-10 21:06:22.520 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.UserInfoEndpoint for /connect/userinfo
+2022-03-10 21:06:22.526 +07:00 [DBG] Start userinfo request
+2022-03-10 21:06:22.532 +07:00 [DBG] Bearer token found in header
+2022-03-10 21:06:22.545 +07:00 [DBG] Getting all the keys.
+2022-03-10 21:06:22.545 +07:00 [DBG] Cache hit when loading all keys.
+2022-03-10 21:06:22.545 +07:00 [DBG] Looking for active signing keys.
+2022-03-10 21:06:22.545 +07:00 [DBG] Looking for an active signing key for alg RS256.
+2022-03-10 21:06:22.545 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:22.546 +07:00 [DBG] Found active signing key for alg RS256 with kid 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:22.546 +07:00 [DBG] Active signing key found (respecting the activation delay) with kid: 4EC832F91DDF6A8CD3CDFFF491EBA14C.
+2022-03-10 21:06:22.546 +07:00 [DBG] Key rotation not required for alg RS256; New key expected to be created in "59.13:47:57"
+2022-03-10 21:06:22.607 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 21:06:22.613 +07:00 [DBG] client configuration validation for client CleanArchitecture.WebUI succeeded.
+2022-03-10 21:06:22.625 +07:00 [DBG] Calling into custom token validator: Duende.IdentityServer.Validation.DefaultCustomTokenValidator
+2022-03-10 21:06:22.628 +07:00 [DBG] Token validation success
+{"ClientId":null,"ClientName":null,"ValidateLifetime":true,"AccessTokenType":"Jwt","ExpectedScope":"openid","TokenHandle":null,"JwtId":"983C6B09F176A4035DBBFB7773E49F1D","Claims":{"iss":"https://localhost:44312","nbf":1646921181,"iat":1646921181,"exp":1646924781,"aud":"CleanArchitecture.WebUIAPI","scope":["CleanArchitecture.WebUIAPI","openid","profile"],"amr":"pwd","client_id":"CleanArchitecture.WebUI","sub":"21e5069d-a790-49de-8b3b-3cc4584d9470","auth_time":1645502403,"idp":"local","sid":"73632BDFA38B1AA4D88ADC0CF580F5E9","jti":"983C6B09F176A4035DBBFB7773E49F1D"},"$type":"TokenValidationLog"}
+2022-03-10 21:06:22.641 +07:00 [DBG] Creating userinfo response
+2022-03-10 21:06:22.645 +07:00 [DBG] Scopes in access token: CleanArchitecture.WebUIAPI openid profile
+2022-03-10 21:06:22.650 +07:00 [DBG] Requested claim types: sub name family_name given_name middle_name nickname preferred_username profile picture website gender birthdate zoneinfo locale updated_at
+2022-03-10 21:06:22.662 +07:00 [INF] Profile service returned the following claim types: sub preferred_username name
+2022-03-10 21:06:22.662 +07:00 [DBG] End userinfo request
+2022-03-10 21:06:22.691 +07:00 [DBG] Request path /connect/checksession matched to endpoint type Checksession
+2022-03-10 21:06:22.692 +07:00 [DBG] Endpoint enabled: Checksession, successfully created handler: Duende.IdentityServer.Endpoints.CheckSessionEndpoint
+2022-03-10 21:06:22.692 +07:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.CheckSessionEndpoint for /connect/checksession
+2022-03-10 21:06:22.694 +07:00 [DBG] Rendering check session result
+2022-03-10 21:07:42.782 +07:00 [INF] Request: UpdateWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"Id":5,"Sunrise":1646867026,"Sunset":1646910244,"Temp_avg":30,"Temp_min":23.72,"Temp_max":33.11,"Humidity":43,"Dew_point":18.86,"Pop":0,"Wind_speed":6.7,"Clouds":88,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04d","Temp_morn":23.72,"Temp_day":33.11,"Temp_eve":33.11,"Temp_night":23.72,"WeatherId_morn":804,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"overcast clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04d","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"UpdateWeatherDataCommand"}
+2022-03-10 21:08:08.131 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 21:08:08.267 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 21:08:08.638 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 21:08:09.217 +07:00 [INF] Received HTTP response headers after 567.9133ms - 200
+2022-03-10 21:08:09.227 +07:00 [INF] End processing HTTP request after 973.0176ms - 200
+2022-03-10 21:09:08.653 +07:00 [INF] Request: DeleteWeatherDataCommand 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"Id":5,"$type":"DeleteWeatherDataCommand"}
+2022-03-10 21:09:17.902 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery 21e5069d-a790-49de-8b3b-3cc4584d9470 minhnhat2110.hcm06@gmail.com {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 21:09:17.911 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 21:09:17.911 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 21:09:18.577 +07:00 [INF] Received HTTP response headers after 665.3591ms - 200
+2022-03-10 21:09:18.577 +07:00 [INF] End processing HTTP request after 666.7098ms - 200
+2022-03-10 21:38:58.206 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-10 21:38:58.502 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-10 21:38:59.227 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-10 21:38:59.227 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-10 21:38:59.228 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-10 21:38:59.228 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-10 21:38:59.229 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-10 21:38:59.230 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-10 21:39:00.237 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-10 21:39:00.237 +07:00 [INF] Hosting environment: Development
+2022-03-10 21:39:00.237 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-10 21:39:00.799 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-10 21:39:00.805 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-10 21:39:00.805 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-10 21:39:00.805 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-10 21:39:00.806 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-10 21:39:00.806 +07:00 [DBG] Error Url: /Home
+2022-03-10 21:39:00.806 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-10 21:39:22.484 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 21:39:28.619 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 21:39:28.667 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-10 21:39:29.266 +07:00 [INF] Received HTTP response headers after 588.3468ms - 200
+2022-03-10 21:39:29.277 +07:00 [INF] End processing HTTP request after 672.2849ms - 200
+2022-03-10 21:40:02.410 +07:00 [WRN] Long Running Request: GetWeatherForecastIn7daysQuery (39768 milliseconds)   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-10 21:40:18.256 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}

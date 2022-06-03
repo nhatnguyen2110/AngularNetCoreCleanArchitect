@@ -1,0 +1,188 @@
+2022-03-14 11:08:37.274 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-14 11:08:40.229 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-14 11:08:44.508 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-14 11:08:44.511 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-14 11:08:44.515 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-14 11:08:44.915 +07:00 [INF] Server nhat-laptop:24556:c2b7c480 successfully announced in 263.0382 ms
+2022-03-14 11:08:44.939 +07:00 [INF] Server nhat-laptop:24556:c2b7c480 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-14 11:08:44.984 +07:00 [INF] 2 servers were removed due to timeout
+2022-03-14 11:08:45.290 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-14 11:08:45.475 +07:00 [INF] Server nhat-laptop:24556:c2b7c480 all the dispatchers started
+2022-03-14 11:08:45.517 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-14 11:08:45.521 +07:00 [INF] Hosting environment: Development
+2022-03-14 11:08:45.542 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-14 11:10:39.005 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-14 11:10:40.209 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-14 11:10:42.429 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-14 11:10:42.432 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-14 11:10:42.434 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-14 11:10:42.731 +07:00 [INF] Server nhat-laptop:18412:4f959ed5 successfully announced in 198.5877 ms
+2022-03-14 11:10:42.758 +07:00 [INF] Server nhat-laptop:18412:4f959ed5 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-14 11:10:43.325 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-14 11:10:43.416 +07:00 [INF] Server nhat-laptop:18412:4f959ed5 all the dispatchers started
+2022-03-14 11:10:43.491 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-14 11:10:43.496 +07:00 [INF] Hosting environment: Development
+2022-03-14 11:10:43.598 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-14 11:10:50.712 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:11:01.068 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:11:01.293 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:11:01.527 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:11:01.544 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:11:02.627 +07:00 [INF] Received HTTP response headers after 1066.8131ms - 200
+2022-03-14 11:11:02.633 +07:00 [INF] End processing HTTP request after 1123.1389ms - 200
+2022-03-14 11:11:02.812 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:11:02.839 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:11:02.867 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:11:02.887 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:11:02.893 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:11:03.602 +07:00 [INF] Received HTTP response headers after 701.9386ms - 200
+2022-03-14 11:11:03.607 +07:00 [INF] End processing HTTP request after 719.7728ms - 200
+2022-03-14 11:12:54.649 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:13:03.069 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:13:16.447 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:13:16.468 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:13:16.472 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:13:16.670 +07:00 [INF] Received HTTP response headers after 192.7892ms - 200
+2022-03-14 11:13:16.675 +07:00 [INF] End processing HTTP request after 206.8073ms - 200
+2022-03-14 11:17:02.122 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-14 11:17:03.447 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-14 11:17:06.086 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-14 11:17:06.089 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-14 11:17:06.092 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-14 11:17:06.383 +07:00 [INF] Server nhat-laptop:6544:23ff6a32 successfully announced in 190.3131 ms
+2022-03-14 11:17:06.420 +07:00 [INF] Server nhat-laptop:6544:23ff6a32 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-14 11:17:06.493 +07:00 [INF] 1 servers were removed due to timeout
+2022-03-14 11:17:06.823 +07:00 [INF] Server nhat-laptop:6544:23ff6a32 all the dispatchers started
+2022-03-14 11:17:06.860 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-14 11:17:06.887 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-14 11:17:06.926 +07:00 [INF] Hosting environment: Development
+2022-03-14 11:17:06.929 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-14 11:17:17.307 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:17:29.026 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:17:29.272 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:17:29.553 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:17:29.581 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:17:30.659 +07:00 [INF] Received HTTP response headers after 1058.4647ms - 200
+2022-03-14 11:17:30.665 +07:00 [INF] End processing HTTP request after 1135.7753ms - 200
+2022-03-14 11:18:12.135 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:18:12.162 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:18:12.179 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:18:12.193 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:18:12.199 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:18:12.247 +07:00 [INF] Received HTTP response headers after 44.2722ms - 200
+2022-03-14 11:18:12.250 +07:00 [INF] End processing HTTP request after 56.9783ms - 200
+2022-03-14 11:18:43.509 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:18:43.768 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:18:43.795 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:18:43.809 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:18:43.812 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:18:43.866 +07:00 [INF] Received HTTP response headers after 47.8295ms - 200
+2022-03-14 11:18:43.869 +07:00 [INF] End processing HTTP request after 59.6372ms - 200
+2022-03-14 11:18:55.595 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:18:57.499 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:18:58.036 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:18:58.706 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:18:58.879 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:18:59.202 +07:00 [INF] Received HTTP response headers after 78.0334ms - 200
+2022-03-14 11:18:59.288 +07:00 [INF] End processing HTTP request after 581.8142ms - 200
+2022-03-14 11:19:21.593 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:19:22.867 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:19:24.102 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:19:24.521 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:19:24.648 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:19:26.747 +07:00 [INF] Received HTTP response headers after 1826.5822ms - 200
+2022-03-14 11:19:27.044 +07:00 [INF] End processing HTTP request after 2522.2628ms - 200
+2022-03-14 11:19:57.718 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:20:00.245 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:20:07.527 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:20:02.837 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:20:07.547 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:20:07.557 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:20:07.569 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:20:07.582 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:20:07.594 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:20:07.601 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:20:07.604 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:20:07.615 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:20:07.617 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:20:07.627 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:20:07.631 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:20:07.674 +07:00 [INF] Received HTTP response headers after 39.9884ms - 200
+2022-03-14 11:20:07.677 +07:00 [INF] End processing HTTP request after 62.3852ms - 200
+2022-03-14 11:20:11.953 +07:00 [INF] Received HTTP response headers after 4332.9383ms - 200
+2022-03-14 11:20:11.956 +07:00 [INF] Received HTTP response headers after 4316.2408ms - 200
+2022-03-14 11:20:11.957 +07:00 [INF] End processing HTTP request after 4374.5073ms - 200
+2022-03-14 11:20:11.960 +07:00 [INF] End processing HTTP request after 4342.7116ms - 200
+2022-03-14 11:29:16.842 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-14 11:29:18.208 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-14 11:29:21.327 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-14 11:29:21.331 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-14 11:29:21.334 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-14 11:29:21.520 +07:00 [INF] Server nhat-laptop:5520:e59154c8 successfully announced in 72.4687 ms
+2022-03-14 11:29:21.566 +07:00 [INF] Server nhat-laptop:5520:e59154c8 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-14 11:29:21.665 +07:00 [INF] 2 servers were removed due to timeout
+2022-03-14 11:29:22.186 +07:00 [INF] Server nhat-laptop:5520:e59154c8 all the dispatchers started
+2022-03-14 11:29:22.319 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-14 11:29:22.335 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-14 11:29:22.338 +07:00 [INF] Hosting environment: Development
+2022-03-14 11:29:22.340 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-14 11:30:13.527 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:30:21.877 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:30:22.098 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:30:22.368 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:30:22.383 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1647104400&units=metric"
+2022-03-14 11:30:22.980 +07:00 [INF] Received HTTP response headers after 578.5778ms - 200
+2022-03-14 11:30:22.986 +07:00 [INF] End processing HTTP request after 643.786ms - 200
+2022-03-14 11:30:29.219 +07:00 [INF] Request: CreateWeatherDataCommand   {"ProvinceId":131,"Dt":1647104400,"Sunrise":1647126122,"Sunset":1647169448,"Temp_avg":27.74,"Temp_min":25.99,"Temp_max":31.99,"Humidity":77,"Dew_point":23.12,"Pop":100,"Wind_speed":1.86,"Clouds":53.04,"Weather_id":500,"Weather_main":"Rain","Weather_description":"light rain","Weather_icon":"10n","Temp_morn":25.99,"Temp_day":31.99,"Temp_eve":26.99,"Temp_night":25.99,"WeatherId_morn":802,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"scattered clouds","WeatherIcon_morn":"03d","WeatherId_day":803,"WeatherMain_day":"Clouds","WeatherDesc_day":"broken clouds","WeatherIcon_day":"04d","WeatherId_eve":802,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"scattered clouds","WeatherIcon_eve":"03n","WeatherId_night":802,"WeatherMain_night":"Clouds","WeatherDesc_night":"scattered clouds","WeatherIcon_night":"03n","$type":"CreateWeatherDataCommand"}
+2022-03-14 11:30:30.900 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-14 11:30:30.936 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 11:30:30.964 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 11:30:30.977 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:30:30.980 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=11.167&lon=106.667&dt=1647104400&units=metric"
+2022-03-14 11:30:31.031 +07:00 [INF] Received HTTP response headers after 46.7596ms - 200
+2022-03-14 11:30:31.035 +07:00 [INF] End processing HTTP request after 57.965ms - 200
+2022-03-14 11:30:31.044 +07:00 [INF] Request: CreateWeatherDataCommand   {"ProvinceId":127,"Dt":1647104400,"Sunrise":1647126123,"Sunset":1647169439,"Temp_avg":27.48,"Temp_min":25.73,"Temp_max":31.73,"Humidity":55,"Dew_point":17.07,"Pop":100,"Wind_speed":2.07,"Clouds":86.92,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04n","Temp_morn":25.73,"Temp_day":31.73,"Temp_eve":26.73,"Temp_night":25.73,"WeatherId_morn":802,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"scattered clouds","WeatherIcon_morn":"03d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04n","WeatherId_night":803,"WeatherMain_night":"Clouds","WeatherDesc_night":"broken clouds","WeatherIcon_night":"04n","$type":"CreateWeatherDataCommand"}
+2022-03-14 15:41:12.521 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-14 15:41:14.264 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-14 15:41:18.659 +07:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: .\sqlexpress@HangfireForCADb'
+2022-03-14 15:41:18.662 +07:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2022-03-14 15:41:18.664 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2022-03-14 15:41:18.805 +07:00 [INF] Server nhat-laptop:7852:2c23c53a successfully announced in 49.2504 ms
+2022-03-14 15:41:18.843 +07:00 [INF] Server nhat-laptop:7852:2c23c53a is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2022-03-14 15:41:19.184 +07:00 [INF] Server nhat-laptop:7852:2c23c53a all the dispatchers started
+2022-03-14 15:41:19.584 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-14 15:41:19.594 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-14 15:41:19.596 +07:00 [INF] Hosting environment: Development
+2022-03-14 15:41:19.599 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-14 15:42:20.040 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":131,"$type":"GetProvinceByIdQuery"}
+2022-03-14 15:42:29.731 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":131,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 15:42:29.928 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":127,"$type":"GetProvinceByIdQuery"}
+2022-03-14 15:42:29.950 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":127,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 15:42:29.978 +07:00 [INF] Request: GetProvinceByIdQuery   {"ProvinceId":113,"$type":"GetProvinceByIdQuery"}
+2022-03-14 15:42:29.997 +07:00 [INF] Request: GetLocalDataHistoricalWeatherQuery   {"ProvinceId":113,"Dt":1647104400,"$type":"GetLocalDataHistoricalWeatherQuery"}
+2022-03-14 15:42:30.132 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":113,"Dt":1647104400,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-14 15:42:30.377 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=12.667&lon=108.05&dt=1647104400&units=metric"
+2022-03-14 15:42:30.391 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=12.667&lon=108.05&dt=1647104400&units=metric"
+2022-03-14 15:42:31.513 +07:00 [INF] Received HTTP response headers after 1103.3348ms - 200
+2022-03-14 15:42:31.517 +07:00 [INF] End processing HTTP request after 1157.6068ms - 200
+2022-03-14 15:42:31.685 +07:00 [INF] Request: CreateWeatherDataCommand   {"ProvinceId":113,"Dt":1647104400,"Sunrise":1647125810,"Sunset":1647169088,"Temp_avg":22.97,"Temp_min":19.15,"Temp_max":29.66,"Humidity":72,"Dew_point":17.08,"Pop":0,"Wind_speed":2.26,"Clouds":84.29,"Weather_id":804,"Weather_main":"Clouds","Weather_description":"overcast clouds","Weather_icon":"04n","Temp_morn":20.69,"Temp_day":28.98,"Temp_eve":19.81,"Temp_night":19.15,"WeatherId_morn":803,"WeatherMain_morn":"Clouds","WeatherDesc_morn":"broken clouds","WeatherIcon_morn":"04d","WeatherId_day":804,"WeatherMain_day":"Clouds","WeatherDesc_day":"overcast clouds","WeatherIcon_day":"04d","WeatherId_eve":804,"WeatherMain_eve":"Clouds","WeatherDesc_eve":"overcast clouds","WeatherIcon_eve":"04n","WeatherId_night":804,"WeatherMain_night":"Clouds","WeatherDesc_night":"overcast clouds","WeatherIcon_night":"04d","$type":"CreateWeatherDataCommand"}

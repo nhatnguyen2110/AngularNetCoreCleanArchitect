@@ -1,0 +1,98 @@
+2022-03-12 16:11:02.795 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-12 16:11:03.525 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-12 16:11:05.012 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-12 16:11:05.012 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-12 16:11:05.015 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-12 16:11:05.016 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-12 16:11:05.017 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-12 16:11:05.018 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-12 16:11:06.625 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-12 16:11:06.626 +07:00 [INF] Hosting environment: Development
+2022-03-12 16:11:06.626 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-12 16:11:07.932 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-12 16:11:07.935 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-12 16:11:07.936 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-12 16:11:07.936 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-12 16:11:07.936 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-12 16:11:07.937 +07:00 [DBG] Error Url: /Home
+2022-03-12 16:11:07.938 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-12 16:20:12.050 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":0,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:20:13.020 +07:00 [ERR] Unhandled Exception for Request GetHistoricalWeatherDataQuery {"ProvinceId":131,"Dt":0,"$type":"GetHistoricalWeatherDataQuery"}
+CleanArchitecture.Application.Common.Exceptions.ValidationException: One or more validation failures have occurred.
+   at CleanArchitecture.Application.Common.Behaviours.ValidationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\ValidationBehaviour.cs:line 33
+   at CleanArchitecture.Application.Common.Behaviours.AuthorizationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\AuthorizationBehaviour.cs:line 78
+   at CleanArchitecture.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\UnhandledExceptionBehaviour.cs:line 19
+2022-03-12 16:20:13.657 +07:00 [ERR] Failed to get weather data (Request: {"ProvinceId":131,"Dt":0.0}). Message: One or more validation failures have occurred.
+CleanArchitecture.Application.Common.Exceptions.ValidationException: One or more validation failures have occurred.
+   at CleanArchitecture.Application.Common.Behaviours.ValidationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\ValidationBehaviour.cs:line 33
+   at CleanArchitecture.Application.Common.Behaviours.AuthorizationBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\AuthorizationBehaviour.cs:line 78
+   at CleanArchitecture.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\Application\Common\Behaviours\UnhandledExceptionBehaviour.cs:line 19
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestExceptionActionProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPostProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at MediatR.Pipeline.RequestPreProcessorBehavior`2.Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate`1 next)
+   at CleanArchitecture.WebUI.Controllers.WeatherController.GetHistoricalWeahter(GetHistoricalWeatherDataQuery request) in D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI\Controllers\WeatherController.cs:line 142
+2022-03-12 16:20:45.393 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1645937980,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:20:57.380 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1645937980&units=metric"
+2022-03-12 16:20:57.458 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1645937980&units=metric"
+2022-03-12 16:20:57.947 +07:00 [INF] Received HTTP response headers after 477.4896ms - 400
+2022-03-12 16:20:57.958 +07:00 [INF] End processing HTTP request after 590.4259ms - 400
+2022-03-12 16:21:54.014 +07:00 [WRN] Long Running Request: GetHistoricalWeatherDataQuery (68610 milliseconds)   {"ProvinceId":131,"Dt":1645937980,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:21:54.144 +07:00 [ERR] Failed to get weather data (Request: {"ProvinceId":131,"Dt":1645937980.0}). Response: {"Data":null,"Succeeded":false,"Message":"Something went wrong. Please try again","SystemError":"The HTTP status code of the response was not expected (400).\n\nStatus: 400\nResponse: \n","Title":"Failed to Load Forecast Weather","RequestTime":"20220312162045","ResponseTime":"20220312162154"}
+2022-03-12 16:22:51.334 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1645937980,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:23:33.520 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1645937980&units=metric"
+2022-03-12 16:23:33.521 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1645937980&units=metric"
+2022-03-12 16:23:33.794 +07:00 [INF] Received HTTP response headers after 273.235ms - 400
+2022-03-12 16:23:33.795 +07:00 [INF] End processing HTTP request after 275.1145ms - 400
+2022-03-12 16:24:42.994 +07:00 [WRN] Long Running Request: GetHistoricalWeatherDataQuery (111658 milliseconds)   {"ProvinceId":131,"Dt":1645937980,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:24:42.995 +07:00 [ERR] Failed to get weather data (Request: {"ProvinceId":131,"Dt":1645937980.0}). Response: {"Data":null,"Succeeded":false,"Message":"Something went wrong. Please try again","SystemError":"The HTTP status code of the response was not expected (400).\n\nStatus: 400\nResponse: \n","Title":"Failed to Load Forecast Weather","RequestTime":"20220312162251","ResponseTime":"20220312162442"}
+2022-03-12 16:27:47.767 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-12 16:27:48.093 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-12 16:27:48.946 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-12 16:27:48.946 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-12 16:27:48.947 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-12 16:27:48.948 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-12 16:27:48.948 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-12 16:27:48.949 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-12 16:27:50.238 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-12 16:27:50.239 +07:00 [INF] Hosting environment: Development
+2022-03-12 16:27:50.240 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-12 16:27:51.064 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-12 16:27:51.067 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-12 16:27:51.067 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-12 16:27:51.068 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-12 16:27:51.068 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-12 16:27:51.069 +07:00 [DBG] Error Url: /Home
+2022-03-12 16:27:51.069 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-12 16:28:50.830 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1645937980,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:28:52.202 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1645937980&units=metric"
+2022-03-12 16:28:52.244 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1645937980&units=metric"
+2022-03-12 16:28:52.669 +07:00 [INF] Received HTTP response headers after 411.1288ms - 400
+2022-03-12 16:28:52.682 +07:00 [INF] End processing HTTP request after 493.6714ms - 400
+2022-03-12 16:30:11.734 +07:00 [WRN] Long Running Request: GetHistoricalWeatherDataQuery (80715 milliseconds)   {"ProvinceId":131,"Dt":1645937980,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:30:11.880 +07:00 [ERR] Failed to get weather data (Request: {"ProvinceId":131,"Dt":1645937980.0}). Response: {"Data":null,"Succeeded":false,"Message":"Something went wrong. Please try again","SystemError":"The HTTP status code of the response was not expected (400).\n\nStatus: 400\nResponse: \n","Title":"Failed to Load Forecast Weather","RequestTime":"20220312162851","ResponseTime":"20220312163011"}
+2022-03-12 16:33:12.405 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-12 16:33:12.660 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-12 16:33:13.219 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-12 16:33:13.220 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-12 16:33:13.220 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-12 16:33:13.221 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-12 16:33:13.222 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-12 16:33:13.223 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-12 16:33:14.100 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-12 16:33:14.100 +07:00 [INF] Hosting environment: Development
+2022-03-12 16:33:14.101 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-12 16:33:14.650 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-12 16:33:14.654 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-12 16:33:14.654 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-12 16:33:14.654 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-12 16:33:14.654 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-12 16:33:14.655 +07:00 [DBG] Error Url: /Home
+2022-03-12 16:33:14.655 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-12 16:38:20.431 +07:00 [INF] Request: GetHistoricalWeatherDataQuery   {"ProvinceId":131,"Dt":1646974800,"$type":"GetHistoricalWeatherDataQuery"}
+2022-03-12 16:38:21.784 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1646974800&units=metric"
+2022-03-12 16:38:21.838 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall/timemachine?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&dt=1646974800&units=metric"
+2022-03-12 16:38:22.815 +07:00 [INF] Received HTTP response headers after 962.7674ms - 200
+2022-03-12 16:38:22.826 +07:00 [INF] End processing HTTP request after 1055.2958ms - 200

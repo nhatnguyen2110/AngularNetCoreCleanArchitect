@@ -1,0 +1,12 @@
+2022-03-28 10:29:39.566 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-28 10:29:41.210 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-28 10:29:44.557 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-28 10:29:44.569 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-28 10:29:44.570 +07:00 [INF] Hosting environment: Development
+2022-03-28 10:29:44.573 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\
+2022-03-28 10:33:57.082 +07:00 [INF] Start installing Hangfire SQL objects...
+2022-03-28 10:33:58.062 +07:00 [INF] Hangfire SQL objects installed.
+2022-03-28 10:34:00.082 +07:00 [INF] Now listening on: http://localhost:5012
+2022-03-28 10:34:00.096 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-28 10:34:00.099 +07:00 [INF] Hosting environment: Development
+2022-03-28 10:34:00.101 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\BackgroundJobUI\

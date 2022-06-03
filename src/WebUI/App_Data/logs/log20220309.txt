@@ -1,0 +1,70 @@
+2022-03-09 15:40:33.904 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-09 15:40:34.176 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-09 15:40:34.848 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-09 15:40:34.849 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-09 15:40:34.850 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-09 15:40:34.851 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-09 15:40:34.852 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-09 15:40:34.853 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-09 15:40:35.910 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-09 15:40:35.910 +07:00 [INF] Hosting environment: Development
+2022-03-09 15:40:35.910 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-09 15:40:36.718 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-09 15:40:36.722 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-09 15:40:36.722 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-09 15:40:36.722 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-09 15:40:36.722 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-09 15:40:36.723 +07:00 [DBG] Error Url: /Home
+2022-03-09 15:40:36.723 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-09 15:41:18.523 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"Longitude":105.167,"Latitude":10.5,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-09 15:41:19.493 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.5&lon=105.167&exclude=minutely&units=metric"
+2022-03-09 15:41:19.589 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.5&lon=105.167&exclude=minutely&units=metric"
+2022-03-09 15:41:20.066 +07:00 [INF] Received HTTP response headers after 465.1136ms - 200
+2022-03-09 15:41:20.079 +07:00 [INF] End processing HTTP request after 600.4444ms - 200
+2022-03-09 16:03:55.452 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-09 16:03:55.831 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-09 16:03:56.475 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-09 16:03:56.476 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-09 16:03:56.476 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-09 16:03:56.477 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-09 16:03:56.477 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-09 16:03:56.478 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-09 16:03:57.401 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-09 16:03:57.401 +07:00 [INF] Hosting environment: Development
+2022-03-09 16:03:57.401 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-09 16:03:58.055 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-09 16:03:58.059 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-09 16:03:58.059 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-09 16:03:58.059 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-09 16:03:58.059 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-09 16:03:58.060 +07:00 [DBG] Error Url: /Home
+2022-03-09 16:03:58.060 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-09 16:04:50.716 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"Longitude":105.167,"Latitude":10.5,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-09 16:04:51.738 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.5&lon=105.167&exclude=minutely&units=metric"
+2022-03-09 16:04:51.820 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.5&lon=105.167&exclude=minutely&units=metric"
+2022-03-09 16:04:52.441 +07:00 [INF] Received HTTP response headers after 610.5106ms - 200
+2022-03-09 16:04:52.451 +07:00 [INF] End processing HTTP request after 726.2125ms - 200
+2022-03-09 18:13:39.176 +07:00 [INF] Starting Duende IdentityServer version 5.2.0+1c3f1fadb0fa7a4bea3f4a6f7028cbfcff3b9918 (.NET 6.0.1)
+2022-03-09 18:13:39.496 +07:00 [WRN] You do not have a valid license key for Duende IdentityServer. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2022-03-09 18:13:40.109 +07:00 [INF] Using explicitly configured authentication scheme Identity.Application for IdentityServer
+2022-03-09 18:13:40.109 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for authentication
+2022-03-09 18:13:40.110 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2022-03-09 18:13:40.110 +07:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2022-03-09 18:13:40.111 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for challenge
+2022-03-09 18:13:40.112 +07:00 [DBG] Using IdentityServerJwt as default ASP.NET Core scheme for forbid
+2022-03-09 18:13:40.907 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-03-09 18:13:40.907 +07:00 [INF] Hosting environment: Development
+2022-03-09 18:13:40.907 +07:00 [INF] Content root path: D:\My Projects\Clean-Architecture\CleanArchitecture-main\src\WebUI
+2022-03-09 18:13:41.452 +07:00 [DBG] Login Url: /Identity/Account/Login
+2022-03-09 18:13:41.456 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2022-03-09 18:13:41.456 +07:00 [DBG] Logout Url: /Identity/Account/Logout
+2022-03-09 18:13:41.457 +07:00 [DBG] ConsentUrl Url: /consent
+2022-03-09 18:13:41.457 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2022-03-09 18:13:41.457 +07:00 [DBG] Error Url: /Home
+2022-03-09 18:13:41.457 +07:00 [DBG] Error Id Parameter: errorId
+2022-03-09 18:15:13.162 +07:00 [INF] Request: GetWeatherForecastIn7daysQuery   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
+2022-03-09 18:15:37.184 +07:00 [INF] Start processing HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-09 18:15:37.254 +07:00 [INF] Sending HTTP request GET "https://api.openweathermap.org/data/2.5/onecall?appid=baaaee5bb441159c6d293745bf6566ba&lat=10.8&lon=106.65&exclude=minutely&units=metric"
+2022-03-09 18:15:37.762 +07:00 [INF] Received HTTP response headers after 497.2504ms - 200
+2022-03-09 18:15:37.773 +07:00 [INF] End processing HTTP request after 600.9175ms - 200
+2022-03-09 18:16:16.910 +07:00 [WRN] Long Running Request: GetWeatherForecastIn7daysQuery (63578 milliseconds)   {"ProvinceId":131,"$type":"GetWeatherForecastIn7daysQuery"}
