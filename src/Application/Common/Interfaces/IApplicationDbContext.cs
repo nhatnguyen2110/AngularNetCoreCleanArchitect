@@ -13,5 +13,7 @@ public interface IApplicationDbContext
 
     DbSet<HistoricalWeatherData> HistoricalWeatherDatas { get; }
 
+    DbSet<Country> Countries { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

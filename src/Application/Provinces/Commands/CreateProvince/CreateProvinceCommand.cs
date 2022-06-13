@@ -14,6 +14,7 @@ public class CreateProvinceCommand : IRequest<Response<int>>
     public double? Latitude { get; set; }
     public int Priority { get; set; }
     public string? AliasName { get; set; }
+    public int? CountryId { get; set; }
 }
 public class CreateProvinceCommandHandler : BaseHandler<CreateProvinceCommand, Response<int>>
 {
@@ -31,7 +32,8 @@ public class CreateProvinceCommandHandler : BaseHandler<CreateProvinceCommand, R
                 AliasName = request.AliasName,
                 Priority = request.Priority,
                 Longitude = request.Longitude,
-                Latitude = request.Latitude
+                Latitude = request.Latitude,
+                CountryId = request.CountryId
             };
             this._commonService.ApplicationDBContext.Provinces.Add(entity);
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);

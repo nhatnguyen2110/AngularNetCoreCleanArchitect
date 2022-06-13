@@ -1,0 +1,442 @@
+<h1>Locations</h1>
+<p>Settings for Locations</p>
+
+<p *ngIf="!countriesList"><em>Loading...</em></p>
+
+<div *ngIf="countriesList">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="clearfix">
+        <h2 class="float-left">Countries</h2>
+        <button
+          class="btn btn-default float-right"
+          title="Add Country..."
+          (click)="showNewListModal(newListModalTemplate)"
+        >
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+      <ul class="list-group">
+        <li
+          *ngFor="let country of countriesList; index as i"
+          class="list-group-item"
+          [ngClass]="{ active: selectedCountry == country }"
+          (click)="selectedCountry = country"
+        >
+          <div class="clearfix">
+            <div class="float-left">
+              {{ country.name }}
+            </div>
+            <div class="float-right text-right">
+              <span class="badge badge-light">{{
+                remainingItems(country)
+              }}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-8" *ngIf="selectedCountry">
+      <div class="clearfix">
+        <h2 class="float-left">
+          <span
+            *ngIf="selectedCountry.userDefined2"
+            class="{{ selectedCountry.userDefined2 }}"
+          ></span>
+          {{ selectedCountry.name }}
+        </h2>
+        <button
+          id="listOptions"
+          class="btn btn-default float-right"
+          title="Options..."
+          (click)="showListOptionsModal(newListModalTemplate)"
+        >
+          <fa-icon [icon]="faEllipsisH"></fa-icon>
+        </button>
+      </div>
+      <ul id="todo-items" class="list-group mb-2">
+        <li
+          class="list-group-item"
+          *ngFor="let province of selectedCountry.provinces; index as i"
+        >
+          <div class="d-flex">
+            <div class="flex-fill">
+              <input
+                id="{{ 'itemTitle' + i }}"
+                *ngIf="province == selectedProvince"
+                type="text"
+                class="form-control item-input-control"
+                [(ngModel)]="province.name"
+                (keyup.enter)="updateItem(province, true)"
+                (blur)="updateItem(province)"
+                autofocus="autofocus"
+              />
+              <div
+                class="todo-item-title"
+                *ngIf="province != selectedProvince"
+                (click)="editItem(province, 'itemTitle' + i)"
+                class="form-control item-input-control"
+              >
+                <span>{{ province.name }} <ng-container *ngIf="province.longitude && province.latitude">(long-lat: {{province.longitude}} - {{province.latitude}})</ng-container></span>
+              </div>
+            </div>
+            <div class="todo-item-commands">
+              <button
+                *ngIf="province.id != 0"
+                (click)="
+                  showItemDetailsModal(itemDetailsModalTemplate, province)
+                "
+                class="btn btn-default btn-xs"
+                role="button"
+              >
+                <fa-icon [icon]="faEllipsisH"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" (click)="addItem()">
+          <button class="btn btn-default">Add Province...</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #newListModalTemplate>
+  <form [formGroup]="newCountryForm" autocomplete="off" (ngSubmit)="addList()">
+    <div class="modal-header clearfix">
+      <h4 class="modal-title float-left">
+        <ng-template
+          [ngIf]="newCountryForm.value.id"
+          [ngIfElse]="newTitleCountry"
+          >Edit Country</ng-template
+        >
+        <ng-template #newTitleCountry>New Country</ng-template>
+      </h4>
+      <button
+        type="button"
+        class="close float-right"
+        aria-label="Close"
+        (click)="newListCancelled()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="countryName">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="countryName"
+          placeholder="Country Name..."
+          formControlName="name"
+        />
+        <small
+          class="form-text text-danger"
+          *ngIf="
+            newCountryForm.get('name')?.errors &&
+            newCountryForm.get('name')?.errors['whitespace']
+          "
+          >Required field</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="languageCode">Language Code</label>
+        <input
+          type="text"
+          class="form-control"
+          id="languageCode"
+          placeholder="Language Code..."
+          formControlName="languageCode"
+        />
+        <small
+          class="form-text text-danger"
+          *ngIf="
+            newCountryForm.get('languageCode')?.errors &&
+            newCountryForm.get('languageCode')?.errors['whitespace']
+          "
+          >Required field</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="countryPriority">Priority</label>
+        <input
+          type="number"
+          class="form-control"
+          id="countryPriority"
+          formControlName="priority"
+        />
+        <small
+          class="form-text text-danger"
+          *ngIf="
+            newCountryForm.get('priority')?.errors &&
+            newCountryForm.get('priority')?.errors['required']
+          "
+          >Required field</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="iconUrl">Icon Url</label>
+        <input
+          type="text"
+          class="form-control"
+          id="iconUrl"
+          placeholder="Icon Url..."
+          formControlName="iconUrl"
+        />
+      </div>
+      <div class="form-group">
+        <label for="userDefined1">userDefined1</label>
+        <input
+          type="text"
+          class="form-control"
+          id="userDefined1"
+          placeholder="userDefined1..."
+          formControlName="userDefined1"
+        />
+      </div>
+      <div class="form-group">
+        <label for="userDefined2">userDefined2</label>
+        <input
+          type="text"
+          class="form-control"
+          id="userDefined2"
+          placeholder="userDefined2..."
+          formControlName="userDefined2"
+        />
+      </div>
+      <div class="form-group">
+        <label for="userDefined3">userDefined3</label>
+        <input
+          type="text"
+          class="form-control"
+          id="userDefined3"
+          placeholder="userDefined3..."
+          formControlName="userDefined3"
+        />
+      </div>
+      
+      <div *ngIf="debug">
+        <pre>{{ newCountryForm.value | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="float-left" *ngIf="newCountryForm.value.id">
+        <button
+          class="btn btn-default text-danger"
+          (click)="confirmDeleteList(deleteListModalTemplate)"
+        >
+          Delete
+        </button>
+      </div>
+      <div class="text-right">
+        <button
+          class="btn btn-default"
+          (click)="newListCancelled()"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="btn btn-primary"
+          [disabled]="newCountryForm.invalid"
+          type="submit"
+          appThrottleTimeClick
+          (throttledClick)="addList()"
+        >
+          <ng-template
+            [ngIf]="newCountryForm.value.id"
+            [ngIfElse]="newButtonCountry"
+            >Edit</ng-template
+          >
+          <ng-template #newButtonCountry>Create</ng-template>
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+<ng-template #deleteListModalTemplate>
+  <div class="modal-header clearfix">
+    <h4 class="modal-title float-left">
+      Delete "{{ selectedCountry?.name }}"?
+    </h4>
+    <button
+      type="button"
+      class="close float-right"
+      aria-label="Close"
+      (click)="deleteListModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you really want to delete this item?</p>
+    <div *ngIf="debug">
+      <pre>{{ selectedCountry | json }}</pre>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="text-right">
+      <button
+        type="button"
+        class="btn btn-default"
+        (click)="deleteListModalRef.hide()"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="deleteListConfirmed()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #itemDetailsModalTemplate>
+  <form
+    [formGroup]="editProvinceForm"
+    autocomplete="off"
+    (ngSubmit)="updateItemDetails()"
+  >
+    <div class="modal-header clearfix">
+      <h4 class="modal-title float-left">Province Detail</h4>
+      <button
+        type="button"
+        class="close float-right"
+        aria-label="Close"
+        (click)="itemDetailsModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form">
+        <div class="form-group">
+          <label for="provinceCountry">Country</label>
+          <select
+            class="form-control"
+            formControlName="countryId"
+            id="provinceCountry"
+          >
+            <option [ngValue]="list.id" *ngFor="let list of countriesList">
+                <span
+                *ngIf="list.userDefined2"
+                class="{{ list.userDefined2 }}"
+              ></span> {{ list.name }}
+            </option>
+          </select>
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editProvinceForm.get('countryId')?.errors &&
+              editProvinceForm.get('countryId')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="provincePriority">Priority</label>
+          <input
+            type="number"
+            class="form-control"
+            id="provincePriority"
+            formControlName="priority"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editProvinceForm.get('priority')?.errors &&
+              editProvinceForm.get('priority')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="provinceName">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="provinceName"
+            formControlName="name"
+            placeholder="Name"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editProvinceForm.get('name')?.errors &&
+              editProvinceForm.get('name')?.errors['whitespace']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="provinceAliasName">Alias Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="provinceAliasName"
+            formControlName="aliasName"
+            placeholder="Alias Name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="provinceLongitude">Longitude</label>
+          <input
+            type="number"
+            class="form-control"
+            id="provinceLongitude"
+            formControlName="longitude"
+            placeholder="Longitude"
+          />
+        </div>
+        <div class="form-group">
+          <label for="provinceLatitude">Latitude</label>
+          <input
+            type="number"
+            class="form-control"
+            id="provinceLatitude"
+            formControlName="latitude"
+            placeholder="Latitude"
+          />
+        </div>
+      </div>
+      <div *ngIf="debug">
+        <pre>{{ editProvinceForm.value | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="clearfix">
+        <div class="float-left">
+          <button
+            type="button"
+            class="btn btn-default text-danger"
+            (click)="deleteItem(selectedProvince)"
+          >
+            Delete
+          </button>
+        </div>
+        <div class="float-right">
+          <button
+            type="button"
+            class="btn btn-default"
+            (click)="itemDetailsModalRef.hide()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="updateItemDetails()"
+            [disabled]="editProvinceForm.invalid"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

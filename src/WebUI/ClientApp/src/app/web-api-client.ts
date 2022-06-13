@@ -127,17 +127,18 @@ export class CacheClient implements ICacheClient {
     }
 }
 
-export interface IProvincesClient {
-    get(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ResponseOfPaginatedListOfProvinceDto>;
-    create(command: CreateProvinceCommand): Observable<ResponseOfInteger>;
-    update(command: UpdateProvinceCommand): Observable<ResponseOfUnit>;
+export interface ICountriesClient {
+    get(id: number): Observable<ResponseOfCountryDto>;
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ResponseOfPaginatedListOfCountryDto>;
+    create(command: CreateCountryCommand): Observable<ResponseOfInteger>;
+    update(command: UpdateCountryCommand): Observable<ResponseOfUnit>;
     delete(id: number): Observable<ResponseOfUnit>;
 }
 
 @Injectable({
     providedIn: 'root'
 })
-export class ProvincesClient implements IProvincesClient {
+export class CountriesClient implements ICountriesClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -147,8 +148,59 @@ export class ProvincesClient implements IProvincesClient {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    get(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined) : Observable<ResponseOfPaginatedListOfProvinceDto> {
-        let url_ = this.baseUrl + "/api/Provinces/Get?";
+    get(id: number) : Observable<ResponseOfCountryDto> {
+        let url_ = this.baseUrl + "/api/Countries/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfCountryDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfCountryDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGet(response: HttpResponseBase): Observable<ResponseOfCountryDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfCountryDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfCountryDto>(<any>null);
+    }
+
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined) : Observable<ResponseOfPaginatedListOfCountryDto> {
+        let url_ = this.baseUrl + "/api/Countries/GetList?";
         if (keyword !== undefined && keyword !== null)
             url_ += "Keyword=" + encodeURIComponent("" + keyword) + "&";
         if (pageNumber === null)
@@ -170,11 +222,297 @@ export class ProvincesClient implements IProvincesClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetList(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfPaginatedListOfCountryDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfPaginatedListOfCountryDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetList(response: HttpResponseBase): Observable<ResponseOfPaginatedListOfCountryDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfPaginatedListOfCountryDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfPaginatedListOfCountryDto>(<any>null);
+    }
+
+    create(command: CreateCountryCommand) : Observable<ResponseOfInteger> {
+        let url_ = this.baseUrl + "/api/Countries/Create";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreate(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfInteger>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfInteger>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreate(response: HttpResponseBase): Observable<ResponseOfInteger> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfInteger.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfInteger>(<any>null);
+    }
+
+    update(command: UpdateCountryCommand) : Observable<ResponseOfUnit> {
+        let url_ = this.baseUrl + "/api/Countries/Update";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdate(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfUnit>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfUnit>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdate(response: HttpResponseBase): Observable<ResponseOfUnit> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfUnit.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfUnit>(<any>null);
+    }
+
+    delete(id: number) : Observable<ResponseOfUnit> {
+        let url_ = this.baseUrl + "/api/Countries/Delete/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfUnit>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfUnit>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<ResponseOfUnit> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfUnit.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfUnit>(<any>null);
+    }
+}
+
+export interface IProvincesClient {
+    get(id: number): Observable<ResponseOfProvinceDto>;
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ResponseOfPaginatedListOfProvinceDto>;
+    create(command: CreateProvinceCommand): Observable<ResponseOfInteger>;
+    update(command: UpdateProvinceCommand): Observable<ResponseOfUnit>;
+    delete(id: number): Observable<ResponseOfUnit>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class ProvincesClient implements IProvincesClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    get(id: number) : Observable<ResponseOfProvinceDto> {
+        let url_ = this.baseUrl + "/api/Provinces/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processGet(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processGet(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfProvinceDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfProvinceDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGet(response: HttpResponseBase): Observable<ResponseOfProvinceDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfProvinceDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfProvinceDto>(<any>null);
+    }
+
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined) : Observable<ResponseOfPaginatedListOfProvinceDto> {
+        let url_ = this.baseUrl + "/api/Provinces/GetList?";
+        if (keyword !== undefined && keyword !== null)
+            url_ += "Keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "PageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetList(<any>response_);
                 } catch (e) {
                     return <Observable<ResponseOfPaginatedListOfProvinceDto>><any>_observableThrow(e);
                 }
@@ -183,7 +521,7 @@ export class ProvincesClient implements IProvincesClient {
         }));
     }
 
-    protected processGet(response: HttpResponseBase): Observable<ResponseOfPaginatedListOfProvinceDto> {
+    protected processGetList(response: HttpResponseBase): Observable<ResponseOfPaginatedListOfProvinceDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1333,6 +1671,527 @@ export interface IResponse {
     responseTime?: string | undefined;
 }
 
+export class ResponseOfCountryDto extends Response implements IResponseOfCountryDto {
+    data?: CountryDto | undefined;
+
+    constructor(data?: IResponseOfCountryDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? CountryDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfCountryDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfCountryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfCountryDto extends IResponse {
+    data?: CountryDto | undefined;
+}
+
+export class CountryDto implements ICountryDto {
+    id?: number;
+    name?: string | undefined;
+    priority?: number;
+    languageCode?: string | undefined;
+    iconUrl?: string | undefined;
+    userDefined1?: string | undefined;
+    userDefined2?: string | undefined;
+    userDefined3?: string | undefined;
+    provinces?: ProvinceDto[];
+
+    constructor(data?: ICountryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.priority = _data["priority"];
+            this.languageCode = _data["languageCode"];
+            this.iconUrl = _data["iconUrl"];
+            this.userDefined1 = _data["userDefined1"];
+            this.userDefined2 = _data["userDefined2"];
+            this.userDefined3 = _data["userDefined3"];
+            if (Array.isArray(_data["provinces"])) {
+                this.provinces = [] as any;
+                for (let item of _data["provinces"])
+                    this.provinces!.push(ProvinceDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): CountryDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CountryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["priority"] = this.priority;
+        data["languageCode"] = this.languageCode;
+        data["iconUrl"] = this.iconUrl;
+        data["userDefined1"] = this.userDefined1;
+        data["userDefined2"] = this.userDefined2;
+        data["userDefined3"] = this.userDefined3;
+        if (Array.isArray(this.provinces)) {
+            data["provinces"] = [];
+            for (let item of this.provinces)
+                data["provinces"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ICountryDto {
+    id?: number;
+    name?: string | undefined;
+    priority?: number;
+    languageCode?: string | undefined;
+    iconUrl?: string | undefined;
+    userDefined1?: string | undefined;
+    userDefined2?: string | undefined;
+    userDefined3?: string | undefined;
+    provinces?: ProvinceDto[];
+}
+
+export class ProvinceDto implements IProvinceDto {
+    id?: number;
+    name?: string | undefined;
+    aliasName?: string | undefined;
+    longitude?: number | undefined;
+    latitude?: number | undefined;
+    priority?: number;
+    countryId?: number | undefined;
+
+    constructor(data?: IProvinceDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.aliasName = _data["aliasName"];
+            this.longitude = _data["longitude"];
+            this.latitude = _data["latitude"];
+            this.priority = _data["priority"];
+            this.countryId = _data["countryId"];
+        }
+    }
+
+    static fromJS(data: any): ProvinceDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProvinceDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["aliasName"] = this.aliasName;
+        data["longitude"] = this.longitude;
+        data["latitude"] = this.latitude;
+        data["priority"] = this.priority;
+        data["countryId"] = this.countryId;
+        return data; 
+    }
+}
+
+export interface IProvinceDto {
+    id?: number;
+    name?: string | undefined;
+    aliasName?: string | undefined;
+    longitude?: number | undefined;
+    latitude?: number | undefined;
+    priority?: number;
+    countryId?: number | undefined;
+}
+
+export class ResponseOfPaginatedListOfCountryDto extends Response implements IResponseOfPaginatedListOfCountryDto {
+    data?: PaginatedListOfCountryDto | undefined;
+
+    constructor(data?: IResponseOfPaginatedListOfCountryDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? PaginatedListOfCountryDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfPaginatedListOfCountryDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfPaginatedListOfCountryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfPaginatedListOfCountryDto extends IResponse {
+    data?: PaginatedListOfCountryDto | undefined;
+}
+
+export class PaginatedListOfCountryDto implements IPaginatedListOfCountryDto {
+    items?: CountryDto[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+
+    constructor(data?: IPaginatedListOfCountryDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(CountryDto.fromJS(item));
+            }
+            this.pageNumber = _data["pageNumber"];
+            this.totalPages = _data["totalPages"];
+            this.totalCount = _data["totalCount"];
+            this.hasPreviousPage = _data["hasPreviousPage"];
+            this.hasNextPage = _data["hasNextPage"];
+        }
+    }
+
+    static fromJS(data: any): PaginatedListOfCountryDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PaginatedListOfCountryDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["pageNumber"] = this.pageNumber;
+        data["totalPages"] = this.totalPages;
+        data["totalCount"] = this.totalCount;
+        data["hasPreviousPage"] = this.hasPreviousPage;
+        data["hasNextPage"] = this.hasNextPage;
+        return data; 
+    }
+}
+
+export interface IPaginatedListOfCountryDto {
+    items?: CountryDto[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+}
+
+export class ResponseOfInteger extends Response implements IResponseOfInteger {
+    data?: number;
+
+    constructor(data?: IResponseOfInteger) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"];
+        }
+    }
+
+    static fromJS(data: any): ResponseOfInteger {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfInteger();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfInteger extends IResponse {
+    data?: number;
+}
+
+export class CreateCountryCommand implements ICreateCountryCommand {
+    name?: string | undefined;
+    priority?: number;
+    languageCode?: string | undefined;
+    iconUrl?: string | undefined;
+    userDefined1?: string | undefined;
+    userDefined2?: string | undefined;
+    userDefined3?: string | undefined;
+
+    constructor(data?: ICreateCountryCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.priority = _data["priority"];
+            this.languageCode = _data["languageCode"];
+            this.iconUrl = _data["iconUrl"];
+            this.userDefined1 = _data["userDefined1"];
+            this.userDefined2 = _data["userDefined2"];
+            this.userDefined3 = _data["userDefined3"];
+        }
+    }
+
+    static fromJS(data: any): CreateCountryCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateCountryCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["priority"] = this.priority;
+        data["languageCode"] = this.languageCode;
+        data["iconUrl"] = this.iconUrl;
+        data["userDefined1"] = this.userDefined1;
+        data["userDefined2"] = this.userDefined2;
+        data["userDefined3"] = this.userDefined3;
+        return data; 
+    }
+}
+
+export interface ICreateCountryCommand {
+    name?: string | undefined;
+    priority?: number;
+    languageCode?: string | undefined;
+    iconUrl?: string | undefined;
+    userDefined1?: string | undefined;
+    userDefined2?: string | undefined;
+    userDefined3?: string | undefined;
+}
+
+export class ResponseOfUnit extends Response implements IResponseOfUnit {
+    data?: Unit;
+
+    constructor(data?: IResponseOfUnit) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? Unit.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfUnit {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfUnit();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfUnit extends IResponse {
+    data?: Unit;
+}
+
+/** Represents a void type, since Void is not a valid return type in C#. */
+export class Unit implements IUnit {
+
+    constructor(data?: IUnit) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): Unit {
+        data = typeof data === 'object' ? data : {};
+        let result = new Unit();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data; 
+    }
+}
+
+/** Represents a void type, since Void is not a valid return type in C#. */
+export interface IUnit {
+}
+
+export class UpdateCountryCommand implements IUpdateCountryCommand {
+    id?: number;
+    name?: string | undefined;
+    priority?: number;
+    languageCode?: string | undefined;
+    iconUrl?: string | undefined;
+    userDefined1?: string | undefined;
+    userDefined2?: string | undefined;
+    userDefined3?: string | undefined;
+
+    constructor(data?: IUpdateCountryCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.priority = _data["priority"];
+            this.languageCode = _data["languageCode"];
+            this.iconUrl = _data["iconUrl"];
+            this.userDefined1 = _data["userDefined1"];
+            this.userDefined2 = _data["userDefined2"];
+            this.userDefined3 = _data["userDefined3"];
+        }
+    }
+
+    static fromJS(data: any): UpdateCountryCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateCountryCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["priority"] = this.priority;
+        data["languageCode"] = this.languageCode;
+        data["iconUrl"] = this.iconUrl;
+        data["userDefined1"] = this.userDefined1;
+        data["userDefined2"] = this.userDefined2;
+        data["userDefined3"] = this.userDefined3;
+        return data; 
+    }
+}
+
+export interface IUpdateCountryCommand {
+    id?: number;
+    name?: string | undefined;
+    priority?: number;
+    languageCode?: string | undefined;
+    iconUrl?: string | undefined;
+    userDefined1?: string | undefined;
+    userDefined2?: string | undefined;
+    userDefined3?: string | undefined;
+}
+
+export class ResponseOfProvinceDto extends Response implements IResponseOfProvinceDto {
+    data?: ProvinceDto | undefined;
+
+    constructor(data?: IResponseOfProvinceDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? ProvinceDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfProvinceDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfProvinceDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfProvinceDto extends IResponse {
+    data?: ProvinceDto | undefined;
+}
+
 export class ResponseOfPaginatedListOfProvinceDto extends Response implements IResponseOfPaginatedListOfProvinceDto {
     data?: PaginatedListOfProvinceDto | undefined;
 
@@ -1430,101 +2289,13 @@ export interface IPaginatedListOfProvinceDto {
     hasNextPage?: boolean;
 }
 
-export class ProvinceDto implements IProvinceDto {
-    id?: number;
-    name?: string | undefined;
-    aliasName?: string | undefined;
-    longitude?: number | undefined;
-    latitude?: number | undefined;
-    priority?: number;
-
-    constructor(data?: IProvinceDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.aliasName = _data["aliasName"];
-            this.longitude = _data["longitude"];
-            this.latitude = _data["latitude"];
-            this.priority = _data["priority"];
-        }
-    }
-
-    static fromJS(data: any): ProvinceDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new ProvinceDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["aliasName"] = this.aliasName;
-        data["longitude"] = this.longitude;
-        data["latitude"] = this.latitude;
-        data["priority"] = this.priority;
-        return data; 
-    }
-}
-
-export interface IProvinceDto {
-    id?: number;
-    name?: string | undefined;
-    aliasName?: string | undefined;
-    longitude?: number | undefined;
-    latitude?: number | undefined;
-    priority?: number;
-}
-
-export class ResponseOfInteger extends Response implements IResponseOfInteger {
-    data?: number;
-
-    constructor(data?: IResponseOfInteger) {
-        super(data);
-    }
-
-    init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.data = _data["data"];
-        }
-    }
-
-    static fromJS(data: any): ResponseOfInteger {
-        data = typeof data === 'object' ? data : {};
-        let result = new ResponseOfInteger();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["data"] = this.data;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IResponseOfInteger extends IResponse {
-    data?: number;
-}
-
 export class CreateProvinceCommand implements ICreateProvinceCommand {
     name?: string | undefined;
     longitude?: number | undefined;
     latitude?: number | undefined;
     priority?: number;
     aliasName?: string | undefined;
+    countryId?: number | undefined;
 
     constructor(data?: ICreateProvinceCommand) {
         if (data) {
@@ -1542,6 +2313,7 @@ export class CreateProvinceCommand implements ICreateProvinceCommand {
             this.latitude = _data["latitude"];
             this.priority = _data["priority"];
             this.aliasName = _data["aliasName"];
+            this.countryId = _data["countryId"];
         }
     }
 
@@ -1559,6 +2331,7 @@ export class CreateProvinceCommand implements ICreateProvinceCommand {
         data["latitude"] = this.latitude;
         data["priority"] = this.priority;
         data["aliasName"] = this.aliasName;
+        data["countryId"] = this.countryId;
         return data; 
     }
 }
@@ -1569,71 +2342,7 @@ export interface ICreateProvinceCommand {
     latitude?: number | undefined;
     priority?: number;
     aliasName?: string | undefined;
-}
-
-export class ResponseOfUnit extends Response implements IResponseOfUnit {
-    data?: Unit;
-
-    constructor(data?: IResponseOfUnit) {
-        super(data);
-    }
-
-    init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.data = _data["data"] ? Unit.fromJS(_data["data"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): ResponseOfUnit {
-        data = typeof data === 'object' ? data : {};
-        let result = new ResponseOfUnit();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IResponseOfUnit extends IResponse {
-    data?: Unit;
-}
-
-/** Represents a void type, since Void is not a valid return type in C#. */
-export class Unit implements IUnit {
-
-    constructor(data?: IUnit) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): Unit {
-        data = typeof data === 'object' ? data : {};
-        let result = new Unit();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data; 
-    }
-}
-
-/** Represents a void type, since Void is not a valid return type in C#. */
-export interface IUnit {
+    countryId?: number | undefined;
 }
 
 export class UpdateProvinceCommand implements IUpdateProvinceCommand {
@@ -1643,6 +2352,7 @@ export class UpdateProvinceCommand implements IUpdateProvinceCommand {
     latitude?: number | undefined;
     priority?: number;
     aliasName?: string | undefined;
+    countryId?: number | undefined;
 
     constructor(data?: IUpdateProvinceCommand) {
         if (data) {
@@ -1661,6 +2371,7 @@ export class UpdateProvinceCommand implements IUpdateProvinceCommand {
             this.latitude = _data["latitude"];
             this.priority = _data["priority"];
             this.aliasName = _data["aliasName"];
+            this.countryId = _data["countryId"];
         }
     }
 
@@ -1679,6 +2390,7 @@ export class UpdateProvinceCommand implements IUpdateProvinceCommand {
         data["latitude"] = this.latitude;
         data["priority"] = this.priority;
         data["aliasName"] = this.aliasName;
+        data["countryId"] = this.countryId;
         return data; 
     }
 }
@@ -1690,6 +2402,7 @@ export interface IUpdateProvinceCommand {
     latitude?: number | undefined;
     priority?: number;
     aliasName?: string | undefined;
+    countryId?: number | undefined;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {

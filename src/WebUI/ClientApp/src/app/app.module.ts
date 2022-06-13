@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -16,6 +16,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenComponent } from './token/token.component';
+import { LocationSettingsComponent } from './location-settings/location-settings.component';
+import { NotifierModule } from 'angular-notifier';
+import { BlockUIModule } from "ng-block-ui";
+import { BlockUIHttpModule } from "ng-block-ui/http";
+import { DebouncePreventClickDirective } from './directives/debouncePreventClick.directive';
+import { ThrottleTimePreventClickDirective } from './directives/throtteTimePreventClick.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,10 @@ import { TokenComponent } from './token/token.component';
     CounterComponent,
     FetchDataComponent,
     TodoComponent,
-    TokenComponent
+    TokenComponent,
+    LocationSettingsComponent,
+    DebouncePreventClickDirective,
+    ThrottleTimePreventClickDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +44,15 @@ import { TokenComponent } from './token/token.component';
     ApiAuthorizationModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    NotifierModule,
+    BlockUIModule.forRoot({
+      delayStart: 0,
+      delayStop: 0,
+    }),
+    // BlockUIHttpModule.forRoot({
+    //   blockAllRequestsInProgress: true
+    // }),
     ModalModule.forRoot()
   ],
   providers: [

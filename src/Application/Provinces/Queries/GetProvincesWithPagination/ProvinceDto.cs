@@ -11,4 +11,5 @@ public class ProvinceDto : IMapFrom<Province>
     public double? Longitude { get; set; }
     public double? Latitude { get; set; }
     public int Priority { get; set; }
+    public int? CountryId { get; set; }
 }

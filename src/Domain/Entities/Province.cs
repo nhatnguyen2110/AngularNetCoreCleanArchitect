@@ -8,4 +8,7 @@ public class Province : AuditableEntity
     public double? Latitude { get; set; }
     public int Priority { get; set; }
     public string? AliasName { get; set; }
+
+    public int? CountryId { get; set; }
+    public Country Country { get; set; } = null!;
 }

@@ -16,6 +16,7 @@ public class UpdateProvinceCommand : IRequest<Response<Unit>>
     public double? Latitude { get; set; }
     public int Priority { get; set; }
     public string? AliasName { get; set; }
+    public int? CountryId { get; set; }
 }
 public class UpdateProvinceCommandHandler : BaseHandler<UpdateProvinceCommand, Response<Unit>>
 {
@@ -37,8 +38,9 @@ public class UpdateProvinceCommandHandler : BaseHandler<UpdateProvinceCommand, R
             entity.Name = request.Name;
             entity.AliasName = request.AliasName;
             entity.Longitude = request.Longitude;
-            entity.Latitude = request.Latitude; 
+            entity.Latitude = request.Latitude;
             entity.Priority = request.Priority;
+            entity.CountryId = request.CountryId;
 
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
             return Response<Unit>.Success(Unit.Value);
