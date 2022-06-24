@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NoWhitespaceValidator } from "../validators/no-whitespace.validator";
 import { isNgTemplate } from "@angular/compiler";
 import { NotifierService } from "angular-notifier";
+import * as moment from "moment-timezone";
 
 @Component({
   selector: "app-location-settings",
@@ -37,6 +38,8 @@ export class LocationSettingsComponent implements OnInit {
   faPlus = faPlus;
   faEllipsisH = faEllipsisH;
 
+  public tzNames: string[];
+
   debug = false;
 
   constructor(
@@ -55,6 +58,7 @@ export class LocationSettingsComponent implements OnInit {
       },
       (error) => console.error(error)
     );
+    this.tzNames = moment.tz.names();
   }
   ngOnInit(): void {
     this.newCountryForm = this.fb.group({

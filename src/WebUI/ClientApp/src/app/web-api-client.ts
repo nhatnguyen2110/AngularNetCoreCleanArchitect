@@ -2975,6 +2975,7 @@ export interface IResponseOfWeatherForecastDto extends IResponse {
 
 export class WeatherForecastDto implements IWeatherForecastDto {
     daily?: DailyForecastWeatherDto[];
+    hourly?: HourlyForecastWeatherDto[];
 
     constructor(data?: IWeatherForecastDto) {
         if (data) {
@@ -2991,6 +2992,11 @@ export class WeatherForecastDto implements IWeatherForecastDto {
                 this.daily = [] as any;
                 for (let item of _data["daily"])
                     this.daily!.push(DailyForecastWeatherDto.fromJS(item));
+            }
+            if (Array.isArray(_data["hourly"])) {
+                this.hourly = [] as any;
+                for (let item of _data["hourly"])
+                    this.hourly!.push(HourlyForecastWeatherDto.fromJS(item));
             }
         }
     }
@@ -3009,12 +3015,18 @@ export class WeatherForecastDto implements IWeatherForecastDto {
             for (let item of this.daily)
                 data["daily"].push(item.toJSON());
         }
+        if (Array.isArray(this.hourly)) {
+            data["hourly"] = [];
+            for (let item of this.hourly)
+                data["hourly"].push(item.toJSON());
+        }
         return data; 
     }
 }
 
 export interface IWeatherForecastDto {
     daily?: DailyForecastWeatherDto[];
+    hourly?: HourlyForecastWeatherDto[];
 }
 
 export class DailyForecastWeatherDto implements IDailyForecastWeatherDto {
@@ -3054,6 +3066,11 @@ export class DailyForecastWeatherDto implements IDailyForecastWeatherDto {
     weatherMain_night?: string | undefined;
     weatherDesc_night?: string | undefined;
     weatherIcon_night?: string | undefined;
+    weather_icon_url?: string;
+    weatherIcon_morn_url?: string;
+    weatherIcon_day_url?: string;
+    weatherIcon_eve_url?: string;
+    weatherIcon_night_url?: string;
 
     constructor(data?: IDailyForecastWeatherDto) {
         if (data) {
@@ -3102,6 +3119,11 @@ export class DailyForecastWeatherDto implements IDailyForecastWeatherDto {
             this.weatherMain_night = _data["weatherMain_night"];
             this.weatherDesc_night = _data["weatherDesc_night"];
             this.weatherIcon_night = _data["weatherIcon_night"];
+            this.weather_icon_url = _data["weather_icon_url"];
+            this.weatherIcon_morn_url = _data["weatherIcon_morn_url"];
+            this.weatherIcon_day_url = _data["weatherIcon_day_url"];
+            this.weatherIcon_eve_url = _data["weatherIcon_eve_url"];
+            this.weatherIcon_night_url = _data["weatherIcon_night_url"];
         }
     }
 
@@ -3150,6 +3172,11 @@ export class DailyForecastWeatherDto implements IDailyForecastWeatherDto {
         data["weatherMain_night"] = this.weatherMain_night;
         data["weatherDesc_night"] = this.weatherDesc_night;
         data["weatherIcon_night"] = this.weatherIcon_night;
+        data["weather_icon_url"] = this.weather_icon_url;
+        data["weatherIcon_morn_url"] = this.weatherIcon_morn_url;
+        data["weatherIcon_day_url"] = this.weatherIcon_day_url;
+        data["weatherIcon_eve_url"] = this.weatherIcon_eve_url;
+        data["weatherIcon_night_url"] = this.weatherIcon_night_url;
         return data; 
     }
 }
@@ -3191,6 +3218,115 @@ export interface IDailyForecastWeatherDto {
     weatherMain_night?: string | undefined;
     weatherDesc_night?: string | undefined;
     weatherIcon_night?: string | undefined;
+    weather_icon_url?: string;
+    weatherIcon_morn_url?: string;
+    weatherIcon_day_url?: string;
+    weatherIcon_eve_url?: string;
+    weatherIcon_night_url?: string;
+}
+
+export class HourlyForecastWeatherDto implements IHourlyForecastWeatherDto {
+    dt?: number;
+    temp?: number;
+    feels_like?: number;
+    pressure?: number;
+    humidity?: number;
+    dew_point?: number;
+    uvi?: number;
+    clouds?: number;
+    visibility?: number;
+    wind_speed?: number;
+    wind_deg?: number;
+    wind_gust?: number;
+    pop?: number;
+    weather_id?: number;
+    weather_main?: string | undefined;
+    weather_description?: string | undefined;
+    weather_icon?: string | undefined;
+    weather_icon_url?: string;
+
+    constructor(data?: IHourlyForecastWeatherDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.dt = _data["dt"];
+            this.temp = _data["temp"];
+            this.feels_like = _data["feels_like"];
+            this.pressure = _data["pressure"];
+            this.humidity = _data["humidity"];
+            this.dew_point = _data["dew_point"];
+            this.uvi = _data["uvi"];
+            this.clouds = _data["clouds"];
+            this.visibility = _data["visibility"];
+            this.wind_speed = _data["wind_speed"];
+            this.wind_deg = _data["wind_deg"];
+            this.wind_gust = _data["wind_gust"];
+            this.pop = _data["pop"];
+            this.weather_id = _data["weather_id"];
+            this.weather_main = _data["weather_main"];
+            this.weather_description = _data["weather_description"];
+            this.weather_icon = _data["weather_icon"];
+            this.weather_icon_url = _data["weather_icon_url"];
+        }
+    }
+
+    static fromJS(data: any): HourlyForecastWeatherDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new HourlyForecastWeatherDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["dt"] = this.dt;
+        data["temp"] = this.temp;
+        data["feels_like"] = this.feels_like;
+        data["pressure"] = this.pressure;
+        data["humidity"] = this.humidity;
+        data["dew_point"] = this.dew_point;
+        data["uvi"] = this.uvi;
+        data["clouds"] = this.clouds;
+        data["visibility"] = this.visibility;
+        data["wind_speed"] = this.wind_speed;
+        data["wind_deg"] = this.wind_deg;
+        data["wind_gust"] = this.wind_gust;
+        data["pop"] = this.pop;
+        data["weather_id"] = this.weather_id;
+        data["weather_main"] = this.weather_main;
+        data["weather_description"] = this.weather_description;
+        data["weather_icon"] = this.weather_icon;
+        data["weather_icon_url"] = this.weather_icon_url;
+        return data; 
+    }
+}
+
+export interface IHourlyForecastWeatherDto {
+    dt?: number;
+    temp?: number;
+    feels_like?: number;
+    pressure?: number;
+    humidity?: number;
+    dew_point?: number;
+    uvi?: number;
+    clouds?: number;
+    visibility?: number;
+    wind_speed?: number;
+    wind_deg?: number;
+    wind_gust?: number;
+    pop?: number;
+    weather_id?: number;
+    weather_main?: string | undefined;
+    weather_description?: string | undefined;
+    weather_icon?: string | undefined;
+    weather_icon_url?: string;
 }
 
 export class CreateWeatherDataCommand implements ICreateWeatherDataCommand {
@@ -3613,6 +3749,7 @@ export interface IResponseOfWeatherConditionCollectionDto extends IResponse {
 export class WeatherConditionCollectionDto implements IWeatherConditionCollectionDto {
     weatherConditionGroups?: OWPWeatherConditionGroup[];
     weatherConditions?: OWPWeatherCondition[];
+    weatherConditionsInNight?: OWPWeatherCondition[];
 
     constructor(data?: IWeatherConditionCollectionDto) {
         if (data) {
@@ -3634,6 +3771,11 @@ export class WeatherConditionCollectionDto implements IWeatherConditionCollectio
                 this.weatherConditions = [] as any;
                 for (let item of _data["weatherConditions"])
                     this.weatherConditions!.push(OWPWeatherCondition.fromJS(item));
+            }
+            if (Array.isArray(_data["weatherConditionsInNight"])) {
+                this.weatherConditionsInNight = [] as any;
+                for (let item of _data["weatherConditionsInNight"])
+                    this.weatherConditionsInNight!.push(OWPWeatherCondition.fromJS(item));
             }
         }
     }
@@ -3657,6 +3799,11 @@ export class WeatherConditionCollectionDto implements IWeatherConditionCollectio
             for (let item of this.weatherConditions)
                 data["weatherConditions"].push(item.toJSON());
         }
+        if (Array.isArray(this.weatherConditionsInNight)) {
+            data["weatherConditionsInNight"] = [];
+            for (let item of this.weatherConditionsInNight)
+                data["weatherConditionsInNight"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -3664,6 +3811,7 @@ export class WeatherConditionCollectionDto implements IWeatherConditionCollectio
 export interface IWeatherConditionCollectionDto {
     weatherConditionGroups?: OWPWeatherConditionGroup[];
     weatherConditions?: OWPWeatherCondition[];
+    weatherConditionsInNight?: OWPWeatherCondition[];
 }
 
 export class OWPWeatherConditionGroup implements IOWPWeatherConditionGroup {

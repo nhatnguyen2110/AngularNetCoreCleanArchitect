@@ -22,6 +22,8 @@ import { BlockUIModule } from "ng-block-ui";
 import { BlockUIHttpModule } from "ng-block-ui/http";
 import { DebouncePreventClickDirective } from './directives/debouncePreventClick.directive';
 import { ThrottleTimePreventClickDirective } from './directives/throtteTimePreventClick.directive';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ThrottleTimePreventClickDirective } from './directives/throtteTimePreve
     TokenComponent,
     LocationSettingsComponent,
     DebouncePreventClickDirective,
-    ThrottleTimePreventClickDirective
+    ThrottleTimePreventClickDirective,
+    DashboardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,6 +49,7 @@ import { ThrottleTimePreventClickDirective } from './directives/throtteTimePreve
     BrowserAnimationsModule,
     ReactiveFormsModule,
     NotifierModule,
+    NgSelectModule,
     BlockUIModule.forRoot({
       delayStart: 0,
       delayStop: 0,

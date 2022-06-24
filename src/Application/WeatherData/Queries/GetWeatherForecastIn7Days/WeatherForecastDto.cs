@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.Common.Mappings;
+using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using OpenWeatherMapAPI.Models;
 
@@ -12,7 +13,7 @@ public class WeatherForecastDto : IMapFrom<OWPOneCallRes>
         profile.CreateMap<OWPOneCallRes, WeatherForecastDto>();
     }
     public List<DailyForecastWeatherDto> Daily { get; set; } = new List<DailyForecastWeatherDto>();
-
+    public List<HourlyForecastWeatherDto> Hourly { get; set; } = new List<HourlyForecastWeatherDto>();
 }
 
 public class DailyForecastWeatherDto : IMapFrom<OWPDailyForecastWeather>, IMapFrom<HistoricalWeatherData>
@@ -31,22 +32,27 @@ public class DailyForecastWeatherDto : IMapFrom<OWPDailyForecastWeather>, IMapFr
             .ForMember(d => d.Temp_day, opt => opt.MapFrom(s => s.temp.max))
             .ForMember(d => d.Temp_eve, opt => opt.MapFrom(s => s.temp.max))
             .ForMember(d => d.Temp_night, opt => opt.MapFrom(s => s.temp.min))
-            .ForMember(d => d.WeatherId_morn, opt => opt.MapFrom(s => s.weather.First().id))
-            .ForMember(d => d.WeatherMain_morn, opt => opt.MapFrom(s => s.weather.First().main))
-            .ForMember(d => d.WeatherDesc_morn, opt => opt.MapFrom(s => s.weather.First().description))
-            .ForMember(d => d.WeatherIcon_morn, opt => opt.MapFrom(s => s.weather.First().icon))
-            .ForMember(d => d.WeatherId_day, opt => opt.MapFrom(s => s.weather.First().id))
-            .ForMember(d => d.WeatherMain_day, opt => opt.MapFrom(s => s.weather.First().main))
-            .ForMember(d => d.WeatherDesc_day, opt => opt.MapFrom(s => s.weather.First().description))
-            .ForMember(d => d.WeatherIcon_day, opt => opt.MapFrom(s => s.weather.First().icon))
-            .ForMember(d => d.WeatherId_eve, opt => opt.MapFrom(s => s.weather.First().id))
-            .ForMember(d => d.WeatherMain_eve, opt => opt.MapFrom(s => s.weather.First().main))
-            .ForMember(d => d.WeatherDesc_eve, opt => opt.MapFrom(s => s.weather.First().description))
-            .ForMember(d => d.WeatherIcon_eve, opt => opt.MapFrom(s => s.weather.First().icon))
-            .ForMember(d => d.WeatherId_night, opt => opt.MapFrom(s => s.weather.First().id))
-            .ForMember(d => d.WeatherMain_night, opt => opt.MapFrom(s => s.weather.First().main))
-            .ForMember(d => d.WeatherDesc_night, opt => opt.MapFrom(s => s.weather.First().description))
-            .ForMember(d => d.WeatherIcon_night, opt => opt.MapFrom(s => s.weather.First().icon))
+            //.ForMember(d => d.WeatherId_morn, opt => opt.MapFrom(s => s.weather.First().id))
+            //.ForMember(d => d.WeatherMain_morn, opt => opt.MapFrom(s => s.weather.First().main))
+            //.ForMember(d => d.WeatherDesc_morn, opt => opt.MapFrom(s => s.weather.First().description))
+            //.ForMember(d => d.WeatherIcon_morn, opt => opt.MapFrom(s => s.weather.First().icon))
+            //.ForMember(d => d.WeatherId_day, opt => opt.MapFrom(s => s.weather.First().id))
+            //.ForMember(d => d.WeatherMain_day, opt => opt.MapFrom(s => s.weather.First().main))
+            //.ForMember(d => d.WeatherDesc_day, opt => opt.MapFrom(s => s.weather.First().description))
+            //.ForMember(d => d.WeatherIcon_day, opt => opt.MapFrom(s => s.weather.First().icon))
+            //.ForMember(d => d.WeatherId_eve, opt => opt.MapFrom(s => s.weather.First().id))
+            //.ForMember(d => d.WeatherMain_eve, opt => opt.MapFrom(s => s.weather.First().main))
+            //.ForMember(d => d.WeatherDesc_eve, opt => opt.MapFrom(s => s.weather.First().description))
+            //.ForMember(d => d.WeatherIcon_eve, opt => opt.MapFrom(s => s.weather.First().icon))
+            //.ForMember(d => d.WeatherId_night, opt => opt.MapFrom(s => s.weather.First().id))
+            //.ForMember(d => d.WeatherMain_night, opt => opt.MapFrom(s => s.weather.First().main))
+            //.ForMember(d => d.WeatherDesc_night, opt => opt.MapFrom(s => s.weather.First().description))
+            //.ForMember(d => d.WeatherIcon_night, opt => opt.MapFrom(s => s.weather.First().icon))
+            .ForMember(d => d.Weather_icon_url, opt => opt.Ignore())
+            .ForMember(d => d.WeatherIcon_morn_url, opt => opt.Ignore())
+            .ForMember(d => d.WeatherIcon_day_url, opt => opt.Ignore())
+            .ForMember(d => d.WeatherIcon_eve_url, opt => opt.Ignore())
+            .ForMember(d => d.WeatherIcon_night_url, opt => opt.Ignore())
             ;
 
         profile.CreateMap<HistoricalWeatherData, DailyForecastWeatherDto>();
@@ -87,5 +93,79 @@ public class DailyForecastWeatherDto : IMapFrom<OWPDailyForecastWeather>, IMapFr
     public string? WeatherMain_night { get; set; }
     public string? WeatherDesc_night { get; set; }
     public string? WeatherIcon_night { get; set; }
-    
+
+    public string Weather_icon_url
+    {
+        get
+        {
+            return String.Format(Constants.ImageStorageOPMFormat, this.Weather_icon);
+        }
+    }
+    public string WeatherIcon_morn_url
+    {
+        get
+        {
+            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_morn);
+        }
+    }
+    public string WeatherIcon_day_url
+    {
+        get
+        {
+            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_day);
+        }
+    }
+    public string WeatherIcon_eve_url
+    {
+        get
+        {
+            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_eve);
+        }
+    }
+    public string WeatherIcon_night_url
+    {
+        get
+        {
+            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_night);
+        }
+    }
+
+}
+public class HourlyForecastWeatherDto : IMapFrom<OWPHourlyForecastWeather>
+{
+    public void Mapping(Profile profile)
+    {
+        profile.CreateMap<OWPHourlyForecastWeather, HourlyForecastWeatherDto>()
+            .ForMember(d => d.Weather_id, opt => opt.MapFrom(s => s.weather.First().id))
+            .ForMember(d => d.Weather_main, opt => opt.MapFrom(s => s.weather.First().main))
+            .ForMember(d => d.Weather_description, opt => opt.MapFrom(s => s.weather.First().description))
+            .ForMember(d => d.Weather_icon, opt => opt.MapFrom(s => s.weather.First().icon))
+            .ForMember(d => d.Weather_icon_url, opt => opt.Ignore())
+            ;
+
+    }
+    public double Dt { get; set; }
+    public double Temp { get; set; }
+    public double Feels_like { get; set; }
+    public double Pressure { get; set; }
+    public double Humidity { get; set; }
+    public double Dew_point { get; set; }
+    public double Uvi { get; set; }
+    public double Clouds { get; set; }
+    public double Visibility { get; set; }
+    public double Wind_speed { get; set; }
+    public double Wind_deg { get; set; }
+    public double Wind_gust { get; set; }
+    public double Pop { get; set; }
+    public int Weather_id { get; set; }
+    public string? Weather_main { get; set; }
+    public string? Weather_description { get; set; }
+    public string? Weather_icon { get; set; }
+    public string Weather_icon_url
+    {
+        get
+        {
+            return String.Format(Constants.ImageStorageOPMFormat, this.Weather_icon);
+        }
+    }
 }

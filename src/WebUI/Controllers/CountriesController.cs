@@ -11,6 +11,7 @@ namespace CleanArchitecture.WebUI.Controllers;
 [Authorize]
 public class CountriesController : ApiControllerBase
 {
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<Response<CountryDto>>> Get(int id)
     {
@@ -24,6 +25,7 @@ public class CountriesController : ApiControllerBase
             return BadRequest(result);
         }
     }
+    [AllowAnonymous]
     [HttpGet("[action]")]
     public async Task<ActionResult<Response<PaginatedList<CountryDto>>>> GetList([FromQuery] GetCountriesWithPaginationQuery request)
     {

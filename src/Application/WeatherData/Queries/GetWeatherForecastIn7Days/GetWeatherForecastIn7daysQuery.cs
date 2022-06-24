@@ -18,13 +18,16 @@ public class GetWeatherForecastIn7daysQueryHandler : BaseHandler<GetWeatherForec
 {
     private readonly OpenWeatherMapSettings _openWeatherMapSettings;
     private readonly ICacheService _cacheService;
+    private readonly IDateTime _dateTimeService;
     public GetWeatherForecastIn7daysQueryHandler(ICommonService commonService,
         OpenWeatherMapSettings openWeatherMapSettings,
-        ICacheService cacheService
+        ICacheService cacheService,
+        IDateTime dateTimeService
         ) : base(commonService)
     {
         this._openWeatherMapSettings = openWeatherMapSettings;
         this._cacheService = cacheService;
+        this._dateTimeService = dateTimeService;
     }
 
     public override async Task<Response<WeatherForecastDto>> Handle(GetWeatherForecastIn7daysQuery request, CancellationToken cancellationToken)
@@ -54,23 +57,34 @@ public class GetWeatherForecastIn7daysQueryHandler : BaseHandler<GetWeatherForec
                     return r;
                 }
             );
-            
+
             var result = _commonService.Mapper?.Map<WeatherForecastDto>(forecastData);
+            //change dt to the begin of day
+            if (result != null)
+            {
+                foreach (var item in result.Daily)
+                {
+                    var _date = DateTimeOffset.FromUnixTimeSeconds((long)item.Dt).ToLocalTime();
+                    var _beginDate = new DateTime(_date.Year, _date.Month, _date.Day, 0, 0, 0);
+                    item.Dt = _dateTimeService.ConvertDatetimeToUnixTimeStamp(_beginDate);
+                }
+            }
+
             var currentWeatherForecast = result?.Daily.OrderBy(x => x.Dt).FirstOrDefault();
             if (currentWeatherForecast != null)
             {
-                var currentWeatherData = _commonService.ApplicationDBContext.HistoricalWeatherDatas.AsNoTracking().FirstOrDefault(x => x.Dt == currentWeatherForecast.Dt);
+                var currentWeatherData = _commonService.ApplicationDBContext.HistoricalWeatherDatas.AsNoTracking().FirstOrDefault(x => x.Dt == currentWeatherForecast.Dt && x.ProvinceId == request.ProvinceId);
                 if (currentWeatherData != null)
                 {
                     //replace current forecast data by current history data
                     var currentWeather = _commonService.Mapper?.Map<DailyForecastWeatherDto>(currentWeatherData);
                     result?.Daily.Remove(currentWeatherForecast);
-                    #pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8604 // Possible null reference argument.
                     result?.Daily.Add(currentWeather);
-                    #pragma warning restore CS8604 // Possible null reference argument.
-                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                     result.Daily = result.Daily.OrderBy(x => x.Dt).ToList();
-                    #pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 }
             }
 

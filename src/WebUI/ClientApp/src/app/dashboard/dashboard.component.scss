@@ -1,0 +1,74 @@
+.list-group-item .row > div:not(.icon-box) {
+  margin-top: 14px;
+}
+.icon-box img {
+  height: 50px;
+}
+.list-group-item:hover {
+  background-color: gainsboro;
+  cursor: pointer;
+}
+div.scrollmenu {
+  background-color: gainsboro;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+div.scrollmenu a.active {
+  font-weight: bold;
+}
+.current-temp {
+  display: flex;
+}
+.current-temp img {
+  height: 50px;
+}
+.current-temp span {
+  font-weight: bold;
+  font-size: 35px;
+}
+ul.weather-items {
+  list-style: none;
+  border-left: red solid 1px;
+  flex-wrap: wrap;
+  display: flex;
+  padding-left: 16pt;
+  padding-right: 16pt;
+  margin-bottom: 0;
+}
+.weather-items li {
+  margin-right: 16pt;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.tbDayDetail {
+  text-align: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.tbDayDetail td:first-child {
+  color: #8a8a8a;
+  font-size: 13px;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+.tbDayDetail th {
+  font-weight: 500;
+  padding: 2pt 4pt;
+}
+.tbDayDetail td.weather {
+  font-size: 12px;
+}
+.tbDayDetail td.weather img {
+  height: 50px;
+}

@@ -1,4 +1,6 @@
-﻿namespace OpenWeatherMapAPI.Models;
+﻿using CleanArchitecture.Domain;
+
+namespace OpenWeatherMapAPI.Models;
 
 public class OWPWeatherCondition
 {
@@ -6,10 +8,12 @@ public class OWPWeatherCondition
     public string? Main { get; set; }
     public string? Description { get; set; }
     public string? Icon { get; set; }
-    public string IconUrl { get
+    public string IconUrl
+    {
+        get
         {
-            return $"https://openweathermap.org/img/wn/{Icon}.png";
-        } 
+            return String.Format(Constants.ImageStorageOPMFormat, this.Icon);
+        }
     }
     public string? WeatherConditionGroupId { get; set; }
 }

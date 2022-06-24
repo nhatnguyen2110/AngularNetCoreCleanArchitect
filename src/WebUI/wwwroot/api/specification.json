@@ -98,12 +98,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/Countries/GetList": {
@@ -152,12 +147,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/Countries/Create": {
@@ -1781,6 +1771,12 @@
             "items": {
               "$ref": "#/components/schemas/DailyForecastWeatherDto"
             }
+          },
+          "hourly": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HourlyForecastWeatherDto"
+            }
           }
         }
       },
@@ -1931,6 +1927,98 @@
           "weatherIcon_night": {
             "type": "string",
             "nullable": true
+          },
+          "weather_icon_url": {
+            "type": "string"
+          },
+          "weatherIcon_morn_url": {
+            "type": "string"
+          },
+          "weatherIcon_day_url": {
+            "type": "string"
+          },
+          "weatherIcon_eve_url": {
+            "type": "string"
+          },
+          "weatherIcon_night_url": {
+            "type": "string"
+          }
+        }
+      },
+      "HourlyForecastWeatherDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dt": {
+            "type": "number",
+            "format": "double"
+          },
+          "temp": {
+            "type": "number",
+            "format": "double"
+          },
+          "feels_like": {
+            "type": "number",
+            "format": "double"
+          },
+          "pressure": {
+            "type": "number",
+            "format": "double"
+          },
+          "humidity": {
+            "type": "number",
+            "format": "double"
+          },
+          "dew_point": {
+            "type": "number",
+            "format": "double"
+          },
+          "uvi": {
+            "type": "number",
+            "format": "double"
+          },
+          "clouds": {
+            "type": "number",
+            "format": "double"
+          },
+          "visibility": {
+            "type": "number",
+            "format": "double"
+          },
+          "wind_speed": {
+            "type": "number",
+            "format": "double"
+          },
+          "wind_deg": {
+            "type": "number",
+            "format": "double"
+          },
+          "wind_gust": {
+            "type": "number",
+            "format": "double"
+          },
+          "pop": {
+            "type": "number",
+            "format": "double"
+          },
+          "weather_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "weather_main": {
+            "type": "string",
+            "nullable": true
+          },
+          "weather_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "weather_icon": {
+            "type": "string",
+            "nullable": true
+          },
+          "weather_icon_url": {
+            "type": "string"
           }
         }
       },
@@ -2272,6 +2360,12 @@
             }
           },
           "weatherConditions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OWPWeatherCondition"
+            }
+          },
+          "weatherConditionsInNight": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/OWPWeatherCondition"

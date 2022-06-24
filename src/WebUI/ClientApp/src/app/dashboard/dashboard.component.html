@@ -1,0 +1,634 @@
+<div class="container-fluid">
+  <div class="p-5 my-4 bg-light rounded-3">
+    <div class="row">
+      <div class="col-md-4">
+        <ng-select
+          [items]="countriesList"
+          [clearable]="false"
+          [(ngModel)]="selectedCountry"
+          (change)="onChangeCountry($event)"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <span
+              *ngIf="item.userDefined2"
+              class="{{ item.userDefined2 }}"
+            ></span>
+            {{ item.name }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            <span
+              *ngIf="item.userDefined2"
+              class="{{ item.userDefined2 }}"
+            ></span>
+            {{ item.name }}
+          </ng-template>
+        </ng-select>
+        <div class="text-danger" *ngIf="currentDateTime">
+          {{ currentDateTime.format("LLL Z") }}
+          <br />Timezone: {{ selectedTimezone }}
+        </div>
+      </div>
+      <div class="col-md-8" *ngIf="selectedCountry">
+        <ng-select
+          [items]="selectedCountry.provinces"
+          [clearable]="false"
+          [(ngModel)]="selectedProvince"
+          bindLabel="name"
+          (change)="getForecastWeatherIn7Days()"
+        >
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="weatherForecastData && selectedProvince">
+    <div class="col-md-12">
+      <h3>Weather Forecast</h3>
+      <ul class="list-group mb-12" *ngIf="!selectedDt">
+        <li
+          class="list-group-item"
+          *ngFor="let x of weatherForecastData"
+          (click)="loadForecastDetail(x)"
+        >
+          <div class="row">
+            <div class="col-md-2">
+              {{ getDateTime(x.dt).format("ddd, MMM D") }}
+            </div>
+            <div class="col-md-2 icon-box">
+              <img [src]="x.weather_icon_url" />
+              {{ x.temp_min | number: "1.0-0" }}-{{
+                x.temp_max | number: "1.0-0"
+              }}°C
+            </div>
+            <div class="col-md-2">{{ x.weather_description }}</div>
+            <div class="col-md-1">
+              <fa-icon [icon]="faCloudShowersHeavy" title="Pop"></fa-icon>
+              {{ x.pop * 100 | number: "1.0-0" }}%
+            </div>
+            <div class="col-md-1">
+              <fa-icon [icon]="faTint" title="Humidity"></fa-icon>
+              {{ x.humidity }}%
+            </div>
+            <div class="col-md-3">
+              <fa-icon [icon]="faCloudSun" title="Sunrise-Sunset"></fa-icon>
+              {{ getDateTime(x.sunrise).format("hh:mmA") }} -
+              {{ getDateTime(x.sunset).format("hh:mmA") }}
+            </div>
+            <div class="col-md-1 text-right">
+              <fa-icon [icon]="faAngleDoubleDown"></fa-icon>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="scrollmenu" *ngIf="selectedDt" id="box-scrollmenu">
+        <a
+          [class.active]="x.dt == selectedDt.dt"
+          *ngFor="let x of weatherForecastData"
+          (click)="loadForecastDetail(x)"
+          id="dt-{{ x.dt }}"
+          >{{ getDateTime(x.dt).format("ddd, MMM D") }}</a
+        >
+      </div>
+    </div>
+    <div class="col-md-12" *ngIf="selectedDt">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="current-temp">
+            <img [src]="selectedDt.weather_icon_url" />
+            <span>{{ selectedDt.temp_avg | number: "1.0-0" }}°C</span>
+          </div>
+          <div class="font-weight-bold">
+            {{ selectedDt.weather_description }}
+          </div>
+          <div>
+            The high will be {{ selectedDt.temp_max | number: "1.0-0" }}°C. The
+            low will be {{ selectedDt.temp_min | number: "1.0-0" }}°C
+          </div>
+          <ul class="weather-items">
+            <li>
+              <fa-icon [icon]="faCloudShowersHeavy"></fa-icon>Pop:
+              {{ selectedDt.pop * 100 | number: "1.0-0" }}%
+            </li>
+            <li>
+              <fa-icon [icon]="faWind"></fa-icon>Wind speed:
+              {{ selectedDt.wind_speed }}m/s
+            </li>
+            <li>
+              <fa-icon [icon]="faTint"></fa-icon>
+              Humidity: {{ selectedDt.humidity }}%
+            </li>
+            <li>
+              <fa-icon [icon]="faSmog"></fa-icon>
+              Dew Point: {{ selectedDt.dew_point | number: "1.0-0" }}%
+            </li>
+            <li>
+              <fa-icon [icon]="faCloud"></fa-icon>Clouds:
+              {{ selectedDt.clouds }}%
+            </li>
+          </ul>
+          <div>
+            Sunrise: {{ getDateTime(selectedDt.sunrise).format("hh:mmA") }}.
+            Sunset: {{ getDateTime(selectedDt.sunset).format("hh:mmA") }}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="table-responsive">
+            <table class="tbDayDetail">
+              <tr>
+                <th></th>
+                <th>Morning <br /><small>6AM-12PM</small></th>
+                <th>Afternoon <br /><small>12PM-5PM</small></th>
+                <th>Evening <br /><small>5PM-9PM</small></th>
+                <th>Night <br /><small>9PM-6AM</small></th>
+              </tr>
+              <tr>
+                <td>Temperature</td>
+                <td>{{ selectedDt.temp_morn | number: "1.0-0" }}°C</td>
+                <td>{{ selectedDt.temp_day | number: "1.0-0" }}°C</td>
+                <td>{{ selectedDt.temp_eve | number: "1.0-0" }}°C</td>
+                <td>{{ selectedDt.temp_night | number: "1.0-0" }}°C</td>
+              </tr>
+              <tr>
+                <td>Weather</td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="
+                      selectedDt.weatherId_morn && selectedDt.weatherId_morn > 0
+                    "
+                    [ngIfElse]="tplNotAvailable"
+                  >
+                    <img [src]="selectedDt.weatherIcon_morn_url" /><br />
+                    {{ selectedDt.weatherMain_morn }}<br />
+                    {{ selectedDt.weatherDesc_morn }}
+                  </ng-template>
+                  <ng-template #tplNotAvailable> Not Available </ng-template>
+                </td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="
+                      selectedDt.weatherId_day && selectedDt.weatherId_day > 0
+                    "
+                    [ngIfElse]="tplNotAvailable1"
+                  >
+                    <img [src]="selectedDt.weatherIcon_day_url" /><br />
+                    {{ selectedDt.weatherMain_day }}<br />
+                    {{ selectedDt.weatherDesc_day }}</ng-template
+                  >
+                  <ng-template #tplNotAvailable1> Not Available </ng-template>
+                </td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="
+                      selectedDt.weatherId_eve && selectedDt.weatherId_eve > 0
+                    "
+                    [ngIfElse]="tplNotAvailable"
+                  >
+                    <img [src]="selectedDt.weatherIcon_eve_url" /><br />
+                    {{ selectedDt.weatherMain_eve }}<br />
+                    {{ selectedDt.weatherDesc_eve }}</ng-template
+                  >
+                </td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="
+                      selectedDt.weatherId_night &&
+                      selectedDt.weatherId_night > 0
+                    "
+                    [ngIfElse]="tplNotAvailable"
+                  >
+                    <img [src]="selectedDt.weatherIcon_night_url" /><br />
+                    {{ selectedDt.weatherMain_night }}<br />
+                    {{ selectedDt.weatherDesc_night }}</ng-template
+                  >
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="isAuthenticated | async">
+          <button *ngIf="selectedDt.dt === weatherForecastData[0].dt"
+            type="button"
+            class="btn btn-primary"
+            (click)="showWeatherDetailModal(weatherDetailsModalTemplate)"
+          >
+            <ng-template [ngIf]="selectedDt.id > 0" [ngIfElse]="tplNewWeather"
+              ><fa-icon [icon]="faFileAlt"></fa-icon> Edit & Save</ng-template
+            >
+            <ng-template #tplNewWeather
+              ><fa-icon [icon]="faFile"></fa-icon> Edit & Save</ng-template
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #weatherDetailsModalTemplate>
+  <form
+    [formGroup]="editWeatherForm"
+    autocomplete="off"
+    (ngSubmit)="updateWeatherDetails()"
+  >
+    <div class="modal-header clearfix">
+      <h4 class="modal-title float-left">Weather Forecast Detail</h4>
+      <button
+        type="button"
+        class="close float-right"
+        aria-label="Close"
+        (click)="editWeatherModalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form">
+        <div class="form-group">
+          <label for="temp_avg">Temperature Avg (°C)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="temp_avg"
+            formControlName="temp_avg"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('temp_avg')?.errors &&
+              editWeatherForm.get('temp_avg')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="temp_min">Temperature Min (°C)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="temp_min"
+            formControlName="temp_min"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('temp_min')?.errors &&
+              editWeatherForm.get('temp_min')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="temp_max">Temperature Max (°C)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="temp_max"
+            formControlName="temp_max"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('temp_max')?.errors &&
+              editWeatherForm.get('temp_max')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="humidity">Humidity (%)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="humidity"
+            formControlName="humidity"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('humidity')?.errors &&
+              editWeatherForm.get('humidity')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="dew_point">Dew point (°C)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="dew_point"
+            formControlName="dew_point"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('dew_point')?.errors &&
+              editWeatherForm.get('dew_point')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="pop">Pop</label>
+          <input
+            type="number"
+            class="form-control"
+            id="pop"
+            formControlName="pop"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('pop')?.errors &&
+              editWeatherForm.get('pop')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="wind_speed">Wind speed (m/s)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="wind_speed"
+            formControlName="wind_speed"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('wind_speed')?.errors &&
+              editWeatherForm.get('wind_speed')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="clouds">Clouds (%)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="clouds"
+            formControlName="clouds"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('clouds')?.errors &&
+              editWeatherForm.get('clouds')?.errors['required']
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="weather_id">Weather</label>
+          <ng-select
+            [items]="weatherConditions.weatherConditions"
+            [clearable]="false"
+            id="weather_id"
+            formControlName="weather_id"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('weather_id')?.errors &&
+              (editWeatherForm.get('weather_id')?.errors['required'] ||
+                editWeatherForm.get('weather_id')?.errors['min'])
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="weather_description">Weather Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="weather_description"
+            formControlName="weather_description"
+          />
+        </div>
+        <div class="form-group">
+          <label for="weatherId_morn">Morning Weather</label>
+          <ng-select
+            [items]="weatherConditions.weatherConditions"
+            [clearable]="false"
+            id="weatherId_morn"
+            formControlName="weatherId_morn"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onMorningWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('weatherId_morn')?.errors &&
+              (editWeatherForm.get('weatherId_morn')?.errors['required'] ||
+                editWeatherForm.get('weatherId_morn')?.errors['min'])
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="weatherDesc_morn">Morning Weather Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="weatherDesc_morn"
+            formControlName="weatherDesc_morn"
+          />
+        </div>
+        <div class="form-group">
+          <label for="weatherId_day">Afternoon Weather</label>
+          <ng-select
+            [items]="weatherConditions.weatherConditions"
+            [clearable]="false"
+            id="weatherId_day"
+            formControlName="weatherId_day"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onAfternoonWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('weatherId_day')?.errors &&
+              (editWeatherForm.get('weatherId_day')?.errors['required'] ||
+                editWeatherForm.get('weatherId_day')?.errors['min'])
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="weatherDesc_day">Afternoon Weather Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="weatherDesc_day"
+            formControlName="weatherDesc_day"
+          />
+        </div>
+        <div class="form-group">
+          <label for="weatherId_eve">Evening Weather</label>
+          <ng-select
+            [items]="weatherConditions.weatherConditionsInNight"
+            [clearable]="false"
+            id="weatherId_eve"
+            formControlName="weatherId_eve"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onEveningWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('weatherId_eve')?.errors &&
+              (editWeatherForm.get('weatherId_eve')?.errors['required'] ||
+                editWeatherForm.get('weatherId_eve')?.errors['min'])
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="weatherDesc_eve">Evening Weather Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="weatherDesc_eve"
+            formControlName="weatherDesc_eve"
+          />
+        </div>
+        <div class="form-group">
+          <label for="weatherId_night">Night Weather</label>
+          <ng-select
+            [items]="weatherConditions.weatherConditionsInNight"
+            [clearable]="false"
+            id="weatherId_night"
+            formControlName="weatherId_night"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onNightWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              editWeatherForm.get('weatherId_night')?.errors &&
+              (editWeatherForm.get('weatherId_night')?.errors['required'] ||
+                editWeatherForm.get('weatherId_night')?.errors['min'])
+            "
+            >Required field</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="weatherDesc_night">Night Weather Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="weatherDesc_night"
+            formControlName="weatherDesc_night"
+          />
+        </div>
+      </div>
+      <div *ngIf="debug">
+        <pre>{{ selectedDt | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="clearfix">
+        <div class="float-right">
+          <button
+            type="button"
+            class="btn btn-default"
+            (click)="editWeatherModalRef.hide()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            appThrottleTimeClick
+            (throttledClick)="updateWeatherDetails()"
+            [disabled]="editWeatherForm.invalid"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

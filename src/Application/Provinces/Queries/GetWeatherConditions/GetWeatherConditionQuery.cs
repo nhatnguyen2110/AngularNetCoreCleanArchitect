@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CleanArchitecture.Application.Common.Handlers;
+﻿using CleanArchitecture.Application.Common.Handlers;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using MediatR;
@@ -25,7 +20,8 @@ public class GetWeatherConditionQueryHandler : BaseHandler<GetWeatherConditionQu
         return Task.FromResult(Response<WeatherConditionCollectionDto>.Success(new WeatherConditionCollectionDto()
         {
             WeatherConditionGroups = OpenWeatherStorage.GetWeatherConditionGroup(),
-            WeatherConditions = OpenWeatherStorage.GetWeatherConditions()
+            WeatherConditions = OpenWeatherStorage.GetWeatherConditions(),
+            WeatherConditionsInNight = OpenWeatherStorage.GetWeatherConditions_InNight()
         }));
     }
 }
