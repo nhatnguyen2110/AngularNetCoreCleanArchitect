@@ -1264,6 +1264,7 @@ export class TodoListsClient implements ITodoListsClient {
 
 export interface IWeatherClient {
     getForecastWeatherIn7Days(provinceId: number | undefined): Observable<ResponseOfWeatherForecastDto>;
+    getLastLocalHistoricalWeatherQuery(provinceId: number | undefined, currentDt: number | undefined, noOfYearToGet: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto>;
     create(request: CreateWeatherDataCommand): Observable<ResponseOfInteger>;
     update(request: UpdateWeatherDataCommand): Observable<ResponseOfUnit>;
     delete(request: DeleteWeatherDataCommand): Observable<ResponseOfUnit>;
@@ -1333,6 +1334,74 @@ export class WeatherClient implements IWeatherClient {
             }));
         }
         return _observableOf<ResponseOfWeatherForecastDto>(<any>null);
+    }
+
+    getLastLocalHistoricalWeatherQuery(provinceId: number | undefined, currentDt: number | undefined, noOfYearToGet: number | undefined, pageNumber: number | undefined, pageSize: number | undefined) : Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto> {
+        let url_ = this.baseUrl + "/api/Weather/GetLastLocalHistoricalWeatherQuery?";
+        if (provinceId === null)
+            throw new Error("The parameter 'provinceId' cannot be null.");
+        else if (provinceId !== undefined)
+            url_ += "ProvinceId=" + encodeURIComponent("" + provinceId) + "&";
+        if (currentDt === null)
+            throw new Error("The parameter 'currentDt' cannot be null.");
+        else if (currentDt !== undefined)
+            url_ += "CurrentDt=" + encodeURIComponent("" + currentDt) + "&";
+        if (noOfYearToGet === null)
+            throw new Error("The parameter 'noOfYearToGet' cannot be null.");
+        else if (noOfYearToGet !== undefined)
+            url_ += "NoOfYearToGet=" + encodeURIComponent("" + noOfYearToGet) + "&";
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "PageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLastLocalHistoricalWeatherQuery(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLastLocalHistoricalWeatherQuery(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetLastLocalHistoricalWeatherQuery(response: HttpResponseBase): Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfPaginatedListOfDailyForecastWeatherDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfPaginatedListOfDailyForecastWeatherDto>(<any>null);
     }
 
     create(request: CreateWeatherDataCommand) : Observable<ResponseOfInteger> {
@@ -3327,6 +3396,103 @@ export interface IHourlyForecastWeatherDto {
     weather_description?: string | undefined;
     weather_icon?: string | undefined;
     weather_icon_url?: string;
+}
+
+export class ResponseOfPaginatedListOfDailyForecastWeatherDto extends Response implements IResponseOfPaginatedListOfDailyForecastWeatherDto {
+    data?: PaginatedListOfDailyForecastWeatherDto | undefined;
+
+    constructor(data?: IResponseOfPaginatedListOfDailyForecastWeatherDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? PaginatedListOfDailyForecastWeatherDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfPaginatedListOfDailyForecastWeatherDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfPaginatedListOfDailyForecastWeatherDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfPaginatedListOfDailyForecastWeatherDto extends IResponse {
+    data?: PaginatedListOfDailyForecastWeatherDto | undefined;
+}
+
+export class PaginatedListOfDailyForecastWeatherDto implements IPaginatedListOfDailyForecastWeatherDto {
+    items?: DailyForecastWeatherDto[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+
+    constructor(data?: IPaginatedListOfDailyForecastWeatherDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(DailyForecastWeatherDto.fromJS(item));
+            }
+            this.pageNumber = _data["pageNumber"];
+            this.totalPages = _data["totalPages"];
+            this.totalCount = _data["totalCount"];
+            this.hasPreviousPage = _data["hasPreviousPage"];
+            this.hasNextPage = _data["hasNextPage"];
+        }
+    }
+
+    static fromJS(data: any): PaginatedListOfDailyForecastWeatherDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PaginatedListOfDailyForecastWeatherDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["pageNumber"] = this.pageNumber;
+        data["totalPages"] = this.totalPages;
+        data["totalCount"] = this.totalCount;
+        data["hasPreviousPage"] = this.hasPreviousPage;
+        data["hasNextPage"] = this.hasNextPage;
+        return data; 
+    }
+}
+
+export interface IPaginatedListOfDailyForecastWeatherDto {
+    items?: DailyForecastWeatherDto[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
 }
 
 export class CreateWeatherDataCommand implements ICreateWeatherDataCommand {

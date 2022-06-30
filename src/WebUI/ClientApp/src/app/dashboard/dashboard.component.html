@@ -205,7 +205,8 @@
           </div>
         </div>
         <div class="col-md-12" *ngIf="isAuthenticated | async">
-          <button *ngIf="selectedDt.dt === weatherForecastData[0].dt"
+          <button
+            *ngIf="selectedDt.dt === weatherForecastData[0].dt"
             type="button"
             class="btn btn-primary"
             (click)="showWeatherDetailModal(weatherDetailsModalTemplate)"
@@ -217,6 +218,156 @@
               ><fa-icon [icon]="faFile"></fa-icon> Edit & Save</ng-template
             >
           </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="historicalWeatheData.length>0">
+        <div class="col-md-12">
+          <hr />
+          <h4>Historical Stats</h4>
+        </div>
+        <div class="col-md-6">
+          <canvas
+            baseChart
+            [data]="salesData"
+            [type]="'bar'"
+            [options]="chartOptions"
+          >
+          </canvas>
+        </div>
+        <div class="col-md-6">
+          <div class="table-responsive">
+            <table class="tbDayDetail">
+              <tr>
+                <th></th>
+                <th>Morning <br /><small>6AM-12PM</small></th>
+                <th>Afternoon <br /><small>12PM-5PM</small></th>
+                <th>Evening <br /><small>5PM-9PM</small></th>
+                <th>Night <br /><small>9PM-6AM</small></th>
+              </tr>
+              <tr *ngFor="let x of historicalWeatheData">
+                <td>{{ getDateTime(x.dt).format("MMM D,yyyy") }}</td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="x.weatherId_morn && x.weatherId_morn > 0"
+                    [ngIfElse]="tplNotAvailable"
+                  >
+                    <img [src]="x.weatherIcon_morn_url" /><br />
+                    {{ x.weatherMain_morn }}<br />
+                    {{ x.weatherDesc_morn }}
+                  </ng-template>
+                </td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="x.weatherId_day && x.weatherId_day > 0"
+                    [ngIfElse]="tplNotAvailable1"
+                  >
+                    <img [src]="x.weatherIcon_day_url" /><br />
+                    {{ x.weatherMain_day }}<br />
+                    {{ x.weatherDesc_day }}</ng-template
+                  >
+                </td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="x.weatherId_eve && x.weatherId_eve > 0"
+                    [ngIfElse]="tplNotAvailable"
+                  >
+                    <img [src]="x.weatherIcon_eve_url" /><br />
+                    {{ x.weatherMain_eve }}<br />
+                    {{ x.weatherDesc_eve }}</ng-template
+                  >
+                </td>
+                <td class="weather">
+                  <ng-template
+                    [ngIf]="x.weatherId_night && x.weatherId_night > 0"
+                    [ngIfElse]="tplNotAvailable"
+                  >
+                    <img [src]="x.weatherIcon_night_url" /><br />
+                    {{ x.weatherMain_night }}<br />
+                    {{ x.weatherDesc_night }}</ng-template
+                  >
+                </td>
+              </tr>
+            </table>
+          </div>
+          <hr />
+          <div class="table-responsive">
+            <table class="tbDayDetail">
+              <tr>
+                <th></th>
+                <th *ngFor="let x of historicalWeatheData">
+                  {{ getDateTime(x.dt).format("MMM D,yyyy") }}
+                </th>
+              </tr>
+              <tr>
+                <td>Weather</td>
+                <td class="weather" *ngFor="let x of historicalWeatheData">
+                  <img [src]="x.weatherIcon_morn_url" /><br />
+                  {{ x.weatherMain_morn }}<br />
+                  {{ x.weatherDesc_morn }}
+                </td>
+              </tr>
+              <tr>
+                <td>Temperature Avg</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.temp_avg | number: "1.0-0" }}°C
+                </td>
+              </tr>
+              <tr>
+                <td>Temperature Min</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.temp_min | number: "1.0-0" }}°C
+                </td>
+              </tr>
+              <tr>
+                <td>Temperature Max</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.temp_max | number: "1.0-0" }}°C
+                </td>
+              </tr>
+              <tr>
+                <td>Humidity</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.humidity | number: "1.0-0" }}%
+                </td>
+              </tr>
+              <tr>
+                <td>Dew Point</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.dew_point | number: "1.0-0" }}°C
+                </td>
+              </tr>
+              <tr>
+                <td>Pop</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.pop * 100 | number: "1.0-0" }}%
+                </td>
+              </tr>
+              <tr>
+                <td>Wind speed</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.wind_speed }}m/s
+                </td>
+              </tr>
+              <tr>
+                <td>Clouds</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ x.clouds | number: "1.0-0" }}%
+                </td>
+              </tr>
+              <tr>
+                <td>Sunrise</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ getDateTime(x.sunrise).format("hh:mmA") }}
+                </td>
+              </tr>
+              <tr>
+                <td>Sunset</td>
+                <td *ngFor="let x of historicalWeatheData">
+                  {{ getDateTime(x.sunset).format("hh:mmA") }}
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>

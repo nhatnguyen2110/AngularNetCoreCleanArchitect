@@ -32,6 +32,8 @@ import {
 import { Observable } from "rxjs";
 import { AuthorizeService } from "src/api-authorization/authorize.service";
 import { TestBed } from "@angular/core/testing";
+import { ChartData, ChartOptions } from "chart.js";
+import { $ } from "protractor";
 export enum DayTime {
   Morning,
   Afternoon,
@@ -73,7 +75,21 @@ export class DashboardComponent implements OnInit {
   editWeatherForm: FormGroup;
   editWeatherModalRef: BsModalRef;
   weatherConditions: WeatherConditionCollectionDto;
-  debug=true;
+  historicalWeatheData: DailyForecastWeatherDto[];
+
+  salesData: ChartData<"bar">;
+  chartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+      },
+      title: {
+        display: true,
+        text: "Historical Temperature",
+      },
+    },
+  };
   constructor(
     private countriesClient: CountriesClient,
     private provincesClient: ProvincesClient,
@@ -273,6 +289,7 @@ export class DashboardComponent implements OnInit {
           document.getElementById("dt-" + wfd.dt).getBoundingClientRect().left /
           2;
       }, 100);
+      this.loadHistoricalStats();
     }
   }
   collapseForecastDetail() {
@@ -379,7 +396,8 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weather_description;
             this.selectedDt.weather_icon =
               this.editWeatherForm.value.weather_icon;
-              this.selectedDt.weather_icon_url = this.editWeatherForm.value.weather_icon_url;
+            this.selectedDt.weather_icon_url =
+              this.editWeatherForm.value.weather_icon_url;
             this.selectedDt.temp_morn = this.editWeatherForm.value.temp_morn;
             this.selectedDt.temp_day = this.editWeatherForm.value.temp_day;
             this.selectedDt.temp_eve = this.editWeatherForm.value.temp_eve;
@@ -392,7 +410,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_morn;
             this.selectedDt.weatherIcon_morn =
               this.editWeatherForm.value.weatherIcon_morn;
-              this.selectedDt.weatherIcon_morn_url =
+            this.selectedDt.weatherIcon_morn_url =
               this.editWeatherForm.value.weatherIcon_morn_url;
             this.selectedDt.weatherId_day =
               this.editWeatherForm.value.weatherId_day;
@@ -402,7 +420,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_day;
             this.selectedDt.weatherIcon_day =
               this.editWeatherForm.value.weatherIcon_day;
-              this.selectedDt.weatherIcon_day_url =
+            this.selectedDt.weatherIcon_day_url =
               this.editWeatherForm.value.weatherIcon_day_url;
             this.selectedDt.weatherId_eve =
               this.editWeatherForm.value.weatherId_eve;
@@ -412,7 +430,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_eve;
             this.selectedDt.weatherIcon_eve =
               this.editWeatherForm.value.weatherIcon_eve;
-              this.selectedDt.weatherIcon_eve_url =
+            this.selectedDt.weatherIcon_eve_url =
               this.editWeatherForm.value.weatherIcon_eve_url;
             this.selectedDt.weatherId_night =
               this.editWeatherForm.value.weatherId_night;
@@ -422,7 +440,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_night;
             this.selectedDt.weatherIcon_night =
               this.editWeatherForm.value.weatherIcon_night;
-              this.selectedDt.weatherIcon_night_url =
+            this.selectedDt.weatherIcon_night_url =
               this.editWeatherForm.value.weatherIcon_night_url;
             this.editWeatherModalRef.hide();
             this.notifier.notify("success", "Save changes successfully");
@@ -455,7 +473,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weather_description;
             this.selectedDt.weather_icon =
               this.editWeatherForm.value.weather_icon;
-              this.selectedDt.weather_icon_url =
+            this.selectedDt.weather_icon_url =
               this.editWeatherForm.value.weather_icon_url;
             this.selectedDt.temp_morn = this.editWeatherForm.value.temp_morn;
             this.selectedDt.temp_day = this.editWeatherForm.value.temp_day;
@@ -469,7 +487,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_morn;
             this.selectedDt.weatherIcon_morn =
               this.editWeatherForm.value.weatherIcon_morn;
-              this.selectedDt.weatherIcon_morn_url =
+            this.selectedDt.weatherIcon_morn_url =
               this.editWeatherForm.value.weatherIcon_morn_url;
             this.selectedDt.weatherId_day =
               this.editWeatherForm.value.weatherId_day;
@@ -479,7 +497,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_day;
             this.selectedDt.weatherIcon_day =
               this.editWeatherForm.value.weatherIcon_day;
-              this.selectedDt.weatherIcon_day_url =
+            this.selectedDt.weatherIcon_day_url =
               this.editWeatherForm.value.weatherIcon_day_url;
             this.selectedDt.weatherId_eve =
               this.editWeatherForm.value.weatherId_eve;
@@ -489,7 +507,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_eve;
             this.selectedDt.weatherIcon_eve =
               this.editWeatherForm.value.weatherIcon_eve;
-              this.selectedDt.weatherIcon_eve_url =
+            this.selectedDt.weatherIcon_eve_url =
               this.editWeatherForm.value.weatherIcon_eve_url;
             this.selectedDt.weatherId_night =
               this.editWeatherForm.value.weatherId_night;
@@ -499,7 +517,7 @@ export class DashboardComponent implements OnInit {
               this.editWeatherForm.value.weatherDesc_night;
             this.selectedDt.weatherIcon_night =
               this.editWeatherForm.value.weatherIcon_night;
-              this.selectedDt.weatherIcon_night_url =
+            this.selectedDt.weatherIcon_night_url =
               this.editWeatherForm.value.weatherIcon_night_url;
             this.editWeatherModalRef.hide();
             this.notifier.notify("success", "Save changes successfully");
@@ -524,7 +542,7 @@ export class DashboardComponent implements OnInit {
       weather_main: $event.main,
       weather_description: $event.description,
       weather_icon: $event.icon,
-      weather_icon_url: $event.iconUrl
+      weather_icon_url: $event.iconUrl,
     });
   }
   onAfternoonWeatherChange($event) {
@@ -715,5 +733,51 @@ export class DashboardComponent implements OnInit {
       }
     }
     return null;
+  }
+  loadHistoricalStats() {
+    if (this.selectedDt) {
+      this.weatherClient
+        .getLastLocalHistoricalWeatherQuery(
+          this.selectedProvince.id,
+          this.selectedDt.dt,
+          //1687885200,
+          4,
+          1,
+          99
+        )
+        .subscribe(
+          (result) => {
+            this.historicalWeatheData = result.data.items;
+            let dataset = [];
+            this.historicalWeatheData.forEach((element) => {
+              dataset.push({
+                label: this.getDateTime(element.dt, true).format("MMM D,yyyy"),
+                data: [
+                  Math.ceil(element.temp_morn),
+                  Math.ceil(element.temp_day),
+                  Math.ceil(element.temp_eve),
+                  Math.ceil(element.temp_night),
+                ],
+              });
+            });
+            dataset.push({
+              label: this.getDateTime(this.selectedDt.dt, true).format(
+                "MMM D,yyyy"
+              ),
+              data: [
+                Math.ceil(this.selectedDt.temp_morn),
+                Math.ceil(this.selectedDt.temp_day),
+                Math.ceil(this.selectedDt.temp_eve),
+                Math.ceil(this.selectedDt.temp_night),
+              ],
+            });
+            this.salesData = {
+              labels: ["Morning", "Afternoon", "Evening", "Night"],
+              datasets: dataset,
+            };
+          },
+          (error) => console.error(error)
+        );
+    }
   }
 }

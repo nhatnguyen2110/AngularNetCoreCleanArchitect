@@ -3,7 +3,7 @@ using CleanArchitecture.Application.GetWeatherConditions.Queries.GetWeatherCondi
 using CleanArchitecture.Application.WeatherData.Commands.CreateWeatherData;
 using CleanArchitecture.Application.WeatherData.Commands.DeleteWeatherData;
 using CleanArchitecture.Application.WeatherData.Commands.UpdateWeatherData;
-using CleanArchitecture.Application.WeatherData.Queries.GetHistoricalWeatherData;
+using CleanArchitecture.Application.WeatherData.Queries.GetLocalDataHistoricalWeather;
 using CleanArchitecture.Application.WeatherData.Queries.GetWeatherForecastIn7Days;
 using CleanArchitecture.Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -42,6 +42,31 @@ public class WeatherController : ApiControllerBase
             return BadRequest(new Response(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Forecast Weather"));
         }
     }
+
+    [AllowAnonymous]
+    [HttpGet("[action]")]
+    public async Task<ActionResult<Response<PaginatedList<DailyForecastWeatherDto>>>> GetLastLocalHistoricalWeatherQuery([FromQuery] GetLastLocalHistoricalWeatherQuery request)
+    {
+        try
+        {
+            var response = await Mediator.Send(request);
+            if (response.Succeeded)
+            {
+                return response;
+            }
+            else
+            {
+                _logger.LogError($"Failed to get weather data (Request: {JsonConvert.SerializeObject(request)}). Response: {JsonConvert.SerializeObject(response)}");
+                return BadRequest(response);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Failed to get weather data (Request: {JsonConvert.SerializeObject(request)}). Message: {ex.Message}");
+            return BadRequest(new Response(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Forecast Weather"));
+        }
+    }
+
     [Authorize]
     [HttpPost("[action]")]
     public async Task<ActionResult<Response<int>>> Create([FromBody] CreateWeatherDataCommand request)
@@ -134,4 +159,5 @@ public class WeatherController : ApiControllerBase
             return BadRequest(new Response(false, Constants.GeneralErrorMessage, ex.Message, "Failed to get weather conditions"));
         }
     }
+
 }

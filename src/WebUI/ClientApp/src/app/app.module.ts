@@ -24,6 +24,7 @@ import { DebouncePreventClickDirective } from './directives/debouncePreventClick
 import { ThrottleTimePreventClickDirective } from './directives/throtteTimePreventClick.directive';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     NotifierModule,
     NgSelectModule,
+    NgChartsModule,
     BlockUIModule.forRoot({
       delayStart: 0,
       delayStop: 0,
