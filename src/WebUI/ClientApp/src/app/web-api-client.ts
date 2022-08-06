@@ -14,6 +14,394 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+export interface IAccountClient {
+    signUp(command: SignUpCommand): Observable<ResponseOfUnit>;
+    signIn(command: SignInCommand): Observable<ResponseOfSignInResultDto>;
+    activation(command: ActivationCommand): Observable<ResponseOfUnit>;
+    getEmailVerificationCode(command: GetEmailVerificationCodeCommand): Observable<ResponseOfEmailVerificationCodeResultDto>;
+    signInByEmailVerificationCode(command: SignInByEmailVerificationCodeCommand): Observable<ResponseOfSignInResultDto>;
+    getEmailResetPassword(command: GetEmailResetPasswordCommand): Observable<ResponseOfUnit>;
+    resetPassword(command: ResetPasswordCommand): Observable<ResponseOfUnit>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class AccountClient implements IAccountClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    signUp(command: SignUpCommand) : Observable<ResponseOfUnit> {
+        let url_ = this.baseUrl + "/api/Account/SignUp";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSignUp(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSignUp(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfUnit>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfUnit>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSignUp(response: HttpResponseBase): Observable<ResponseOfUnit> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfUnit.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfUnit>(<any>null);
+    }
+
+    signIn(command: SignInCommand) : Observable<ResponseOfSignInResultDto> {
+        let url_ = this.baseUrl + "/api/Account/SignIn";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSignIn(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSignIn(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSignIn(response: HttpResponseBase): Observable<ResponseOfSignInResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfSignInResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfSignInResultDto>(<any>null);
+    }
+
+    activation(command: ActivationCommand) : Observable<ResponseOfUnit> {
+        let url_ = this.baseUrl + "/api/Account/Activation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processActivation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processActivation(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfUnit>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfUnit>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processActivation(response: HttpResponseBase): Observable<ResponseOfUnit> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfUnit.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfUnit>(<any>null);
+    }
+
+    getEmailVerificationCode(command: GetEmailVerificationCodeCommand) : Observable<ResponseOfEmailVerificationCodeResultDto> {
+        let url_ = this.baseUrl + "/api/Account/GetEmailVerificationCode";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetEmailVerificationCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetEmailVerificationCode(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfEmailVerificationCodeResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfEmailVerificationCodeResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetEmailVerificationCode(response: HttpResponseBase): Observable<ResponseOfEmailVerificationCodeResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfEmailVerificationCodeResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfEmailVerificationCodeResultDto>(<any>null);
+    }
+
+    signInByEmailVerificationCode(command: SignInByEmailVerificationCodeCommand) : Observable<ResponseOfSignInResultDto> {
+        let url_ = this.baseUrl + "/api/Account/SignInByEmailVerificationCode";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSignInByEmailVerificationCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSignInByEmailVerificationCode(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSignInByEmailVerificationCode(response: HttpResponseBase): Observable<ResponseOfSignInResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfSignInResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfSignInResultDto>(<any>null);
+    }
+
+    getEmailResetPassword(command: GetEmailResetPasswordCommand) : Observable<ResponseOfUnit> {
+        let url_ = this.baseUrl + "/api/Account/GetEmailResetPassword";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetEmailResetPassword(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetEmailResetPassword(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfUnit>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfUnit>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetEmailResetPassword(response: HttpResponseBase): Observable<ResponseOfUnit> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfUnit.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfUnit>(<any>null);
+    }
+
+    resetPassword(command: ResetPasswordCommand) : Observable<ResponseOfUnit> {
+        let url_ = this.baseUrl + "/api/Account/ResetPassword";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processResetPassword(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processResetPassword(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfUnit>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfUnit>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processResetPassword(response: HttpResponseBase): Observable<ResponseOfUnit> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfUnit.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfUnit>(<any>null);
+    }
+}
+
 export interface ICacheClient {
     clearAll(): Observable<FileResponse>;
     clearByKey(key: string | null | undefined): Observable<FileResponse>;
@@ -129,7 +517,7 @@ export class CacheClient implements ICacheClient {
 
 export interface ICountriesClient {
     get(id: number): Observable<ResponseOfCountryDto>;
-    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ResponseOfPaginatedListOfCountryDto>;
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined, requestId: string | null | undefined): Observable<ResponseOfPaginatedListOfCountryDto>;
     create(command: CreateCountryCommand): Observable<ResponseOfInteger>;
     update(command: UpdateCountryCommand): Observable<ResponseOfUnit>;
     delete(id: number): Observable<ResponseOfUnit>;
@@ -199,7 +587,7 @@ export class CountriesClient implements ICountriesClient {
         return _observableOf<ResponseOfCountryDto>(<any>null);
     }
 
-    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined) : Observable<ResponseOfPaginatedListOfCountryDto> {
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined, requestId: string | null | undefined) : Observable<ResponseOfPaginatedListOfCountryDto> {
         let url_ = this.baseUrl + "/api/Countries/GetList?";
         if (keyword !== undefined && keyword !== null)
             url_ += "Keyword=" + encodeURIComponent("" + keyword) + "&";
@@ -211,6 +599,8 @@ export class CountriesClient implements ICountriesClient {
             throw new Error("The parameter 'pageSize' cannot be null.");
         else if (pageSize !== undefined)
             url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
+        if (requestId !== undefined && requestId !== null)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -415,7 +805,7 @@ export class CountriesClient implements ICountriesClient {
 
 export interface IProvincesClient {
     get(id: number): Observable<ResponseOfProvinceDto>;
-    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ResponseOfPaginatedListOfProvinceDto>;
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined, requestId: string | null | undefined): Observable<ResponseOfPaginatedListOfProvinceDto>;
     create(command: CreateProvinceCommand): Observable<ResponseOfInteger>;
     update(command: UpdateProvinceCommand): Observable<ResponseOfUnit>;
     delete(id: number): Observable<ResponseOfUnit>;
@@ -485,7 +875,7 @@ export class ProvincesClient implements IProvincesClient {
         return _observableOf<ResponseOfProvinceDto>(<any>null);
     }
 
-    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined) : Observable<ResponseOfPaginatedListOfProvinceDto> {
+    getList(keyword: string | null | undefined, pageNumber: number | undefined, pageSize: number | undefined, requestId: string | null | undefined) : Observable<ResponseOfPaginatedListOfProvinceDto> {
         let url_ = this.baseUrl + "/api/Provinces/GetList?";
         if (keyword !== undefined && keyword !== null)
             url_ += "Keyword=" + encodeURIComponent("" + keyword) + "&";
@@ -497,6 +887,8 @@ export class ProvincesClient implements IProvincesClient {
             throw new Error("The parameter 'pageSize' cannot be null.");
         else if (pageSize !== undefined)
             url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
+        if (requestId !== undefined && requestId !== null)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -696,6 +1088,121 @@ export class ProvincesClient implements IProvincesClient {
             }));
         }
         return _observableOf<ResponseOfUnit>(<any>null);
+    }
+}
+
+export interface ISystemClient {
+    getPublicKey(): Observable<FileResponse>;
+    rSAEncryptData(request: EncryptedDataRequestModel): Observable<FileResponse>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class SystemClient implements ISystemClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    getPublicKey() : Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/System/GetPublicKey";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/octet-stream"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPublicKey(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPublicKey(<any>response_);
+                } catch (e) {
+                    return <Observable<FileResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPublicKey(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(<any>null);
+    }
+
+    rSAEncryptData(request: EncryptedDataRequestModel) : Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/System/RSAEncryptData";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(request);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRSAEncryptData(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRSAEncryptData(<any>response_);
+                } catch (e) {
+                    return <Observable<FileResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processRSAEncryptData(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(<any>null);
     }
 }
 
@@ -1263,12 +1770,12 @@ export class TodoListsClient implements ITodoListsClient {
 }
 
 export interface IWeatherClient {
-    getForecastWeatherIn7Days(provinceId: number | undefined): Observable<ResponseOfWeatherForecastDto>;
-    getLastLocalHistoricalWeatherQuery(provinceId: number | undefined, currentDt: number | undefined, noOfYearToGet: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto>;
+    getForecastWeatherIn7Days(provinceId: number | undefined, requestId: string | null | undefined): Observable<ResponseOfWeatherForecastDto>;
+    getLastLocalHistoricalWeatherQuery(provinceId: number | undefined, currentDt: number | undefined, noOfYearToGet: number | undefined, pageNumber: number | undefined, pageSize: number | undefined, requestId: string | null | undefined): Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto>;
     create(request: CreateWeatherDataCommand): Observable<ResponseOfInteger>;
     update(request: UpdateWeatherDataCommand): Observable<ResponseOfUnit>;
     delete(request: DeleteWeatherDataCommand): Observable<ResponseOfUnit>;
-    getWeatherConditions(request: GetWeatherConditionQuery | null | undefined): Observable<ResponseOfWeatherConditionCollectionDto>;
+    getWeatherConditions(requestId: string | null | undefined): Observable<ResponseOfWeatherConditionCollectionDto>;
 }
 
 @Injectable({
@@ -1284,12 +1791,14 @@ export class WeatherClient implements IWeatherClient {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    getForecastWeatherIn7Days(provinceId: number | undefined) : Observable<ResponseOfWeatherForecastDto> {
+    getForecastWeatherIn7Days(provinceId: number | undefined, requestId: string | null | undefined) : Observable<ResponseOfWeatherForecastDto> {
         let url_ = this.baseUrl + "/api/Weather/GetForecastWeatherIn7Days?";
         if (provinceId === null)
             throw new Error("The parameter 'provinceId' cannot be null.");
         else if (provinceId !== undefined)
             url_ += "ProvinceId=" + encodeURIComponent("" + provinceId) + "&";
+        if (requestId !== undefined && requestId !== null)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1336,7 +1845,7 @@ export class WeatherClient implements IWeatherClient {
         return _observableOf<ResponseOfWeatherForecastDto>(<any>null);
     }
 
-    getLastLocalHistoricalWeatherQuery(provinceId: number | undefined, currentDt: number | undefined, noOfYearToGet: number | undefined, pageNumber: number | undefined, pageSize: number | undefined) : Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto> {
+    getLastLocalHistoricalWeatherQuery(provinceId: number | undefined, currentDt: number | undefined, noOfYearToGet: number | undefined, pageNumber: number | undefined, pageSize: number | undefined, requestId: string | null | undefined) : Observable<ResponseOfPaginatedListOfDailyForecastWeatherDto> {
         let url_ = this.baseUrl + "/api/Weather/GetLastLocalHistoricalWeatherQuery?";
         if (provinceId === null)
             throw new Error("The parameter 'provinceId' cannot be null.");
@@ -1358,6 +1867,8 @@ export class WeatherClient implements IWeatherClient {
             throw new Error("The parameter 'pageSize' cannot be null.");
         else if (pageSize !== undefined)
             url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
+        if (requestId !== undefined && requestId !== null)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1560,10 +2071,10 @@ export class WeatherClient implements IWeatherClient {
         return _observableOf<ResponseOfUnit>(<any>null);
     }
 
-    getWeatherConditions(request: GetWeatherConditionQuery | null | undefined) : Observable<ResponseOfWeatherConditionCollectionDto> {
+    getWeatherConditions(requestId: string | null | undefined) : Observable<ResponseOfWeatherConditionCollectionDto> {
         let url_ = this.baseUrl + "/api/Weather/GetWeatherConditions?";
-        if (request !== undefined && request !== null)
-            url_ += "request=" + encodeURIComponent("" + request) + "&";
+        if (requestId !== undefined && requestId !== null)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1689,6 +2200,7 @@ export class Response implements IResponse {
     message?: string | undefined;
     systemError?: string | undefined;
     title?: string | undefined;
+    requestId?: string | undefined;
     requestTime?: string | undefined;
     responseTime?: string | undefined;
 
@@ -1707,6 +2219,7 @@ export class Response implements IResponse {
             this.message = _data["message"];
             this.systemError = _data["systemError"];
             this.title = _data["title"];
+            this.requestId = _data["requestId"];
             this.requestTime = _data["requestTime"];
             this.responseTime = _data["responseTime"];
         }
@@ -1725,6 +2238,7 @@ export class Response implements IResponse {
         data["message"] = this.message;
         data["systemError"] = this.systemError;
         data["title"] = this.title;
+        data["requestId"] = this.requestId;
         data["requestTime"] = this.requestTime;
         data["responseTime"] = this.responseTime;
         return data; 
@@ -1736,8 +2250,652 @@ export interface IResponse {
     message?: string | undefined;
     systemError?: string | undefined;
     title?: string | undefined;
+    requestId?: string | undefined;
     requestTime?: string | undefined;
     responseTime?: string | undefined;
+}
+
+export class ResponseOfUnit extends Response implements IResponseOfUnit {
+    data?: Unit;
+
+    constructor(data?: IResponseOfUnit) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? Unit.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfUnit {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfUnit();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfUnit extends IResponse {
+    data?: Unit;
+}
+
+/** Represents a void type, since Void is not a valid return type in C#. */
+export class Unit implements IUnit {
+
+    constructor(data?: IUnit) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): Unit {
+        data = typeof data === 'object' ? data : {};
+        let result = new Unit();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data; 
+    }
+}
+
+/** Represents a void type, since Void is not a valid return type in C#. */
+export interface IUnit {
+}
+
+export class SignUpCommand implements ISignUpCommand {
+    email?: string | undefined;
+    password?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    avatarUrl?: string | undefined;
+    gender?: string | undefined;
+    birthDay?: Date | undefined;
+    address?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
+    country?: string | undefined;
+    phone?: string | undefined;
+    requestId?: string;
+
+    constructor(data?: ISignUpCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.email = _data["email"];
+            this.password = _data["password"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.avatarUrl = _data["avatarUrl"];
+            this.gender = _data["gender"];
+            this.birthDay = _data["birthDay"] ? new Date(_data["birthDay"].toString()) : <any>undefined;
+            this.address = _data["address"];
+            this.city = _data["city"];
+            this.state = _data["state"];
+            this.zipCode = _data["zipCode"];
+            this.country = _data["country"];
+            this.phone = _data["phone"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): SignUpCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new SignUpCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["password"] = this.password;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["avatarUrl"] = this.avatarUrl;
+        data["gender"] = this.gender;
+        data["birthDay"] = this.birthDay ? this.birthDay.toISOString() : <any>undefined;
+        data["address"] = this.address;
+        data["city"] = this.city;
+        data["state"] = this.state;
+        data["zipCode"] = this.zipCode;
+        data["country"] = this.country;
+        data["phone"] = this.phone;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface ISignUpCommand {
+    email?: string | undefined;
+    password?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    avatarUrl?: string | undefined;
+    gender?: string | undefined;
+    birthDay?: Date | undefined;
+    address?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
+    country?: string | undefined;
+    phone?: string | undefined;
+    requestId?: string;
+}
+
+export class ResponseOfSignInResultDto extends Response implements IResponseOfSignInResultDto {
+    data?: SignInResultDto | undefined;
+
+    constructor(data?: IResponseOfSignInResultDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? SignInResultDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfSignInResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfSignInResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfSignInResultDto extends IResponse {
+    data?: SignInResultDto | undefined;
+}
+
+export class SignInResultDto implements ISignInResultDto {
+    accessToken?: string | undefined;
+    account?: AccountDto | undefined;
+
+    constructor(data?: ISignInResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.accessToken = _data["accessToken"];
+            this.account = _data["account"] ? AccountDto.fromJS(_data["account"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): SignInResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SignInResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["accessToken"] = this.accessToken;
+        data["account"] = this.account ? this.account.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ISignInResultDto {
+    accessToken?: string | undefined;
+    account?: AccountDto | undefined;
+}
+
+export class AccountDto implements IAccountDto {
+    id?: number;
+    email?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    avatarUrl?: string | undefined;
+    gender?: string | undefined;
+    birthDay?: Date | undefined;
+    address?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
+    country?: string | undefined;
+    phone?: string | undefined;
+    isFirstLogin?: boolean;
+
+    constructor(data?: IAccountDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.email = _data["email"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.avatarUrl = _data["avatarUrl"];
+            this.gender = _data["gender"];
+            this.birthDay = _data["birthDay"] ? new Date(_data["birthDay"].toString()) : <any>undefined;
+            this.address = _data["address"];
+            this.city = _data["city"];
+            this.state = _data["state"];
+            this.zipCode = _data["zipCode"];
+            this.country = _data["country"];
+            this.phone = _data["phone"];
+            this.isFirstLogin = _data["isFirstLogin"];
+        }
+    }
+
+    static fromJS(data: any): AccountDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AccountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["email"] = this.email;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["avatarUrl"] = this.avatarUrl;
+        data["gender"] = this.gender;
+        data["birthDay"] = this.birthDay ? this.birthDay.toISOString() : <any>undefined;
+        data["address"] = this.address;
+        data["city"] = this.city;
+        data["state"] = this.state;
+        data["zipCode"] = this.zipCode;
+        data["country"] = this.country;
+        data["phone"] = this.phone;
+        data["isFirstLogin"] = this.isFirstLogin;
+        return data; 
+    }
+}
+
+export interface IAccountDto {
+    id?: number;
+    email?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    avatarUrl?: string | undefined;
+    gender?: string | undefined;
+    birthDay?: Date | undefined;
+    address?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
+    country?: string | undefined;
+    phone?: string | undefined;
+    isFirstLogin?: boolean;
+}
+
+export class SignInCommand implements ISignInCommand {
+    email?: string;
+    password?: string;
+    keepLogin?: boolean;
+    requestId?: string;
+
+    constructor(data?: ISignInCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.email = _data["email"];
+            this.password = _data["password"];
+            this.keepLogin = _data["keepLogin"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): SignInCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new SignInCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["password"] = this.password;
+        data["keepLogin"] = this.keepLogin;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface ISignInCommand {
+    email?: string;
+    password?: string;
+    keepLogin?: boolean;
+    requestId?: string;
+}
+
+export class ActivationCommand implements IActivationCommand {
+    code?: string | undefined;
+    requestId?: string;
+
+    constructor(data?: IActivationCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.code = _data["code"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): ActivationCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new ActivationCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["code"] = this.code;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface IActivationCommand {
+    code?: string | undefined;
+    requestId?: string;
+}
+
+export class ResponseOfEmailVerificationCodeResultDto extends Response implements IResponseOfEmailVerificationCodeResultDto {
+    data?: EmailVerificationCodeResultDto | undefined;
+
+    constructor(data?: IResponseOfEmailVerificationCodeResultDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? EmailVerificationCodeResultDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfEmailVerificationCodeResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfEmailVerificationCodeResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfEmailVerificationCodeResultDto extends IResponse {
+    data?: EmailVerificationCodeResultDto | undefined;
+}
+
+export class EmailVerificationCodeResultDto implements IEmailVerificationCodeResultDto {
+    expireInSeconds?: number;
+
+    constructor(data?: IEmailVerificationCodeResultDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.expireInSeconds = _data["expireInSeconds"];
+        }
+    }
+
+    static fromJS(data: any): EmailVerificationCodeResultDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new EmailVerificationCodeResultDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["expireInSeconds"] = this.expireInSeconds;
+        return data; 
+    }
+}
+
+export interface IEmailVerificationCodeResultDto {
+    expireInSeconds?: number;
+}
+
+export class GetEmailVerificationCodeCommand implements IGetEmailVerificationCodeCommand {
+    email?: string | undefined;
+    requestId?: string;
+
+    constructor(data?: IGetEmailVerificationCodeCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.email = _data["email"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): GetEmailVerificationCodeCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetEmailVerificationCodeCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface IGetEmailVerificationCodeCommand {
+    email?: string | undefined;
+    requestId?: string;
+}
+
+export class SignInByEmailVerificationCodeCommand implements ISignInByEmailVerificationCodeCommand {
+    email?: string;
+    code?: string;
+    keepLogin?: boolean;
+    requestId?: string;
+
+    constructor(data?: ISignInByEmailVerificationCodeCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.email = _data["email"];
+            this.code = _data["code"];
+            this.keepLogin = _data["keepLogin"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): SignInByEmailVerificationCodeCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new SignInByEmailVerificationCodeCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["code"] = this.code;
+        data["keepLogin"] = this.keepLogin;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface ISignInByEmailVerificationCodeCommand {
+    email?: string;
+    code?: string;
+    keepLogin?: boolean;
+    requestId?: string;
+}
+
+export class GetEmailResetPasswordCommand implements IGetEmailResetPasswordCommand {
+    email?: string | undefined;
+    requestId?: string;
+
+    constructor(data?: IGetEmailResetPasswordCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.email = _data["email"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): GetEmailResetPasswordCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetEmailResetPasswordCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface IGetEmailResetPasswordCommand {
+    email?: string | undefined;
+    requestId?: string;
+}
+
+export class ResetPasswordCommand implements IResetPasswordCommand {
+    code?: string | undefined;
+    newPassword?: string | undefined;
+    requestId?: string;
+
+    constructor(data?: IResetPasswordCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.code = _data["code"];
+            this.newPassword = _data["newPassword"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): ResetPasswordCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResetPasswordCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["code"] = this.code;
+        data["newPassword"] = this.newPassword;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface IResetPasswordCommand {
+    code?: string | undefined;
+    newPassword?: string | undefined;
+    requestId?: string;
 }
 
 export class ResponseOfCountryDto extends Response implements IResponseOfCountryDto {
@@ -2047,6 +3205,7 @@ export class CreateCountryCommand implements ICreateCountryCommand {
     userDefined1?: string | undefined;
     userDefined2?: string | undefined;
     userDefined3?: string | undefined;
+    requestId?: string;
 
     constructor(data?: ICreateCountryCommand) {
         if (data) {
@@ -2066,6 +3225,7 @@ export class CreateCountryCommand implements ICreateCountryCommand {
             this.userDefined1 = _data["userDefined1"];
             this.userDefined2 = _data["userDefined2"];
             this.userDefined3 = _data["userDefined3"];
+            this.requestId = _data["requestId"];
         }
     }
 
@@ -2085,6 +3245,7 @@ export class CreateCountryCommand implements ICreateCountryCommand {
         data["userDefined1"] = this.userDefined1;
         data["userDefined2"] = this.userDefined2;
         data["userDefined3"] = this.userDefined3;
+        data["requestId"] = this.requestId;
         return data; 
     }
 }
@@ -2097,71 +3258,7 @@ export interface ICreateCountryCommand {
     userDefined1?: string | undefined;
     userDefined2?: string | undefined;
     userDefined3?: string | undefined;
-}
-
-export class ResponseOfUnit extends Response implements IResponseOfUnit {
-    data?: Unit;
-
-    constructor(data?: IResponseOfUnit) {
-        super(data);
-    }
-
-    init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.data = _data["data"] ? Unit.fromJS(_data["data"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): ResponseOfUnit {
-        data = typeof data === 'object' ? data : {};
-        let result = new ResponseOfUnit();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IResponseOfUnit extends IResponse {
-    data?: Unit;
-}
-
-/** Represents a void type, since Void is not a valid return type in C#. */
-export class Unit implements IUnit {
-
-    constructor(data?: IUnit) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): Unit {
-        data = typeof data === 'object' ? data : {};
-        let result = new Unit();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data; 
-    }
-}
-
-/** Represents a void type, since Void is not a valid return type in C#. */
-export interface IUnit {
+    requestId?: string;
 }
 
 export class UpdateCountryCommand implements IUpdateCountryCommand {
@@ -2173,6 +3270,7 @@ export class UpdateCountryCommand implements IUpdateCountryCommand {
     userDefined1?: string | undefined;
     userDefined2?: string | undefined;
     userDefined3?: string | undefined;
+    requestId?: string;
 
     constructor(data?: IUpdateCountryCommand) {
         if (data) {
@@ -2193,6 +3291,7 @@ export class UpdateCountryCommand implements IUpdateCountryCommand {
             this.userDefined1 = _data["userDefined1"];
             this.userDefined2 = _data["userDefined2"];
             this.userDefined3 = _data["userDefined3"];
+            this.requestId = _data["requestId"];
         }
     }
 
@@ -2213,6 +3312,7 @@ export class UpdateCountryCommand implements IUpdateCountryCommand {
         data["userDefined1"] = this.userDefined1;
         data["userDefined2"] = this.userDefined2;
         data["userDefined3"] = this.userDefined3;
+        data["requestId"] = this.requestId;
         return data; 
     }
 }
@@ -2226,6 +3326,7 @@ export interface IUpdateCountryCommand {
     userDefined1?: string | undefined;
     userDefined2?: string | undefined;
     userDefined3?: string | undefined;
+    requestId?: string;
 }
 
 export class ResponseOfProvinceDto extends Response implements IResponseOfProvinceDto {
@@ -2365,6 +3466,7 @@ export class CreateProvinceCommand implements ICreateProvinceCommand {
     priority?: number;
     aliasName?: string | undefined;
     countryId?: number | undefined;
+    requestId?: string;
 
     constructor(data?: ICreateProvinceCommand) {
         if (data) {
@@ -2383,6 +3485,7 @@ export class CreateProvinceCommand implements ICreateProvinceCommand {
             this.priority = _data["priority"];
             this.aliasName = _data["aliasName"];
             this.countryId = _data["countryId"];
+            this.requestId = _data["requestId"];
         }
     }
 
@@ -2401,6 +3504,7 @@ export class CreateProvinceCommand implements ICreateProvinceCommand {
         data["priority"] = this.priority;
         data["aliasName"] = this.aliasName;
         data["countryId"] = this.countryId;
+        data["requestId"] = this.requestId;
         return data; 
     }
 }
@@ -2412,6 +3516,7 @@ export interface ICreateProvinceCommand {
     priority?: number;
     aliasName?: string | undefined;
     countryId?: number | undefined;
+    requestId?: string;
 }
 
 export class UpdateProvinceCommand implements IUpdateProvinceCommand {
@@ -2422,6 +3527,7 @@ export class UpdateProvinceCommand implements IUpdateProvinceCommand {
     priority?: number;
     aliasName?: string | undefined;
     countryId?: number | undefined;
+    requestId?: string;
 
     constructor(data?: IUpdateProvinceCommand) {
         if (data) {
@@ -2441,6 +3547,7 @@ export class UpdateProvinceCommand implements IUpdateProvinceCommand {
             this.priority = _data["priority"];
             this.aliasName = _data["aliasName"];
             this.countryId = _data["countryId"];
+            this.requestId = _data["requestId"];
         }
     }
 
@@ -2460,6 +3567,7 @@ export class UpdateProvinceCommand implements IUpdateProvinceCommand {
         data["priority"] = this.priority;
         data["aliasName"] = this.aliasName;
         data["countryId"] = this.countryId;
+        data["requestId"] = this.requestId;
         return data; 
     }
 }
@@ -2472,6 +3580,47 @@ export interface IUpdateProvinceCommand {
     priority?: number;
     aliasName?: string | undefined;
     countryId?: number | undefined;
+    requestId?: string;
+}
+
+export class EncryptedDataRequestModel implements IEncryptedDataRequestModel {
+    plainText1?: string | undefined;
+    plainText2?: string | undefined;
+
+    constructor(data?: IEncryptedDataRequestModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.plainText1 = _data["plainText1"];
+            this.plainText2 = _data["plainText2"];
+        }
+    }
+
+    static fromJS(data: any): EncryptedDataRequestModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new EncryptedDataRequestModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["plainText1"] = this.plainText1;
+        data["plainText2"] = this.plainText2;
+        return data; 
+    }
+}
+
+export interface IEncryptedDataRequestModel {
+    plainText1?: string | undefined;
+    plainText2?: string | undefined;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
@@ -3532,6 +4681,7 @@ export class CreateWeatherDataCommand implements ICreateWeatherDataCommand {
     weatherMain_night?: string | undefined;
     weatherDesc_night?: string | undefined;
     weatherIcon_night?: string | undefined;
+    requestId?: string;
 
     constructor(data?: ICreateWeatherDataCommand) {
         if (data) {
@@ -3580,6 +4730,7 @@ export class CreateWeatherDataCommand implements ICreateWeatherDataCommand {
             this.weatherMain_night = _data["weatherMain_night"];
             this.weatherDesc_night = _data["weatherDesc_night"];
             this.weatherIcon_night = _data["weatherIcon_night"];
+            this.requestId = _data["requestId"];
         }
     }
 
@@ -3628,6 +4779,7 @@ export class CreateWeatherDataCommand implements ICreateWeatherDataCommand {
         data["weatherMain_night"] = this.weatherMain_night;
         data["weatherDesc_night"] = this.weatherDesc_night;
         data["weatherIcon_night"] = this.weatherIcon_night;
+        data["requestId"] = this.requestId;
         return data; 
     }
 }
@@ -3669,6 +4821,7 @@ export interface ICreateWeatherDataCommand {
     weatherMain_night?: string | undefined;
     weatherDesc_night?: string | undefined;
     weatherIcon_night?: string | undefined;
+    requestId?: string;
 }
 
 export class UpdateWeatherDataCommand implements IUpdateWeatherDataCommand {
@@ -3707,6 +4860,7 @@ export class UpdateWeatherDataCommand implements IUpdateWeatherDataCommand {
     weatherMain_night?: string | undefined;
     weatherDesc_night?: string | undefined;
     weatherIcon_night?: string | undefined;
+    requestId?: string;
 
     constructor(data?: IUpdateWeatherDataCommand) {
         if (data) {
@@ -3754,6 +4908,7 @@ export class UpdateWeatherDataCommand implements IUpdateWeatherDataCommand {
             this.weatherMain_night = _data["weatherMain_night"];
             this.weatherDesc_night = _data["weatherDesc_night"];
             this.weatherIcon_night = _data["weatherIcon_night"];
+            this.requestId = _data["requestId"];
         }
     }
 
@@ -3801,6 +4956,7 @@ export class UpdateWeatherDataCommand implements IUpdateWeatherDataCommand {
         data["weatherMain_night"] = this.weatherMain_night;
         data["weatherDesc_night"] = this.weatherDesc_night;
         data["weatherIcon_night"] = this.weatherIcon_night;
+        data["requestId"] = this.requestId;
         return data; 
     }
 }
@@ -3841,10 +4997,12 @@ export interface IUpdateWeatherDataCommand {
     weatherMain_night?: string | undefined;
     weatherDesc_night?: string | undefined;
     weatherIcon_night?: string | undefined;
+    requestId?: string;
 }
 
 export class DeleteWeatherDataCommand implements IDeleteWeatherDataCommand {
     id?: number;
+    requestId?: string;
 
     constructor(data?: IDeleteWeatherDataCommand) {
         if (data) {
@@ -3858,6 +5016,7 @@ export class DeleteWeatherDataCommand implements IDeleteWeatherDataCommand {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.requestId = _data["requestId"];
         }
     }
 
@@ -3871,12 +5030,14 @@ export class DeleteWeatherDataCommand implements IDeleteWeatherDataCommand {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["requestId"] = this.requestId;
         return data; 
     }
 }
 
 export interface IDeleteWeatherDataCommand {
     id?: number;
+    requestId?: string;
 }
 
 export class ResponseOfWeatherConditionCollectionDto extends Response implements IResponseOfWeatherConditionCollectionDto {
@@ -4078,36 +5239,6 @@ export interface IOWPWeatherCondition {
     icon?: string | undefined;
     iconUrl?: string;
     weatherConditionGroupId?: string | undefined;
-}
-
-export class GetWeatherConditionQuery implements IGetWeatherConditionQuery {
-
-    constructor(data?: IGetWeatherConditionQuery) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): GetWeatherConditionQuery {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetWeatherConditionQuery();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data; 
-    }
-}
-
-export interface IGetWeatherConditionQuery {
 }
 
 export class WeatherForecast implements IWeatherForecast {

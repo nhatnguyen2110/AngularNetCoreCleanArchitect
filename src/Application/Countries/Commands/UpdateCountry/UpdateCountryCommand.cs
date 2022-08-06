@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Countries.Commands.UpdateCountry;
 
@@ -18,11 +19,13 @@ public class UpdateCountryCommand : IRequest<Response<Unit>>
     public string? UserDefined1 { get; set; }
     public string? UserDefined2 { get; set; }
     public string? UserDefined3 { get; set; }
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class UpdateCountryCommandHandler : BaseHandler<UpdateCountryCommand, Response<Unit>>
 {
     public UpdateCountryCommandHandler(ICommonService commonService
-       ) : base(commonService)
+        , ILogger<UpdateCountryCommand> logger
+       ) : base(commonService, logger)
     {
     }
     public async override Task<Response<Unit>> Handle(UpdateCountryCommand request, CancellationToken cancellationToken)
@@ -45,11 +48,12 @@ public class UpdateCountryCommandHandler : BaseHandler<UpdateCountryCommand, Res
             entity.UserDefined3 = request.UserDefined3;
 
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
-            return Response<Unit>.Success(Unit.Value);
+            return Response<Unit>.Success(Unit.Value, request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<Unit>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Update Country");
+            _logger.LogError(ex, "Failed to Delete Country. Request: {Name} {@Request}", typeof(UpdateCountryCommand).Name, request);
+            return new Response<Unit>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Update Country", request.requestId);
         }
     }
 }

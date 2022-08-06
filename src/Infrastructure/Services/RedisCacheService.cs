@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
-using CleanArchitecture.Domain.Cache;
+using CleanArchitecture.Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 
@@ -26,6 +26,27 @@ public class RedisCacheService : ICacheService
     {
         return _cache.KeyExists(key);
     }
+
+    public T? GetByKey<T>(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+        {
+            throw new ArgumentNullException($"{typeof(T)} is null");
+        }
+        string strValue = string.Empty;
+        if (this.Exists(key))
+        {
+            strValue = _cache.StringGet(key);
+        }
+        else
+        {
+            return default(T);
+        }
+#pragma warning disable CS8603 // Possible null reference return.
+        return JsonSerializer.Deserialize<T>(strValue);
+#pragma warning restore CS8603 // Possible null reference return.
+    }
+
     public T GetOrCreate<T>(string key, int? cacheTime, Func<T> func)
     {
         if (string.IsNullOrEmpty(key))

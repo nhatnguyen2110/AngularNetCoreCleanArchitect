@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Domain.ApiClient;
-using CleanArchitecture.Domain.Cache;
 using OpenWeatherMapAPI.Models;
 using OpenWeatherMapAPI.Shared;
 
@@ -8,11 +7,9 @@ namespace OpenWeatherMapAPI.ApiClient;
 public class OpenWeatherMapClient : ApiHttpClient, IOpenWeatherMapClient
 {
     private readonly OpenWeatherMapSettings _openWeatherMapSettings;
-    private readonly ICacheService _cacheService;
-    public OpenWeatherMapClient(System.Net.Http.HttpClient httpClient, OpenWeatherMapSettings openWeatherMapSettings, ICacheService cacheService) : base(httpClient)
+    public OpenWeatherMapClient(System.Net.Http.HttpClient httpClient, OpenWeatherMapSettings openWeatherMapSettings) : base(httpClient)
     {
         this._openWeatherMapSettings = openWeatherMapSettings;
-        this._cacheService = cacheService;
         this.BaseUrl = openWeatherMapSettings.host;
         this.ReadResponseAsString = false;
     }

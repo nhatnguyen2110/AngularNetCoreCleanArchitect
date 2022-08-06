@@ -6,6 +6,230 @@
     "version": "1.0.0.0"
   },
   "paths": {
+    "/api/Account/SignUp": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_SignUp",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfUnit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/SignIn": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_SignIn",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfSignInResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/Activation": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Activation",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivationCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfUnit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/GetEmailVerificationCode": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_GetEmailVerificationCode",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEmailVerificationCodeCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfEmailVerificationCodeResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/SignInByEmailVerificationCode": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_SignInByEmailVerificationCode",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInByEmailVerificationCodeCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfSignInResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/GetEmailResetPassword": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_GetEmailResetPassword",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEmailResetPasswordCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfUnit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/ResetPassword": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_ResetPassword",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfUnit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Cache/ClearAll": {
       "delete": {
         "tags": [
@@ -134,6 +358,15 @@
               "format": "int32"
             },
             "x-position": 3
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -331,6 +564,15 @@
               "format": "int32"
             },
             "x-position": 3
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -461,6 +703,60 @@
             "JWT": []
           }
         ]
+      }
+    },
+    "/api/System/GetPublicKey": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "operationId": "System_GetPublicKey",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/System/RSAEncryptData": {
+      "post": {
+        "tags": [
+          "System"
+        ],
+        "operationId": "System_RSAEncryptData",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EncryptedDataRequestModel"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/TodoItems": {
@@ -886,6 +1182,15 @@
               "format": "int32"
             },
             "x-position": 1
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
           }
         ],
         "responses": {
@@ -953,6 +1258,15 @@
               "format": "int32"
             },
             "x-position": 5
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 6
           }
         ],
         "responses": {
@@ -1088,15 +1402,11 @@
         "operationId": "Weather_GetWeatherConditions",
         "parameters": [
           {
-            "name": "request",
+            "name": "requestId",
             "in": "query",
             "schema": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/GetWeatherConditionQuery"
-                }
-              ]
+              "type": "string",
+              "nullable": true
             },
             "x-position": 1
           }
@@ -1146,6 +1456,346 @@
   },
   "components": {
     "schemas": {
+      "ResponseOfUnit": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Unit"
+              }
+            }
+          }
+        ]
+      },
+      "Unit": {
+        "type": "object",
+        "description": "Represents a void type, since Void is not a valid return type in C#.",
+        "additionalProperties": false
+      },
+      "Response": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "succeeded": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "systemError": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestTime": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseTime": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "SignUpCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDay": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "zipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseOfSignInResultDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SignInResultDto"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "SignInResultDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "account": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AccountDto"
+              }
+            ]
+          }
+        }
+      },
+      "AccountDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDay": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "zipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "isFirstLogin": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SignInCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "keepLogin": {
+            "type": "boolean"
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "ActivationCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseOfEmailVerificationCodeResultDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EmailVerificationCodeResultDto"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "EmailVerificationCodeResultDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "expireInSeconds": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "GetEmailVerificationCodeCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "SignInByEmailVerificationCodeCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "keepLogin": {
+            "type": "boolean"
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "GetEmailResetPasswordCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "ResetPasswordCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
       "ResponseOfCountryDto": {
         "allOf": [
           {
@@ -1244,35 +1894,6 @@
           "countryId": {
             "type": "integer",
             "format": "int32",
-            "nullable": true
-          }
-        }
-      },
-      "Response": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "succeeded": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "systemError": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "requestTime": {
-            "type": "string",
-            "nullable": true
-          },
-          "responseTime": {
-            "type": "string",
             "nullable": true
           }
         }
@@ -1376,29 +1997,11 @@
           "userDefined3": {
             "type": "string",
             "nullable": true
+          },
+          "requestId": {
+            "type": "string"
           }
         }
-      },
-      "ResponseOfUnit": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Response"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/Unit"
-              }
-            }
-          }
-        ]
-      },
-      "Unit": {
-        "type": "object",
-        "description": "Represents a void type, since Void is not a valid return type in C#.",
-        "additionalProperties": false
       },
       "UpdateCountryCommand": {
         "type": "object",
@@ -1435,6 +2038,9 @@
           "userDefined3": {
             "type": "string",
             "nullable": true
+          },
+          "requestId": {
+            "type": "string"
           }
         }
       },
@@ -1540,6 +2146,9 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
+          },
+          "requestId": {
+            "type": "string"
           }
         }
       },
@@ -1576,6 +2185,23 @@
           "countryId": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "EncryptedDataRequestModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "plainText1": {
+            "type": "string",
+            "nullable": true
+          },
+          "plainText2": {
+            "type": "string",
             "nullable": true
           }
         }
@@ -2287,6 +2913,9 @@
           "weatherIcon_night": {
             "type": "string",
             "nullable": true
+          },
+          "requestId": {
+            "type": "string"
           }
         }
       },
@@ -2433,6 +3062,9 @@
           "weatherIcon_night": {
             "type": "string",
             "nullable": true
+          },
+          "requestId": {
+            "type": "string"
           }
         }
       },
@@ -2443,6 +3075,9 @@
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "requestId": {
+            "type": "string"
           }
         }
       },
@@ -2537,10 +3172,6 @@
             "nullable": true
           }
         }
-      },
-      "GetWeatherConditionQuery": {
-        "type": "object",
-        "additionalProperties": false
       },
       "WeatherForecast": {
         "type": "object",

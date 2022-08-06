@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Cache;
 using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -57,6 +56,8 @@ public static class DependencyInjection
         //services.AddSingleton<ICacheService, RedisCacheService>();
         services.AddScoped<IWebsiteSettingsService, WebsiteSettingsService>();
         services.AddScoped<ICommonService, CommonService>();
+        services.AddSingleton<ITokenService, TokenService>();
+        services.AddSingleton<IEmailService, EmailService>();
 
         return services;
     }

@@ -2,9 +2,9 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
-using CleanArchitecture.Domain.Cache;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OpenWeatherMapAPI.Models;
 using OpenWeatherMapAPI.Shared;
 
@@ -13,21 +13,17 @@ namespace CleanArchitecture.Application.WeatherData.Queries.GetWeatherForecastIn
 public class GetWeatherForecastIn7daysQuery : IRequest<Response<WeatherForecastDto>>
 {
     public int ProvinceId { get; set; }
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class GetWeatherForecastIn7daysQueryHandler : BaseHandler<GetWeatherForecastIn7daysQuery, Response<WeatherForecastDto>>
 {
     private readonly OpenWeatherMapSettings _openWeatherMapSettings;
-    private readonly ICacheService _cacheService;
-    private readonly IDateTime _dateTimeService;
-    public GetWeatherForecastIn7daysQueryHandler(ICommonService commonService,
-        OpenWeatherMapSettings openWeatherMapSettings,
-        ICacheService cacheService,
-        IDateTime dateTimeService
-        ) : base(commonService)
+    public GetWeatherForecastIn7daysQueryHandler(ICommonService commonService
+        , ILogger<GetWeatherForecastIn7daysQuery> logger
+        , OpenWeatherMapSettings openWeatherMapSettings
+        ) : base(commonService, logger)
     {
         this._openWeatherMapSettings = openWeatherMapSettings;
-        this._cacheService = cacheService;
-        this._dateTimeService = dateTimeService;
     }
 
     public override async Task<Response<WeatherForecastDto>> Handle(GetWeatherForecastIn7daysQuery request, CancellationToken cancellationToken)
@@ -37,13 +33,13 @@ public class GetWeatherForecastIn7daysQueryHandler : BaseHandler<GetWeatherForec
             var province = _commonService.ApplicationDBContext.Provinces.AsNoTracking().FirstOrDefault(x => x.Id == request.ProvinceId);
             if (province == null)
             {
-                return new Response<WeatherForecastDto>(false, $"Invalid Province Id ({request.ProvinceId})", $"Invalid Province Id ({request.ProvinceId})", "Failed to Load Forecast Weather");
+                return new Response<WeatherForecastDto>(false, $"Invalid Province Id ({request.ProvinceId})", $"Invalid Province Id ({request.ProvinceId})", "Failed to Load Forecast Weather", request.requestId);
             }
             if (!province.Longitude.HasValue || !province.Latitude.HasValue)
             {
-                return new Response<WeatherForecastDto>(false, $"{province.Name} is not updated the Longitude, Latitude. Please contact Administrator to update", String.Empty, "Failed to Load Forecast Weather");
+                return new Response<WeatherForecastDto>(false, $"{province.Name} is not updated the Longitude, Latitude. Please contact Administrator to update", String.Empty, "Failed to Load Forecast Weather", request.requestId);
             }
-            var forecastData = await this._cacheService.GetOrCreateAsync(
+            var forecastData = await this._commonService.CacheService.GetOrCreateAsync(
                 key: $"ForecastWeatherIn7days.{request.ProvinceId}.{DateTime.Now.ToString("ddMMyyyy")}",
                 expiryTimeUtc: this._commonService.DateTimeService.GetUTCForEndOfCurrentDate(),
                 func: async () =>
@@ -66,7 +62,7 @@ public class GetWeatherForecastIn7daysQueryHandler : BaseHandler<GetWeatherForec
                 {
                     var _date = DateTimeOffset.FromUnixTimeSeconds((long)item.Dt).ToLocalTime();
                     var _beginDate = new DateTime(_date.Year, _date.Month, _date.Day, 0, 0, 0);
-                    item.Dt = _dateTimeService.ConvertDatetimeToUnixTimeStamp(_beginDate);
+                    item.Dt = _commonService.DateTimeService.ConvertDatetimeToUnixTimeStamp(_beginDate);
                 }
             }
 
@@ -88,11 +84,12 @@ public class GetWeatherForecastIn7daysQueryHandler : BaseHandler<GetWeatherForec
                 }
             }
 
-            return Response<WeatherForecastDto>.Success(result ?? new WeatherForecastDto());
+            return Response<WeatherForecastDto>.Success(result ?? new WeatherForecastDto(), request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<WeatherForecastDto>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Forecast Weather");
+            _logger.LogError(ex, "Failed to Load Forecast Weather. Request: {Name} {@Request}", typeof(GetWeatherForecastIn7daysQuery).Name, request);
+            return new Response<WeatherForecastDto>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Forecast Weather", request.requestId);
         }
     }
 }

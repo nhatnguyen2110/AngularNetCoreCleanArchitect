@@ -28,7 +28,9 @@ public class JobRunningController : Controller
     {
         if (ModelState.IsValid)
         {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             BackgroundJob.Enqueue(() => _jobHandlerService.ExecuteUpdateHistoricalWeather(null, model.RunningDate));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
             model.Message = "Enqueue job successfully";
         }
 

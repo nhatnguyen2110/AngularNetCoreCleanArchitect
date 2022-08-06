@@ -7,6 +7,7 @@ using CleanArchitecture.Application.WeatherData.Queries.GetWeatherForecastIn7Day
 using CleanArchitecture.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.WeatherData.Queries.GetLocalDataHistoricalWeather;
 
@@ -17,11 +18,13 @@ public class GetLastLocalHistoricalWeatherQuery : IRequest<Response<PaginatedLis
     public int NoOfYearToGet { get; set; } = 4;
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 99;
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class GetLastLocalHistoricalWeatherQueryHandler : BaseHandler<GetLastLocalHistoricalWeatherQuery, Response<PaginatedList<DailyForecastWeatherDto>>>
 {
     public GetLastLocalHistoricalWeatherQueryHandler(ICommonService commonService
-       ) : base(commonService)
+        , ILogger<GetLastLocalHistoricalWeatherQuery> logger
+       ) : base(commonService, logger)
     {
     }
     public async override Task<Response<PaginatedList<DailyForecastWeatherDto>>> Handle(GetLastLocalHistoricalWeatherQuery request, CancellationToken cancellationToken)
@@ -38,12 +41,13 @@ public class GetLastLocalHistoricalWeatherQueryHandler : BaseHandler<GetLastLoca
                 .OrderBy(x => x.Dt)
            .ProjectTo<DailyForecastWeatherDto>(this._commonService.Mapper?.ConfigurationProvider)
            .PaginatedListAsync(request.PageNumber, request.PageSize);
-            return Response<PaginatedList<DailyForecastWeatherDto>>.Success(result);
+            return Response<PaginatedList<DailyForecastWeatherDto>>.Success(result, request.requestId);
 
         }
         catch (Exception ex)
         {
-            return new Response<PaginatedList<DailyForecastWeatherDto>>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Data");
+            _logger.LogError(ex, "Failed to Delete Weather Data. Request: {Name} {@Request}", typeof(GetLastLocalHistoricalWeatherQuery).Name, request);
+            return new Response<PaginatedList<DailyForecastWeatherDto>>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Data", request.requestId);
         }
     }
 }

@@ -6,6 +6,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Countries.Queries.GetCountriesWithPagination;
 
@@ -14,10 +15,12 @@ public class GetCountriesWithPaginationQuery : IRequest<Response<PaginatedList<C
     public string? Keyword { get; set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 99;
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class GetCountriesWithPaginationQueryHandler : BaseHandler<GetCountriesWithPaginationQuery, Response<PaginatedList<CountryDto>>>
 {
     public GetCountriesWithPaginationQueryHandler(ICommonService commonService
+        , ILogger<GetCountriesWithPaginationQuery> logger
        ) : base(commonService)
     {
     }
@@ -35,11 +38,12 @@ public class GetCountriesWithPaginationQueryHandler : BaseHandler<GetCountriesWi
            .OrderBy(x => x.Priority).ThenBy(x => x.Name)
            .ProjectTo<CountryDto>(this._commonService.Mapper?.ConfigurationProvider)
            .PaginatedListAsync(request.PageNumber, request.PageSize);
-            return Response<PaginatedList<CountryDto>>.Success(result);
+            return Response<PaginatedList<CountryDto>>.Success(result, request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<PaginatedList<CountryDto>>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to load Countries");
+            _logger.LogError(ex, "Failed to load Countries. Request: {Name} {@Request}", typeof(GetCountriesWithPaginationQuery).Name, request);
+            return new Response<PaginatedList<CountryDto>>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to load Countries", request.requestId);
         }
     }
 }

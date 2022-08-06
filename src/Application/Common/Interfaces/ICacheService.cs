@@ -1,5 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Cache;
-
+﻿namespace CleanArchitecture.Application.Common.Interfaces;
 public interface ICacheService
 {
 
@@ -20,4 +19,6 @@ public interface ICacheService
     Task<T> GetOrCreateAsync<T>(string key, DateTimeOffset expiryTimeUtc, Func<Task<T>> func);
 
     T GetOrCreate<T>(string key, DateTimeOffset expiryTimeUtc, Func<T> func);
+
+    T? GetByKey<T>(string key);
 }

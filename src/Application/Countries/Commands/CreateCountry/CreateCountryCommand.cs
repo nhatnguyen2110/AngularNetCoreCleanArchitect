@@ -4,6 +4,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Countries.Commands.CreateCountry;
 
@@ -16,10 +17,12 @@ public class CreateCountryCommand : IRequest<Response<int>>
     public string? UserDefined1 { get; set; }
     public string? UserDefined2 { get; set; }
     public string? UserDefined3 { get; set; }
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class CreateCountryCommandHandler : BaseHandler<CreateCountryCommand, Response<int>>
 {
     public CreateCountryCommandHandler(ICommonService commonService
+         , ILogger<CreateCountryCommand> logger
         ) : base(commonService)
     {
     }
@@ -39,11 +42,12 @@ public class CreateCountryCommandHandler : BaseHandler<CreateCountryCommand, Res
             };
             this._commonService.ApplicationDBContext.Countries.Add(entity);
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
-            return Response<int>.Success(entity.Id);
+            return Response<int>.Success(entity.Id, request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<int>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Create Country");
+            _logger.LogError(ex, "Failed to Create Country. Request: {Name} {@Request}", typeof(CreateCountryCommand).Name, request);
+            return new Response<int>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Create Country", request.requestId);
         }
     }
 }

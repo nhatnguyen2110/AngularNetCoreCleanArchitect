@@ -4,6 +4,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.WeatherData.Commands.CreateWeatherData;
 
@@ -45,11 +46,13 @@ public class CreateWeatherDataCommand : IRequest<Response<int>>
     public string? WeatherMain_night { get; set; }
     public string? WeatherDesc_night { get; set; }
     public string? WeatherIcon_night { get; set; }
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class CreateWeatherDataCommandHandler : BaseHandler<CreateWeatherDataCommand, Response<int>>
 {
     public CreateWeatherDataCommandHandler(ICommonService commonService
-        ) : base(commonService)
+        , ILogger<CreateWeatherDataCommand> logger
+        ) : base(commonService, logger)
     {
     }
     public override async Task<Response<int>> Handle(CreateWeatherDataCommand request, CancellationToken cancellationToken)
@@ -97,12 +100,13 @@ public class CreateWeatherDataCommandHandler : BaseHandler<CreateWeatherDataComm
             };
             this._commonService.ApplicationDBContext.HistoricalWeatherDatas.Add(entity);
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
-            return Response<int>.Success(entity.Id);
+            return Response<int>.Success(entity.Id, request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<int>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Create Weather Data");
+            _logger.LogError(ex, "Failed to Create Weather Data. Request: {Name} {@Request}", typeof(CreateWeatherDataCommand).Name, request);
+            return new Response<int>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Create Weather Data", request.requestId);
         }
-        
+
     }
 }

@@ -16,6 +16,7 @@ import { NoWhitespaceValidator } from "../validators/no-whitespace.validator";
 import { isNgTemplate } from "@angular/compiler";
 import { NotifierService } from "angular-notifier";
 import * as moment from "moment-timezone";
+import { Guid } from "guid-typescript";
 
 @Component({
   selector: "app-location-settings",
@@ -49,7 +50,7 @@ export class LocationSettingsComponent implements OnInit {
     private fb: FormBuilder,
     private notifier: NotifierService
   ) {
-    countriesClient.getList(null, 1, 99).subscribe(
+    countriesClient.getList(null, 1, 99,Guid.create().toString()).subscribe(
       (result) => {
         this.countriesList = result.data.items;
         if (this.countriesList.length) {
@@ -59,7 +60,7 @@ export class LocationSettingsComponent implements OnInit {
       (error) => console.error(error)
     );
     this.tzNames = moment.tz.names();
-  }
+    }
   ngOnInit(): void {
     this.newCountryForm = this.fb.group({
       id: 0,

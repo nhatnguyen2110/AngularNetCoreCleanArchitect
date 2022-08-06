@@ -6,6 +6,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Provinces.Queries.GetProvincesWithPagination;
 
@@ -14,12 +15,14 @@ public class GetProvincesWithPaginationQuery : IRequest<Response<PaginatedList<P
     public string? Keyword { get; set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 99;
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class GetProvincesWithPaginationQueryHandler : BaseHandler<GetProvincesWithPaginationQuery, Response<PaginatedList<ProvinceDto>>>
 {
-    
+
     public GetProvincesWithPaginationQueryHandler(ICommonService commonService
-        ) : base(commonService)
+        , ILogger<GetProvincesWithPaginationQuery> logger
+        ) : base(commonService, logger)
     {
     }
 
@@ -37,11 +40,12 @@ public class GetProvincesWithPaginationQueryHandler : BaseHandler<GetProvincesWi
            .OrderBy(x => x.Priority).ThenBy(x => x.Name)
            .ProjectTo<ProvinceDto>(this._commonService.Mapper?.ConfigurationProvider)
            .PaginatedListAsync(request.PageNumber, request.PageSize);
-            return Response<PaginatedList<ProvinceDto>>.Success(result);
+            return Response<PaginatedList<ProvinceDto>>.Success(result, request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<PaginatedList<ProvinceDto>>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Provinces");
+            _logger.LogError(ex, "Failed to Load Provinces. Request: {Name} {@Request}", typeof(GetProvincesWithPaginationQuery).Name, request);
+            return new Response<PaginatedList<ProvinceDto>>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Load Provinces", request.requestId);
         }
     }
 }

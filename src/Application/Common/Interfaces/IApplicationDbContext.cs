@@ -15,5 +15,13 @@ public interface IApplicationDbContext
 
     DbSet<Country> Countries { get; }
 
+    DbSet<Account> Accounts { get; }
+
+    DbSet<SocialAccountToken> SocialAccountTokens { get; }
+
+    DbSet<SysRole> SysRoles { get; }
+
+    DbSet<AccountRole> AccountRoles { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

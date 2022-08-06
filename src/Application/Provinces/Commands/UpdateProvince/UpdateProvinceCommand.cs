@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Provinces.Commands.CreateProvince;
 
@@ -17,10 +18,12 @@ public class UpdateProvinceCommand : IRequest<Response<Unit>>
     public int Priority { get; set; }
     public string? AliasName { get; set; }
     public int? CountryId { get; set; }
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class UpdateProvinceCommandHandler : BaseHandler<UpdateProvinceCommand, Response<Unit>>
 {
     public UpdateProvinceCommandHandler(ICommonService commonService
+        , ILogger<UpdateProvinceCommand> logger
         ) : base(commonService)
     {
     }
@@ -43,11 +46,12 @@ public class UpdateProvinceCommandHandler : BaseHandler<UpdateProvinceCommand, R
             entity.CountryId = request.CountryId;
 
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
-            return Response<Unit>.Success(Unit.Value);
+            return Response<Unit>.Success(Unit.Value, request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<Unit>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Update Province");
+            _logger.LogError(ex, "Failed to Update Province. Request: {Name} {@Request}", typeof(CreateProvinceCommand).Name, request);
+            return new Response<Unit>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Update Province", request.requestId);
         }
     }
 

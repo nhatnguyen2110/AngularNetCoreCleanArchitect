@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.WeatherData.Commands.UpdateWeatherData;
 
@@ -45,11 +46,13 @@ public class UpdateWeatherDataCommand : IRequest<Response<Unit>>
     public string? WeatherMain_night { get; set; }
     public string? WeatherDesc_night { get; set; }
     public string? WeatherIcon_night { get; set; }
+    public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class UpdateWeatherDataCommandHandler : BaseHandler<UpdateWeatherDataCommand, Response<Unit>>
 {
     public UpdateWeatherDataCommandHandler(ICommonService commonService
-        ) : base(commonService)
+        , ILogger<UpdateWeatherDataCommand> logger
+        ) : base(commonService, logger)
     {
     }
     public override async Task<Response<Unit>> Handle(UpdateWeatherDataCommand request, CancellationToken cancellationToken)
@@ -98,12 +101,12 @@ public class UpdateWeatherDataCommandHandler : BaseHandler<UpdateWeatherDataComm
             entity.WeatherDesc_night = request.WeatherDesc_night;
             entity.WeatherIcon_night = request.WeatherIcon_night;
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
-            return Response<Unit>.Success(Unit.Value);
+            return Response<Unit>.Success(Unit.Value, request.requestId);
         }
         catch (Exception ex)
         {
-            return new Response<Unit>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Update Weather Data");
+            _logger.LogError(ex, "Failed to Update Weather Data. Request: {Name} {@Request}", typeof(UpdateWeatherDataCommand).Name, request);
+            return new Response<Unit>(false, Constants.GeneralErrorMessage, ex.Message, "Failed to Update Weather Data", request.requestId);
         }
-
     }
 }

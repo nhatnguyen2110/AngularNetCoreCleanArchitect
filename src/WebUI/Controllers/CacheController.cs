@@ -1,7 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
-using CleanArchitecture.Domain.Cache;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +37,7 @@ public class CacheController : ApiControllerBase
         }
     }
     [HttpDelete("[action]")]
-    public ActionResult ClearByKey([FromQuery]string key)
+    public ActionResult ClearByKey([FromQuery] string key)
     {
         try
         {

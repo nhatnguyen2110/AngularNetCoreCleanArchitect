@@ -30,7 +30,7 @@ builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddApplication();
+builder.Services.AddApplication(configuration);
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHealthChecks()
@@ -108,7 +108,9 @@ app.UseEndpoints(endpoints =>
 //run job
 var jobHandlerService = app.Services.GetService<IJobHandlerService>();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 RecurringJob.AddOrUpdate("ExecuteUpdateHistoricalWeather", () => jobHandlerService.ExecuteUpdateHistoricalWeather(null, null), "0 10 * * *", TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
 app.Run();

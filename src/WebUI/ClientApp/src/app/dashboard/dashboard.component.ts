@@ -6,7 +6,6 @@ import {
   CountryDto,
   CreateWeatherDataCommand,
   DailyForecastWeatherDto,
-  GetWeatherConditionQuery,
   HourlyForecastWeatherDto,
   OWPWeatherCondition,
   ProvinceDto,
@@ -34,6 +33,7 @@ import { AuthorizeService } from "src/api-authorization/authorize.service";
 import { TestBed } from "@angular/core/testing";
 import { ChartData, ChartOptions } from "chart.js";
 import { $ } from "protractor";
+import { Guid } from "guid-typescript";
 export enum DayTime {
   Morning,
   Afternoon,
@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
     private notifier: NotifierService,
     private authorizeService: AuthorizeService
   ) {
-    countriesClient.getList(null, 1, 99).subscribe(
+    countriesClient.getList(null, 1, 99, Guid.create().toString()).subscribe(
       (result) => {
         this.countriesList = result.data.items;
         if (this.countriesList.length) {
@@ -210,7 +210,7 @@ export class DashboardComponent implements OnInit {
     this.collapseForecastDetail();
     if (this.selectedProvince) {
       this.weatherClient
-        .getForecastWeatherIn7Days(this.selectedProvince.id)
+        .getForecastWeatherIn7Days(this.selectedProvince.id,Guid.create().toString())
         .subscribe((result) => {
           this.weatherForecastData = result.data.daily;
           this.weatherHourlyForecastData = result.data.hourly;
@@ -300,7 +300,7 @@ export class DashboardComponent implements OnInit {
       this.loadWeatherDetailModal(template);
     } else {
       this.weatherClient
-        .getWeatherConditions(new GetWeatherConditionQuery())
+        .getWeatherConditions(Guid.create().toString())
         .subscribe(
           (result) => {
             this.weatherConditions = result.data;
@@ -743,7 +743,8 @@ export class DashboardComponent implements OnInit {
           //1687885200,
           4,
           1,
-          99
+          99,
+          Guid.create().toString()
         )
         .subscribe(
           (result) => {

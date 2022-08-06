@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using CleanArchitecture.Domain.Cache;
+using CleanArchitecture.Application.Common.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 
@@ -228,6 +223,16 @@ public class CacheService : ICacheService
             return func();
         });
 
+        return value;
+    }
+
+    public T? GetByKey<T>(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+        {
+            throw new ArgumentNullException($"{typeof(T).ToString()} is null");
+        }
+        var value = _cache.Get<T>(key);
         return value;
     }
 }

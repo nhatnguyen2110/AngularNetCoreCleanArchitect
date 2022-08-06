@@ -9,7 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Provinces\Queries\GetProvinceById\GetProvinceByIdQuery.cs~RF4d990688.TMP" />
+      <None Remove="WeatherData\Commands\CreateWeatherData\CreateWeatherDataCommand.cs~RF4da4c60a.TMP" />
+      <None Remove="WeatherData\Queries\GetLocalDataHistoricalWeather\GetLocalDataHistoricalWeatherQuery.cs~RF4daf193a.TMP" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />

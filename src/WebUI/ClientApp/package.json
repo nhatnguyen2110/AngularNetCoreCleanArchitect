@@ -33,6 +33,7 @@
     "chart.js": "^3.8.0",
     "core-js": "^2.6.5",
     "flag-icon-css": "^4.1.7",
+    "guid-typescript": "^1.0.9",
     "jquery": "3.5.0",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",

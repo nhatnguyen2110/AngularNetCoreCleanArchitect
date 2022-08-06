@@ -27,6 +27,25 @@ public static class ApplicationDbContextSeed
 
     public static async Task SeedSampleDataAsync(ApplicationDbContext context)
     {
+        //Add roles: Admin, Member, Guest
+        if (!context.SysRoles.Any())
+        {
+            context.SysRoles.AddRange(
+                 new SysRole()
+                 {
+                     Name = "Administrator"
+                 },
+                new SysRole()
+                {
+                    Name = "Member"
+                },
+                new SysRole()
+                {
+                    Name = "Guest"
+                }
+            );
+        }
+
         // Seed, if necessary
         if (!context.TodoLists.Any())
         {

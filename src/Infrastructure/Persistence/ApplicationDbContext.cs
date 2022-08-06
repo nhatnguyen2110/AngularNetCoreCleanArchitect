@@ -38,6 +38,14 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 
     public DbSet<HistoricalWeatherData> HistoricalWeatherDatas => Set<HistoricalWeatherData>();
 
+    public DbSet<Account> Accounts => Set<Account>();
+
+    public DbSet<SocialAccountToken> SocialAccountTokens => Set<SocialAccountToken>();
+
+    public DbSet<AccountRole> AccountRoles => Set<AccountRole>();
+
+    public DbSet<SysRole> SysRoles => Set<SysRole>();
+
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
