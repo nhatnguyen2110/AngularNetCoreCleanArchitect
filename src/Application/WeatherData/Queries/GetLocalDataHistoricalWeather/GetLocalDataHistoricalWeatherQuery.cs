@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Application.Common.Handlers;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Application.WeatherData.Queries.GetWeatherForecastIn7Days;
+using CleanArchitecture.Application.WeatherData.Dtos;
 using CleanArchitecture.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

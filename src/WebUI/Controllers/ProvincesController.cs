@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Provinces.Commands.CreateProvince;
+using CleanArchitecture.Application.Provinces.Dtos;
 using CleanArchitecture.Application.Provinces.Queries.GetProvinceById;
 using CleanArchitecture.Application.Provinces.Queries.GetProvincesWithPagination;
 using Microsoft.AspNetCore.Authorization;

@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Handlers;
+﻿using CleanArchitecture.Application.Accounts.Dtos;
+using CleanArchitecture.Application.Common.Handlers;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using MediatR;

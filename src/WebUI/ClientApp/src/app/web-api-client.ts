@@ -22,6 +22,8 @@ export interface IAccountClient {
     signInByEmailVerificationCode(command: SignInByEmailVerificationCodeCommand): Observable<ResponseOfSignInResultDto>;
     getEmailResetPassword(command: GetEmailResetPasswordCommand): Observable<ResponseOfUnit>;
     resetPassword(command: ResetPasswordCommand): Observable<ResponseOfUnit>;
+    getProfile(requestId: string | null | undefined): Observable<ResponseOfAccountDto>;
+    refreshToken(command: RefreshTokenCommand): Observable<ResponseOfSignInResultDto>;
 }
 
 @Injectable({
@@ -399,6 +401,108 @@ export class AccountClient implements IAccountClient {
             }));
         }
         return _observableOf<ResponseOfUnit>(<any>null);
+    }
+
+    getProfile(requestId: string | null | undefined) : Observable<ResponseOfAccountDto> {
+        let url_ = this.baseUrl + "/api/Account/GetProfile?";
+        if (requestId !== undefined && requestId !== null)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProfile(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProfile(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfAccountDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfAccountDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProfile(response: HttpResponseBase): Observable<ResponseOfAccountDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfAccountDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfAccountDto>(<any>null);
+    }
+
+    refreshToken(command: RefreshTokenCommand) : Observable<ResponseOfSignInResultDto> {
+        let url_ = this.baseUrl + "/api/Account/RefreshToken";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRefreshToken(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRefreshToken(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processRefreshToken(response: HttpResponseBase): Observable<ResponseOfSignInResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfSignInResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfSignInResultDto>(<any>null);
     }
 }
 
@@ -2895,6 +2999,79 @@ export class ResetPasswordCommand implements IResetPasswordCommand {
 export interface IResetPasswordCommand {
     code?: string | undefined;
     newPassword?: string | undefined;
+    requestId?: string;
+}
+
+export class ResponseOfAccountDto extends Response implements IResponseOfAccountDto {
+    data?: AccountDto | undefined;
+
+    constructor(data?: IResponseOfAccountDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? AccountDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfAccountDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfAccountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfAccountDto extends IResponse {
+    data?: AccountDto | undefined;
+}
+
+export class RefreshTokenCommand implements IRefreshTokenCommand {
+    accessToken?: string | undefined;
+    requestId?: string;
+
+    constructor(data?: IRefreshTokenCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.accessToken = _data["accessToken"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): RefreshTokenCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new RefreshTokenCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["accessToken"] = this.accessToken;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface IRefreshTokenCommand {
+    accessToken?: string | undefined;
     requestId?: string;
 }
 

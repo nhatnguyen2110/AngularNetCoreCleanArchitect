@@ -35,16 +35,16 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
         var endTime = DateTime.Now.ToString("yyyyMMddHHmmss");
         var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
-        if (elapsedMilliseconds > 30000)
+        if (elapsedMilliseconds > 60000) //warning for response duration > 60 seconds
         {
             var requestName = typeof(TRequest).Name;
             var userId = _currentUserService.UserId ?? string.Empty;
-            var userName = string.Empty;
+            var userName = _currentUserService.Email ?? string.Empty;
 
-            if (!string.IsNullOrEmpty(userId))
-            {
-                userName = await _identityService.GetUserNameAsync(userId);
-            }
+            //if (!string.IsNullOrEmpty(userId))
+            //{
+            //    userName = await _identityService.GetUserNameAsync(userId);
+            //}
 
             _logger.LogWarning("Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
                 requestName, elapsedMilliseconds, userId, userName, request);

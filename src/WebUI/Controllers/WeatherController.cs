@@ -3,6 +3,7 @@ using CleanArchitecture.Application.GetWeatherConditions.Queries.GetWeatherCondi
 using CleanArchitecture.Application.WeatherData.Commands.CreateWeatherData;
 using CleanArchitecture.Application.WeatherData.Commands.DeleteWeatherData;
 using CleanArchitecture.Application.WeatherData.Commands.UpdateWeatherData;
+using CleanArchitecture.Application.WeatherData.Dtos;
 using CleanArchitecture.Application.WeatherData.Queries.GetLocalDataHistoricalWeather;
 using CleanArchitecture.Application.WeatherData.Queries.GetWeatherForecastIn7Days;
 using CleanArchitecture.Domain;

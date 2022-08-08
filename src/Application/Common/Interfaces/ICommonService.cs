@@ -13,4 +13,5 @@ public interface ICommonService
     IOpenWeatherMapClient OpenWeatherMapClient { get; }
     IEmailService EmailService { get; }
     ICacheService CacheService { get; }
+    ICurrentUserService CurrentUserService { get; }
 }

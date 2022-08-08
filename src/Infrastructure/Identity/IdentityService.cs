@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Application.Accounts.Commands.SignIn;
+﻿using CleanArchitecture.Application.Accounts.Dtos;
 using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
@@ -187,7 +187,8 @@ public class IdentityService : IIdentityService
         var jwtToken = await _tokenService.GenerateJWToken(new UserTokenModel
         {
             Id = _account.Id.ToString(),
-            TokenExpire = this._commonService.DateTimeService.NowUtc
+            Email = "" + _account.Email,
+            ExpireInMinutes = int.Parse(keepLogin ? _configuration["JWTSettings:KeepLoginDurationInMinutes"] : _configuration["JWTSettings:DefaultDurationInMinutes"])
         });
         var response = new SignInResultDto
         {
@@ -197,6 +198,28 @@ public class IdentityService : IIdentityService
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
         response.Account.IsFirstLogin = isFirstLogin;
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
+        return response;
+    }
+
+    public async Task<SignInResultDto> RefreshTokenAsync(string accessToken)
+    {
+        var claimsPrincipal = _tokenService.DecryptTokenToClaim(accessToken, false);
+        if (claimsPrincipal == null)
+        {
+            throw new IdentityException("Invalid Token");
+        }
+        var _user = await _tokenService.GetUserToken(claimsPrincipal);
+        var _account = await _commonService.ApplicationDBContext.Accounts.FirstOrDefaultAsync(a => a.Id == int.Parse(_user.Id));
+        if (_account == null)
+        {
+            throw new IdentityException("Invalid User");
+        }
+        var jwtToken = await _tokenService.GenerateJWToken(_user);
+        var response = new SignInResultDto
+        {
+            AccessToken = jwtToken,
+            Account = _commonService.Mapper?.Map<AccountDto>(_account)
+        };
         return response;
     }
 }

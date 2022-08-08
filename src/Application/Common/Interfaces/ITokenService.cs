@@ -6,6 +6,6 @@ public interface ITokenService
 {
     Task<UserTokenModel> GetUserToken(ClaimsPrincipal claimsPrincipal);
     Task<IList<Claim>> GetClaimsAsync(UserTokenModel user);
-    ClaimsPrincipal DecryptTokenToClaim(string decrypt);
+    ClaimsPrincipal DecryptTokenToClaim(string decrypt, bool validateLifetime = true);
     Task<string> GenerateJWToken(UserTokenModel user);
 }

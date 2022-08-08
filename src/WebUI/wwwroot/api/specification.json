@@ -230,6 +230,74 @@
         }
       }
     },
+    "/api/Account/GetProfile": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_GetProfile",
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfAccountDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Account/RefreshToken": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_RefreshToken",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfSignInResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Cache/ClearAll": {
       "delete": {
         "tags": [
@@ -1788,6 +1856,40 @@
             "nullable": true
           },
           "newPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseOfAccountDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AccountDto"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "RefreshTokenCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "accessToken": {
             "type": "string",
             "nullable": true
           },

@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Application.Common.Handlers;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Application.Countries.Queries.GetCountriesWithPagination;
+using CleanArchitecture.Application.Countries.Dtos;
 using CleanArchitecture.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

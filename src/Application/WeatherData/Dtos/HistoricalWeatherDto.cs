@@ -2,7 +2,8 @@
 using CleanArchitecture.Application.Common.Mappings;
 using OpenWeatherMapAPI.Models;
 
-namespace CleanArchitecture.Application.WeatherData.Queries.GetHistoricalWeatherData;
+namespace CleanArchitecture.Application.WeatherData.Dtos;
+
 
 public class HistoricalWeatherDto : IMapFrom<OWPHistorialOneCallRes>
 {

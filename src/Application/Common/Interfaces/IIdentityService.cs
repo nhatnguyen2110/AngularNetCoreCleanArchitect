@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Application.Accounts.Commands.SignIn;
+﻿using CleanArchitecture.Application.Accounts.Dtos;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Enums;
 
@@ -17,4 +17,5 @@ public interface IIdentityService
     Task<Result> DeleteUserAsync(string userId);
 
     Task<SignInResultDto> AuthorizeAsync(string emailOrPhoneNo, string passcode, bool keepLogin, LoginMethod loginMethod, CancellationToken cancellationToken);
+    Task<SignInResultDto> RefreshTokenAsync(string accessToken);
 }

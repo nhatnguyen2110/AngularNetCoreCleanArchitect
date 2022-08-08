@@ -1,9 +1,9 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Domain;
 using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -44,11 +44,14 @@ public static class DependencyInjection
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
-        services.AddAuthentication()
-            .AddIdentityServerJwt();
+        //services.AddAuthentication()
+        //    .AddIdentityServerJwt();
 
-        services.AddAuthorization(options =>
-            options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+        //services.AddAuthorization(options =>
+        //    options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+
+        services.AddAuthentication(Constants.CustomAuthenticationScheme)
+            .AddScheme<CustomAuthenticationSchemeOptions, CustomAuthenticationHandler>(Constants.CustomAuthenticationScheme, opt => { });
 
         //InMemory Cache
         services.AddSingleton<ICacheService, CacheService>();

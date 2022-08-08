@@ -1,13 +1,7 @@
 ﻿using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Domain.Entities;
 
-namespace CleanArchitecture.Application.Accounts.Commands.SignIn;
-public class SignInResultDto
-{
-    public string? AccessToken { get; set; }
-    public AccountDto? Account { get; set; }
-
-}
+namespace CleanArchitecture.Application.Accounts.Dtos;
 public class AccountDto : IMapFrom<Account>
 {
     public int Id { get; set; }

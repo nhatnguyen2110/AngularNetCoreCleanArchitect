@@ -14,7 +14,7 @@ public class TokenService : ITokenService
     {
         _configuration = configuration;
     }
-    public ClaimsPrincipal DecryptTokenToClaim(string decrypt)
+    public ClaimsPrincipal DecryptTokenToClaim(string decrypt, bool validateLifetime = true)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.Default.GetBytes(_configuration["JWTSettings:Key"]));
         var secretKey = new SymmetricSecurityKey(Encoding.Default.GetBytes(_configuration["JWTSettings:Secret"]));
@@ -25,7 +25,9 @@ public class TokenService : ITokenService
             ValidAudiences = new string[] { _configuration["JWTSettings:Audience"] },
             ValidIssuers = new string[] { _configuration["JWTSettings:Issuer"] },
             IssuerSigningKey = securityKey,
-            TokenDecryptionKey = secretKey
+            TokenDecryptionKey = secretKey,
+            RequireExpirationTime = true,
+            ValidateLifetime = validateLifetime
         };
 
         SecurityToken validatedToken;
@@ -54,7 +56,7 @@ public class TokenService : ITokenService
             _configuration["JWTSettings:Audience"],
             new ClaimsIdentity(await GetClaimsAsync(user)),
             DateTime.Now,
-            DateTime.Now.AddMinutes(Double.Parse(_configuration["JWTSettings:DurationInMinutes"])),
+            DateTime.Now.AddMinutes(user.ExpireInMinutes),
             DateTime.Now,
             signingCredentials,
             ep);
@@ -67,8 +69,9 @@ public class TokenService : ITokenService
     {
         IList<Claim> claims = new List<Claim>();
         claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
+        claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
         claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-        claims.Add(new Claim("customExpire", user.TokenExpire.ToString()));
+        claims.Add(new Claim("expireInMinutes", user.ExpireInMinutes.ToString()));
 
         return Task.FromResult(claims);
     }
@@ -77,11 +80,12 @@ public class TokenService : ITokenService
     {
         var user = new UserTokenModel();
         user.Id = claimsPrincipal.FindFirstValue(JwtRegisteredClaimNames.Sub);
-        var tokenExpireString = claimsPrincipal.FindFirstValue("customExpire");
-        if (!string.IsNullOrWhiteSpace(tokenExpireString))
+        user.Email = claimsPrincipal.FindFirstValue(JwtRegisteredClaimNames.Email);
+        var expireInMinutesString = claimsPrincipal.FindFirstValue("expireInMinutes");
+        if (!string.IsNullOrWhiteSpace(expireInMinutesString))
         {
-            DateTime.TryParse(tokenExpireString, out var tokenExpire);
-            user.TokenExpire = tokenExpire;
+            int.TryParse(expireInMinutesString, out var expireInMinutes);
+            user.ExpireInMinutes = expireInMinutes;
         }
         return Task.FromResult(user);
     }

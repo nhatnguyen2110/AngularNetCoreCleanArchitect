@@ -4,7 +4,7 @@ using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using OpenWeatherMapAPI.Models;
 
-namespace CleanArchitecture.Application.WeatherData.Queries.GetWeatherForecastIn7Days;
+namespace CleanArchitecture.Application.WeatherData.Dtos;
 
 public class WeatherForecastDto : IMapFrom<OWPOneCallRes>
 {
@@ -98,35 +98,35 @@ public class DailyForecastWeatherDto : IMapFrom<OWPDailyForecastWeather>, IMapFr
     {
         get
         {
-            return String.Format(Constants.ImageStorageOPMFormat, this.Weather_icon);
+            return string.Format(Constants.ImageStorageOPMFormat, Weather_icon);
         }
     }
     public string WeatherIcon_morn_url
     {
         get
         {
-            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_morn);
+            return string.Format(Constants.ImageStorageOPMFormat, WeatherIcon_morn);
         }
     }
     public string WeatherIcon_day_url
     {
         get
         {
-            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_day);
+            return string.Format(Constants.ImageStorageOPMFormat, WeatherIcon_day);
         }
     }
     public string WeatherIcon_eve_url
     {
         get
         {
-            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_eve);
+            return string.Format(Constants.ImageStorageOPMFormat, WeatherIcon_eve);
         }
     }
     public string WeatherIcon_night_url
     {
         get
         {
-            return String.Format(Constants.ImageStorageOPMFormat, this.WeatherIcon_night);
+            return string.Format(Constants.ImageStorageOPMFormat, WeatherIcon_night);
         }
     }
 
@@ -165,7 +165,7 @@ public class HourlyForecastWeatherDto : IMapFrom<OWPHourlyForecastWeather>
     {
         get
         {
-            return String.Format(Constants.ImageStorageOPMFormat, this.Weather_icon);
+            return string.Format(Constants.ImageStorageOPMFormat, Weather_icon);
         }
     }
 }

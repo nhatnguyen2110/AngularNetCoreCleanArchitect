@@ -1,8 +1,8 @@
 ﻿using CleanArchitecture.Application.Common.Mappings;
-using CleanArchitecture.Application.Provinces.Queries.GetProvincesWithPagination;
+using CleanArchitecture.Application.Provinces.Dtos;
 using CleanArchitecture.Domain.Entities;
 
-namespace CleanArchitecture.Application.Countries.Queries.GetCountriesWithPagination;
+namespace CleanArchitecture.Application.Countries.Dtos;
 
 public class CountryDto : IMapFrom<Country>
 {

@@ -2,6 +2,7 @@
 public class UserTokenModel
 {
     public string Id { get; set; } = default!;
-    public DateTime TokenExpire { get; set; }
+    public string Email { get; set; } = default!;
+    public int ExpireInMinutes { get; set; }
 
 }
