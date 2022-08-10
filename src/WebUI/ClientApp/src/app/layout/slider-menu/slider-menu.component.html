@@ -1,0 +1,31 @@
+<ul nz-menu nzMode="inline">
+  <ng-container *ngFor="let item of menu">
+    <ng-container *ngIf="item.subMenu?.length > 0">
+      <li
+        nz-submenu
+        [nzTitle]="item.title"
+        [nzIcon]="item.icon"
+        [nzOpen]="item.expanded"
+      >
+        <app-slider-menu [menu]="item.subMenu"></app-slider-menu>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="item.subMenu === undefined && !item.isExternal">
+      <li
+        nz-menu-item
+        [routerLink]="item.link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i nz-icon [nzType]="item.icon"></i>
+        <span>{{ item.title }}</span>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="item.subMenu === undefined && item.isExternal">
+      <li nz-menu-item (click)="onRedirect(item.link, item.isOpenAsNewWindow)">
+        <i nz-icon [nzType]="item.icon"></i>
+        <span>{{ item.title }}</span>
+      </li>
+    </ng-container>
+  </ng-container>
+</ul>

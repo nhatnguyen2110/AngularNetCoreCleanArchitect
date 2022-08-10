@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Security;
 using MediatR;
@@ -36,26 +35,26 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
 
             if (authorizeAttributesWithRoles.Any())
             {
-                var authorized = false;
+                //var authorized = false;
 
-                foreach (var roles in authorizeAttributesWithRoles.Select(a => a.Roles.Split(',')))
-                {
-                    foreach (var role in roles)
-                    {
-                        var isInRole = await _identityService.IsInRoleAsync(_currentUserService.UserId, role.Trim());
-                        if (isInRole)
-                        {
-                            authorized = true;
-                            break;
-                        }
-                    }
-                }
+                //foreach (var roles in authorizeAttributesWithRoles.Select(a => a.Roles.Split(',')))
+                //{
+                //    foreach (var role in roles)
+                //    {
+                //        var isInRole = await _identityService.IsInRoleAsync(_currentUserService.UserId, role.Trim());
+                //        if (isInRole)
+                //        {
+                //            authorized = true;
+                //            break;
+                //        }
+                //    }
+                //}
 
-                // Must be a member of at least one role in roles
-                if (!authorized)
-                {
-                    throw new ForbiddenAccessException();
-                }
+                //// Must be a member of at least one role in roles
+                //if (!authorized)
+                //{
+                //    throw new ForbiddenAccessException();
+                //}
             }
 
             // Policy-based authorization

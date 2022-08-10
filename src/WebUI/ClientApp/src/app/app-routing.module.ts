@@ -1,28 +1,26 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthorizeGuard } from "src/api-authorization/authorize.guard";
-import { CounterComponent } from "./counter/counter.component";
-import { FetchDataComponent } from "./fetch-data/fetch-data.component";
-import { HomeComponent } from "./home/home.component";
-import { LocationSettingsComponent } from "./location-settings/location-settings.component";
-import { DevEnvGuard } from "./nav-menu/dev-env.guard";
-import { TodoComponent } from "./todo/todo.component";
-import { TokenComponent } from "./token/token.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { LayoutComponent } from "./layout/layout.component";
 
 export const routes: Routes = [
-  { path: "counter", component: CounterComponent },
-  { path: "fetch-data", component: FetchDataComponent },
-  { path: "", component: HomeComponent, pathMatch: "full" },
-  { path: "todo", component: TodoComponent, canActivate: [AuthorizeGuard] },
   {
-    path: "locations",
-    component: LocationSettingsComponent,
-    canActivate: [AuthorizeGuard],
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home',
   },
   {
-    path: "token",
-    component: TokenComponent,
-    canActivate: [AuthorizeGuard, DevEnvGuard],
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'home',
+        component: DashboardComponent,
+        data: {
+          breadcrumb: 'Home'
+        }
+      },
+    ],
   },
 ];
 
