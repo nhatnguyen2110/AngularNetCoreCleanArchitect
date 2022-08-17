@@ -773,27 +773,6 @@
         ]
       }
     },
-    "/api/System/GetPublicKey": {
-      "get": {
-        "tags": [
-          "System"
-        ],
-        "operationId": "System_GetPublicKey",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/System/RSAEncryptData": {
       "post": {
         "tags": [
@@ -820,6 +799,26 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/System/GetConfigs": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "operationId": "System_GetConfigs",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfConfigsDto"
                 }
               }
             }
@@ -1497,29 +1496,6 @@
           }
         ]
       }
-    },
-    "/api/WeatherForecast": {
-      "get": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "operationId": "WeatherForecast_Get",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -1825,9 +1801,6 @@
           },
           "code": {
             "type": "string"
-          },
-          "keepLogin": {
-            "type": "boolean"
           },
           "requestId": {
             "type": "string"
@@ -2303,6 +2276,44 @@
             "nullable": true
           },
           "plainText2": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ResponseOfConfigsDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ConfigsDto"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "ConfigsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "enableEncryptAuthorize": {
+            "type": "boolean"
+          },
+          "publicKeyEncode": {
             "type": "string",
             "nullable": true
           }
@@ -3270,28 +3281,6 @@
             "type": "string"
           },
           "weatherConditionGroupId": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "WeatherForecast": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "temperatureC": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "summary": {
             "type": "string",
             "nullable": true
           }

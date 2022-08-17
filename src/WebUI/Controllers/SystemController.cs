@@ -1,5 +1,8 @@
 ﻿using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Application.Configs.Dtos;
+using CleanArchitecture.Application.Configs.Queries.GetSystemConfigs;
 using CleanArchitecture.Domain.Common;
+using CleanArchitecture.WebUI.Extensions;
 using CleanArchitecture.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,15 +15,7 @@ public class SystemController : ApiControllerBase
         _applicationSettings = applicationSettings;
     }
 
-    [HttpGet("[action]")]
-    public IActionResult GetPublicKey()
-    {
-#pragma warning disable CS8604 // Possible null reference argument.
-        return Ok(
-            Response<string>.Success(_applicationSettings.PublicKeyEncode)
-            );
-#pragma warning restore CS8604 // Possible null reference argument.
-    }
+
     [HttpPost("[action]")]
     public IActionResult RSAEncryptData([FromBody] EncryptedDataRequestModel request)
     {
@@ -35,5 +30,22 @@ public class SystemController : ApiControllerBase
                 )
             );
 #pragma warning restore CS8604 // Possible null reference argument.
+    }
+    [HttpGet("[action]")]
+    public async Task<ActionResult<Response<ConfigsDto>>> GetConfigs()
+    {
+        var result = await Mediator.Send(new GetSystemConfigsQuery());
+        if (result.Succeeded)
+        {
+            if (result.Data != null)
+            {
+                result.Data.Version = Constants.ApiVersionName.V1;
+            }
+            return result;
+        }
+        else
+        {
+            return BadRequest(result);
+        }
     }
 }

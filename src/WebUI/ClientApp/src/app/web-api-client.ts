@@ -1196,8 +1196,8 @@ export class ProvincesClient implements IProvincesClient {
 }
 
 export interface ISystemClient {
-    getPublicKey(): Observable<FileResponse>;
     rSAEncryptData(request: EncryptedDataRequestModel): Observable<FileResponse>;
+    getConfigs(): Observable<ResponseOfConfigsDto>;
 }
 
 @Injectable({
@@ -1211,52 +1211,6 @@ export class SystemClient implements ISystemClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    getPublicKey() : Observable<FileResponse> {
-        let url_ = this.baseUrl + "/api/System/GetPublicKey";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/octet-stream"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPublicKey(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetPublicKey(<any>response_);
-                } catch (e) {
-                    return <Observable<FileResponse>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<FileResponse>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetPublicKey(response: HttpResponseBase): Observable<FileResponse> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<FileResponse>(<any>null);
     }
 
     rSAEncryptData(request: EncryptedDataRequestModel) : Observable<FileResponse> {
@@ -1307,6 +1261,54 @@ export class SystemClient implements ISystemClient {
             }));
         }
         return _observableOf<FileResponse>(<any>null);
+    }
+
+    getConfigs() : Observable<ResponseOfConfigsDto> {
+        let url_ = this.baseUrl + "/api/System/GetConfigs";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetConfigs(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetConfigs(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfConfigsDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfConfigsDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetConfigs(response: HttpResponseBase): Observable<ResponseOfConfigsDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfConfigsDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfConfigsDto>(<any>null);
     }
 }
 
@@ -2226,79 +2228,6 @@ export class WeatherClient implements IWeatherClient {
     }
 }
 
-export interface IWeatherForecastClient {
-    get(): Observable<WeatherForecast[]>;
-}
-
-@Injectable({
-    providedIn: 'root'
-})
-export class WeatherForecastClient implements IWeatherForecastClient {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    get() : Observable<WeatherForecast[]> {
-        let url_ = this.baseUrl + "/api/WeatherForecast";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGet(<any>response_);
-                } catch (e) {
-                    return <Observable<WeatherForecast[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<WeatherForecast[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGet(response: HttpResponseBase): Observable<WeatherForecast[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<WeatherForecast[]>(<any>null);
-    }
-}
-
 export class Response implements IResponse {
     succeeded?: boolean;
     message?: string | undefined;
@@ -2873,7 +2802,6 @@ export interface IGetEmailVerificationCodeCommand {
 export class SignInByEmailVerificationCodeCommand implements ISignInByEmailVerificationCodeCommand {
     email?: string;
     code?: string;
-    keepLogin?: boolean;
     requestId?: string;
 
     constructor(data?: ISignInByEmailVerificationCodeCommand) {
@@ -2889,7 +2817,6 @@ export class SignInByEmailVerificationCodeCommand implements ISignInByEmailVerif
         if (_data) {
             this.email = _data["email"];
             this.code = _data["code"];
-            this.keepLogin = _data["keepLogin"];
             this.requestId = _data["requestId"];
         }
     }
@@ -2905,7 +2832,6 @@ export class SignInByEmailVerificationCodeCommand implements ISignInByEmailVerif
         data = typeof data === 'object' ? data : {};
         data["email"] = this.email;
         data["code"] = this.code;
-        data["keepLogin"] = this.keepLogin;
         data["requestId"] = this.requestId;
         return data; 
     }
@@ -2914,7 +2840,6 @@ export class SignInByEmailVerificationCodeCommand implements ISignInByEmailVerif
 export interface ISignInByEmailVerificationCodeCommand {
     email?: string;
     code?: string;
-    keepLogin?: boolean;
     requestId?: string;
 }
 
@@ -3798,6 +3723,83 @@ export class EncryptedDataRequestModel implements IEncryptedDataRequestModel {
 export interface IEncryptedDataRequestModel {
     plainText1?: string | undefined;
     plainText2?: string | undefined;
+}
+
+export class ResponseOfConfigsDto extends Response implements IResponseOfConfigsDto {
+    data?: ConfigsDto | undefined;
+
+    constructor(data?: IResponseOfConfigsDto) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.data = _data["data"] ? ConfigsDto.fromJS(_data["data"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ResponseOfConfigsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseOfConfigsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["data"] = this.data ? this.data.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IResponseOfConfigsDto extends IResponse {
+    data?: ConfigsDto | undefined;
+}
+
+export class ConfigsDto implements IConfigsDto {
+    version?: string | undefined;
+    enableEncryptAuthorize?: boolean;
+    publicKeyEncode?: string | undefined;
+
+    constructor(data?: IConfigsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.version = _data["version"];
+            this.enableEncryptAuthorize = _data["enableEncryptAuthorize"];
+            this.publicKeyEncode = _data["publicKeyEncode"];
+        }
+    }
+
+    static fromJS(data: any): ConfigsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ConfigsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["version"] = this.version;
+        data["enableEncryptAuthorize"] = this.enableEncryptAuthorize;
+        data["publicKeyEncode"] = this.publicKeyEncode;
+        return data; 
+    }
+}
+
+export interface IConfigsDto {
+    version?: string | undefined;
+    enableEncryptAuthorize?: boolean;
+    publicKeyEncode?: string | undefined;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
@@ -5416,54 +5418,6 @@ export interface IOWPWeatherCondition {
     icon?: string | undefined;
     iconUrl?: string;
     weatherConditionGroupId?: string | undefined;
-}
-
-export class WeatherForecast implements IWeatherForecast {
-    date?: Date;
-    temperatureC?: number;
-    temperatureF?: number;
-    summary?: string | undefined;
-
-    constructor(data?: IWeatherForecast) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.date = _data["date"] ? new Date(_data["date"].toString()) : <any>undefined;
-            this.temperatureC = _data["temperatureC"];
-            this.temperatureF = _data["temperatureF"];
-            this.summary = _data["summary"];
-        }
-    }
-
-    static fromJS(data: any): WeatherForecast {
-        data = typeof data === 'object' ? data : {};
-        let result = new WeatherForecast();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
-        data["temperatureC"] = this.temperatureC;
-        data["temperatureF"] = this.temperatureF;
-        data["summary"] = this.summary;
-        return data; 
-    }
-}
-
-export interface IWeatherForecast {
-    date?: Date;
-    temperatureC?: number;
-    temperatureF?: number;
-    summary?: string | undefined;
 }
 
 export interface FileResponse {

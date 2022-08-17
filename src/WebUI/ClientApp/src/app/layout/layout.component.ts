@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { Menu } from "../models/menu.model";
+import { ThemeService, ThemeType } from "../services/theme.service";
 
 @Component({
   selector: "app-layout",
@@ -20,6 +21,7 @@ export class LayoutComponent implements OnInit {
   elem: any;
   document: any;
   fixHeader: boolean = false;
+  currentTheme: string;
   menu: Menu = [
     {
       title: "Home",
@@ -56,12 +58,22 @@ export class LayoutComponent implements OnInit {
       isOpenAsNewWindow: true,
     },
   ];
-  constructor() {}
+  constructor(private themeService: ThemeService) {}
 
+  setDefaultTheme(){
+    this.currentTheme = ThemeType.default;
+    this.themeService.currentTheme = ThemeType.default;
+    this.themeService.loadTheme(false);
+  }
+  setDarkTheme(){
+    this.currentTheme = ThemeType.dark;
+    this.themeService.currentTheme = ThemeType.dark;
+    this.themeService.loadTheme(false);
+  }
   ngOnInit(): void {
     this.elem = document.documentElement;
     this.document = document;
-    
+    this.currentTheme = this.themeService.currentTheme;
   }
   goFullScreen(fullScreen: boolean) {
     if (fullScreen) {

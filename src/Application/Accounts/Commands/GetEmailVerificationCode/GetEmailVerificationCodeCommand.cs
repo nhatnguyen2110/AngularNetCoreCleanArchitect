@@ -40,7 +40,8 @@ public class GetEmailVerificationCodeCommandHandler : BaseHandler<GetEmailVerifi
 #pragma warning disable CS8604 // Possible null reference argument.
             _commonService.EmailService.SendEmail(subject: _applicationSettings.EmailVerificationCode_Subject,
                 emailContent: String.Format(_applicationSettings.EmailVerificationCode_Content, code),
-                emailTo: entity.Email
+                emailTo: entity.Email,
+                displayName: _applicationSettings.SMTPDisplayName
                 );
 #pragma warning restore CS8604 // Possible null reference argument.
             //store to cache

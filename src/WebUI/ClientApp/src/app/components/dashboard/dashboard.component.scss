@@ -1,0 +1,107 @@
+.list-group {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.list-group:first-child {
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #ccc;
+}
+.list-group:last-child {
+  border-radius: 0 0 5px 5px;
+  border-top: 0;
+}
+.list-group .ant-col {
+  vertical-align: middle;
+  line-height: 3.5;
+  margin-left: 5px;
+}
+.list-group .ant-col img {
+  height: 50px;
+}
+.list-group:hover {
+  background-color: rgb(190 190 190 / 20%);
+  cursor: pointer;
+}
+div.scrollmenu {
+  background-color: rgb(190 190 190 / 20%);
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius: 5px 5px 0 0;
+}
+
+div.scrollmenu span {
+  display: inline-block;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+div.scrollmenu .active {
+  font-weight: bold;
+}
+.current-temp {
+  display: flex;
+}
+.current-temp img {
+  height: 50px;
+}
+.current-temp span {
+  font-weight: bold;
+  font-size: 35px;
+}
+ul.weather-items {
+  list-style: none;
+  border-left: red solid 1px;
+  flex-wrap: wrap;
+  display: flex;
+  padding-left: 16pt;
+  padding-right: 16pt;
+  margin-bottom: 0;
+}
+.weather-items li {
+  margin-right: 16pt;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.tbDayDetail {
+  text-align: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.tbHistoryDayDetail {
+  text-align: center;
+  margin-bottom: 10px;
+  min-width: 50%;
+}
+.tbDayDetail td:first-child,
+.tbHistoryDayDetail td:first-child {
+  color: #8a8a8a;
+  font-size: 13px;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+.tbDayDetail th,
+.tbHistoryDayDetail th {
+  font-weight: 500;
+  padding: 2pt 4pt;
+}
+.tbDayDetail td.weather,
+.tbHistoryDayDetail td.weather {
+  font-size: 12px;
+}
+.tbDayDetail td.weather img,
+.tbHistoryDayDetail td.weather img {
+  height: 50px;
+}
+.box-responsive {
+  overflow: auto;
+}
+@media only screen and (max-width: 450px) {
+  .tbDayDetail td:first-child,
+  .tbDayDetail th:first-child {
+    display: none;
+  }
+}

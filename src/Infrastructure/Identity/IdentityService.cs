@@ -129,6 +129,11 @@ public class IdentityService : IIdentityService
                 await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
                 throw new IdentityException($"Too many failed login attempts. Please try again in {lockoutDurationInMinutes} minutes.");
             }
+            else
+            {
+                //reset access failed count
+                _account.AccessFailedCount = 0;
+            }
         }
 
         switch (loginMethod)

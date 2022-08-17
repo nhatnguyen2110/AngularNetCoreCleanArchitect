@@ -79,11 +79,14 @@ public class SignUpCommandHandler : BaseHandler<SignUpCommand, Response<Unit>>
                 var verify_code = System.Web.HttpUtility.UrlEncode(CommonHelper.Encrypt($"{entity.Id}<|>{DateTime.Now}", _applicationSettings.EncryptPassword));
                 var email_content = String.Format(_applicationSettings.EmailConfirm_Content, $"{_commonService.WebsiteSettingsService.GetBaseUrl()}/activation?code={verify_code}");
                 var email_subject = _applicationSettings.EmailConfirm_Subject ?? "Confirmed Your account";
+                var email_displayName = _applicationSettings.SMTPDisplayName;
 #pragma warning restore CS8604 // Possible null reference argument.
                 _commonService.EmailService.SendEmail(
                     email_subject,
                     email_content,
-                    entity.Email);
+                    entity.Email,
+                    displayName: email_displayName
+                    );
             }
             return Response<Unit>.Success(Unit.Value, request.requestId);
         }

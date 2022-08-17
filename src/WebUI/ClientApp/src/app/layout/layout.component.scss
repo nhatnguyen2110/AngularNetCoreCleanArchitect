@@ -22,8 +22,7 @@
   float: left;
   width: 200px;
 }
-.header-logo a {
-  color: #000000d9;
+.header-logo span {
   font-size: 18px;
   overflow: hidden;
   display: block;
@@ -52,7 +51,6 @@
   vertical-align: middle;
 }
 nz-header {
-  background: #fff;
   padding: 0;
   box-shadow: 0 1px 10px #0003;
   z-index: 1;
@@ -85,6 +83,26 @@ nz-footer {
 }
 .fixed-content {
   margin-top: 64px;
+}
+.fixed-widgets {
+  position: fixed;
+  right: 32px;
+  bottom: 50px;
+  z-index: 2147483640;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.fixed-widgets nz-avatar {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  color: #000;
+  background-color: #fff;
+  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 48%), 0 6px 16px 0 rgb(0 0 0 / 32%),
+    0 9px 28px 8px rgb(0 0 0 / 20%);
+  transition: color 0.3s;
 }
 @media only screen and (max-width: 450px) {
   .header-logo {

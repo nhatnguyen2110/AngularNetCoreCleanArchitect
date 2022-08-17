@@ -34,6 +34,7 @@ import { TestBed } from "@angular/core/testing";
 import { ChartData, ChartOptions } from "chart.js";
 import { $ } from "protractor";
 import { Guid } from "guid-typescript";
+import { ConfigService } from "../services/config.service";
 export enum DayTime {
   Morning,
   Afternoon,
@@ -210,7 +211,10 @@ export class DashboardComponent implements OnInit {
     this.collapseForecastDetail();
     if (this.selectedProvince) {
       this.weatherClient
-        .getForecastWeatherIn7Days(this.selectedProvince.id,Guid.create().toString())
+        .getForecastWeatherIn7Days(
+          this.selectedProvince.id,
+          Guid.create().toString()
+        )
         .subscribe((result) => {
           this.weatherForecastData = result.data.daily;
           this.weatherHourlyForecastData = result.data.hourly;

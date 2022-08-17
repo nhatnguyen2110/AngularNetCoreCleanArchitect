@@ -40,11 +40,14 @@ public class GetEmailResetPasswordCommandHandler : BaseHandler<GetEmailResetPass
             var email_content = String.Format(_applicationSettings.EmailResetPassword_Content, $"{_commonService.WebsiteSettingsService.GetBaseUrl()}/reset-password?code={verify_code}");
 #pragma warning restore CS8604 // Possible null reference argument.
             var email_subject = _applicationSettings.EmailResetPassword_Subject ?? "Reset your password";
+            var email_displayName = _applicationSettings.SMTPDisplayName;
 #pragma warning disable CS8604 // Possible null reference argument.
             _commonService.EmailService.SendEmail(
                    email_subject,
                    email_content,
-                   entity.Email);
+                   entity.Email,
+                   displayName: email_displayName
+                   );
 #pragma warning restore CS8604 // Possible null reference argument.
             return Response<Unit>.Success(Unit.Value, request.requestId);
         }

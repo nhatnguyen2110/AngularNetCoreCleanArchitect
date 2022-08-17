@@ -8,6 +8,7 @@ public class ApplicationSettings
     public bool IsAddSecurityHeaders { get; set; }
     public int MaxLoginFailedCount { get; set; } = 5;
     public int LockoutDurationInMinutes { get; set; } = 15;
+    public string? SMTPDisplayName { get; set; }
     public string? SMTPHost { get; set; }
     public int SMTPPort { get; set; }
     public bool SMTPSSL { get; set; }

@@ -1,0 +1,195 @@
+<nz-layout>
+  <nz-content>
+    <p class="header-logo">
+      <span>
+        <img src="./assets/logo.ico" alt="Logo" />
+        <strong class="logo-text">{{ title }}</strong>
+      </span>
+    </p>
+    <nz-spin [nzSpinning]="loading$ | async">
+      <nz-tabset>
+        <nz-tab [nzTitle]="accountLoginTitle">
+          <ng-template #accountLoginTitle>
+            <i nz-icon nzType="user"></i>
+            Account Login
+          </ng-template>
+          <form
+            nz-form
+            [nzAutoTips]="autoTips"
+            [formGroup]="validateForm"
+            class="login-form"
+            (ngSubmit)="onSubmitAccountLogin()"
+          >
+            <nz-form-item>
+              <nz-form-control>
+                <nz-input-group nzPrefixIcon="user">
+                  <input
+                    type="text"
+                    nz-input
+                    formControlName="userName"
+                    placeholder="Username"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <nz-input-group
+                  nzPrefixIcon="lock"
+                  [nzSuffix]="passwordVisibleTpl"
+                >
+                  <input
+                    [type]="passwordVisible ? 'text' : 'password'"
+                    nz-input
+                    formControlName="password"
+                    placeholder="Password"
+                  />
+                </nz-input-group>
+                <ng-template #passwordVisibleTpl>
+                  <i
+                    nz-icon
+                    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                    (click)="passwordVisible = !passwordVisible"
+                  ></i>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <div nz-row class="login-form-margin">
+              <div nz-col [nzSpan]="12">
+                <label nz-checkbox formControlName="keepLogin">
+                  <span>Remember me</span>
+                </label>
+              </div>
+              <div nz-col [nzSpan]="12">
+                <!-- <a class="login-form-forgot">Forgot password</a> -->
+              </div>
+            </div>
+            <button
+              nz-button
+              class="login-form-button login-form-margin"
+              [nzType]="'primary'"
+              [disabled]="validateForm.invalid"
+            >
+              Log in
+            </button>
+          </form>
+        </nz-tab>
+        <nz-tab [nzTitle]="verificationLoginTitle">
+          <ng-template #verificationLoginTitle>
+            <i nz-icon nzType="mail"></i>
+            Verification Login
+          </ng-template>
+          <form
+            nz-form
+            [formGroup]="verificationForm"
+            class="login-form"
+            (ngSubmit)="onSubmitVerificationLogin()"
+          >
+            <nz-form-item>
+              <nz-form-control nzDisableAutoTips [nzErrorTip]="emailVerifyTpl">
+                <nz-input-group nzPrefixIcon="mail">
+                  <input
+                    type="text"
+                    nz-input
+                    formControlName="email"
+                    placeholder="Email"
+                  />
+                </nz-input-group>
+                <ng-template #emailVerifyTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')"
+                    >Please input your email!</ng-container
+                  >
+                  <ng-container *ngIf="control.hasError('email')"
+                    >Invalid Email!</ng-container
+                  >
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control nzDisableAutoTips [nzErrorTip]="codeVerifyTpl">
+                <nz-input-group nzPrefixIcon="lock" [nzSuffix]="sendCodeTpl">
+                  <input
+                    type="text"
+                    nz-input
+                    formControlName="verificationCode"
+                    placeholder="Verification Code"
+                  />
+                </nz-input-group>
+                <ng-template #sendCodeTpl>
+                  <ng-container
+                    *ngIf="countdownStatus$ | async; else sendCodeButtonTpl"
+                  >
+                    <strong
+                      nz-typography
+                      nzType="warning"
+                      *ngIf="countdownInSeconds$ | async as countdownInSeconds"
+                    >
+                      <timer
+                        [value]="countdownInSeconds"
+                        (onComplete)="onStopCountDown()"
+                      ></timer>
+                    </strong>
+                  </ng-container>
+                </ng-template>
+                <ng-template #sendCodeButtonTpl>
+                  <button
+                    nz-button
+                    nzSize="small"
+                    nzType="primary"
+                    [disabled]="verificationForm.controls.email.errors"
+                    (click)="onSendCode()"
+                    type="button"
+                  >
+                    Send code
+                  </button>
+                </ng-template>
+                <ng-template #codeVerifyTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')"
+                    >Please input your code!
+                  </ng-container>
+                  <ng-container *ngIf="control.hasError('minlength')">
+                    Min Length is
+                    {{ control.errors.minlength.requiredLength }}</ng-container
+                  >
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <button
+              nz-button
+              class="login-form-button login-form-margin"
+              [nzType]="'primary'"
+              [disabled]="verificationForm.invalid"
+            >
+              Log in
+            </button>
+          </form>
+        </nz-tab>
+      </nz-tabset>
+      <div class="social-login-box">
+        <nz-space>
+          <button
+            *nzSpaceItem
+            nz-button
+            nzType="default"
+            nzShape="circle"
+            (click)="onFacebookLogin()"
+          >
+            <i nz-icon nzType="facebook"></i>
+          </button>
+          <button
+            *nzSpaceItem
+            nz-button
+            nzType="default"
+            nzShape="circle"
+            (click)="onGoogleLogin()"
+          >
+            <i nz-icon nzType="google"></i>
+          </button>
+          <button *nzSpaceItem nz-button nzType="default" nzShape="circle">
+            <i nz-icon nzType="twitter"></i>
+          </button>
+        </nz-space>
+      </div>
+    </nz-spin>
+  </nz-content>
+</nz-layout>
