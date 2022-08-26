@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { Menu } from "../models/menu.model";
+import { ConfigService } from "../services/config.service";
 import { ThemeService, ThemeType } from "../services/theme.service";
 
 @Component({
@@ -22,6 +23,7 @@ export class LayoutComponent implements OnInit {
   document: any;
   fixHeader: boolean = false;
   currentTheme: string;
+  currentAccount$;
   menu: Menu = [
     {
       title: "Home",
@@ -31,7 +33,6 @@ export class LayoutComponent implements OnInit {
     {
       title: "Admin",
       icon: "setting",
-      expanded: true,
       subMenu: [
         {
           title: "Locations",
@@ -58,14 +59,19 @@ export class LayoutComponent implements OnInit {
       isOpenAsNewWindow: true,
     },
   ];
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private themeService: ThemeService,
+    private configService: ConfigService
+  ) {
+    this.currentAccount$ = configService.accountSubject;
+  }
 
-  setDefaultTheme(){
+  setDefaultTheme() {
     this.currentTheme = ThemeType.default;
     this.themeService.currentTheme = ThemeType.default;
     this.themeService.loadTheme(false);
   }
-  setDarkTheme(){
+  setDarkTheme() {
     this.currentTheme = ThemeType.dark;
     this.themeService.currentTheme = ThemeType.dark;
     this.themeService.loadTheme(false);
@@ -122,5 +128,8 @@ export class LayoutComponent implements OnInit {
   }
   toggleFixHeader() {
     this.fixHeader = !this.fixHeader;
+  }
+  onLogout() {
+    this.configService.logout();
   }
 }

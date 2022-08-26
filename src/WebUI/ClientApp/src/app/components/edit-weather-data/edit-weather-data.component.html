@@ -1,0 +1,427 @@
+<nz-spin [nzSpinning]="loadingSaveWeatherData$ | async">
+  <div *ngIf="weatherConditions$ | async as weatherConditions">
+    <form nz-form [formGroup]="editWeatherForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Temperature Avg (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="temp_avg" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Temperature Min (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="temp_min" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Temperature Max (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="temp_max" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Humidity (%)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="humidity" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Dew point (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="dew_point" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired>Pop</nz-form-label>
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="pop" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Clouds (%)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="clouds" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Wind speed (m/s)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="wind_speed" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired>Weather</nz-form-label>
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <ng-select
+            [items]="weatherConditions.weatherConditions"
+            [clearable]="false"
+            formControlName="weather_id"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Weather Desc</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="weather_description" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Temp. Morning (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="temp_morn" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Morning Weather</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <ng-select
+            [items]="weatherConditions.weatherConditions"
+            [clearable]="false"
+            formControlName="weatherId_morn"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onMorningWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Morning Weather Desc</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="weatherDesc_morn" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Temp. Afternoon (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="temp_day" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Afternoon Weather</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <ng-select
+            [items]="weatherConditions.weatherConditions"
+            [clearable]="false"
+            formControlName="weatherId_day"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onAfternoonWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Afternoon Weather Desc</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="weatherDesc_day" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Temp. Evening (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="temp_eve" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Evening Weather</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <ng-select
+            [items]="weatherConditions.weatherConditionsInNight"
+            [clearable]="false"
+            formControlName="weatherId_eve"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onEveningWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Evening Weather Desc</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="weatherDesc_eve" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Temp. Night (°C)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="temp_night" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Night Weather</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <ng-select
+            [items]="weatherConditions.weatherConditionsInNight"
+            [clearable]="false"
+            formControlName="weatherId_night"
+            bindValue="id"
+            groupBy="main"
+            [searchFn]="customSearchFn"
+            (change)="onNightWeatherChange($event)"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+            <ng-template
+              ng-option-tmp
+              let-item="item"
+              let-index="index"
+              let-search="searchTerm"
+            >
+              <img height="50" [src]="item.iconUrl" />
+              <span>{{ item.description }}</span>
+            </ng-template>
+          </ng-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+          >Night Weather Desc</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="11"
+          [nzXs]="24"
+          nzDisableAutoTips
+          [nzErrorTip]="errorDisplayTpl"
+        >
+          <input nz-input formControlName="weatherDesc_night" />
+        </nz-form-control>
+      </nz-form-item>
+      <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="destroyModal()">
+          Cancel
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="editWeatherForm.invalid"
+          [nzLoading]="loadingSaveWeatherData$ | async"
+          type="button"
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+    <ng-template #errorDisplayTpl let-control>
+      <ng-container *ngIf="control.hasError('required')"
+        >Required Field!</ng-container
+      >
+      <ng-container *ngIf="control.hasError('email')"
+        >Invalid Email!</ng-container
+      >
+      <ng-container *ngIf="control.hasError('min') || control.hasError('max')"
+        >Invalid Value!</ng-container
+      >
+    </ng-template>
+    <pre *ngIf="debug">{{ this.editWeatherForm.value | json }}</pre>
+  </div>
+</nz-spin>

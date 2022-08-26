@@ -5,6 +5,8 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "src/environments/environment";
 import { AuthModule } from "./auth/auth.module";
+import { WeatherModule } from "./weather/weather.module";
+import { LocationModule } from "./location/location.module";
 
 @NgModule({
   declarations: [],
@@ -18,6 +20,8 @@ import { AuthModule } from "./auth/auth.module";
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
     AuthModule,
+    WeatherModule,
+    LocationModule,
   ],
 })
 export class StoreManagerModule {}

@@ -11,6 +11,7 @@ namespace CleanArchitecture.Application.Accounts.Commands.ResetPassword;
 public class GetEmailResetPasswordCommand : IRequest<Response<Unit>>
 {
     public string? Email { get; set; }
+    public string? RecaptchaToken { get; set; }
     public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class GetEmailResetPasswordCommandHandler : BaseHandler<GetEmailResetPasswordCommand, Response<Unit>>

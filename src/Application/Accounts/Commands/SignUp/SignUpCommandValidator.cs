@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
 
 namespace CleanArchitecture.Application.Accounts.Commands.SignUp;
 public class SignUpCommandValidator : AbstractValidator<SignUpCommand>
@@ -7,32 +8,32 @@ public class SignUpCommandValidator : AbstractValidator<SignUpCommand>
     {
         RuleFor(v => v.Email)
             .NotEmpty()
-            .Matches("^[^<>,<|>]+$")
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"))
             .EmailAddress();
         RuleFor(v => v.Password)
             .NotEmpty()
             .Matches(@"^(?=.*\d)(?=.*[A-Za-z])(?=.*\W).{9,}$");
         RuleFor(v => v.FirstName)
             .NotEmpty()
-            .Matches("^[^<>,<|>]+$");
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.LastName)
             .NotEmpty()
-            .Matches("^[^<>,<|>]+$");
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.AvatarUrl)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.Gender)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.Address)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.City)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.State)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.ZipCode)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.Country)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.Phone)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
     }
 }

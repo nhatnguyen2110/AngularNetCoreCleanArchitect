@@ -8,6 +8,7 @@ import { DashboardModule } from "./components/dashboard/dashboard.module";
 import { LayoutComponent } from "./layout/layout.component";
 import { SliderMenuComponent } from "./layout/slider-menu/slider-menu.component";
 import {
+  AccountInitializerProvider,
   ConfigInitializerProvider,
   ThemeInitializerProvider,
 } from "./services/app-initializer.service";
@@ -51,13 +52,32 @@ import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzBackTopModule } from "ng-zorro-antd/back-top";
 import { StoreManagerModule } from "./store/store-manager.module";
+import { TokenComponent } from "./components/token/token.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { JwtInterceptor } from "./interceptors/jwt-interceptor";
+import { ErrorInterceptor } from "./interceptors/error-interceptor";
+import { registerLocaleData } from "@angular/common";
+import en from "@angular/common/locales/en";
 
+import { NZ_ICONS } from "ng-zorro-antd/icon";
+import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";
+import { IconDefinition } from "@ant-design/icons-angular";
+import * as AllIcons from "@ant-design/icons-angular/icons";
+
+registerLocaleData(en);
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
+  (key) => antDesignIcons[key]
+);
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     SliderMenuComponent,
     PageNotFoundComponent,
+    TokenComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,7 +126,15 @@ import { StoreManagerModule } from "./store/store-manager.module";
 
     StoreManagerModule,
   ],
-  providers: [ConfigInitializerProvider, ThemeInitializerProvider],
+  providers: [
+    ConfigInitializerProvider,
+    ThemeInitializerProvider,
+    AccountInitializerProvider,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_ICONS, useValue: icons },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

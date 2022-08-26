@@ -28,7 +28,10 @@ public class GetSystemConfigsQueryHandler : BaseHandler<GetSystemConfigsQuery, R
             var result = new ConfigsDto
             {
                 EnableEncryptAuthorize = _applicationSettings.EnableEncryptAuthorize,
-                PublicKeyEncode = _applicationSettings.PublicKeyEncode
+                PublicKeyEncode = _applicationSettings.PublicKeyEncode,
+                EnableGoogleReCaptcha = _applicationSettings.EnableGoogleReCaptcha,
+                GoogleRecaptchaVersion = _applicationSettings.GoogleRecaptchaVersion,
+                GoogleSiteKey = _applicationSettings.GoogleSiteKey
             };
             await Task.CompletedTask;
             return Response<ConfigsDto>.Success(result, request.requestId);

@@ -1,0 +1,124 @@
+<nz-spin [nzSpinning]="loadingSaveCountry$ | async">
+  <form nz-form [formGroup]="editForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="9" [nzXs]="24" nzRequired
+        >Country Name</nz-form-label
+      >
+      <nz-form-control
+        [nzSm]="11"
+        [nzXs]="24"
+        nzDisableAutoTips
+        [nzErrorTip]="errorDisplayTpl"
+      >
+        <input nz-input formControlName="name" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="9" [nzXs]="24">Language Code</nz-form-label>
+      <nz-form-control
+        [nzSm]="11"
+        [nzXs]="24"
+        nzDisableAutoTips
+        [nzErrorTip]="errorDisplayTpl"
+      >
+        <input nz-input formControlName="languageCode" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="9" [nzXs]="24">Priority</nz-form-label>
+      <nz-form-control
+        [nzSm]="11"
+        [nzXs]="24"
+        nzDisableAutoTips
+        [nzErrorTip]="errorDisplayTpl"
+      >
+        <input nz-input formControlName="priority" type="number" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="9" [nzXs]="24">Language Name</nz-form-label>
+      <nz-form-control
+        [nzSm]="11"
+        [nzXs]="24"
+        nzDisableAutoTips
+        [nzErrorTip]="errorDisplayTpl"
+      >
+        <input nz-input formControlName="userDefined1" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="9" [nzXs]="24">Timezone</nz-form-label>
+      <nz-form-control
+        [nzSm]="11"
+        [nzXs]="24"
+        nzDisableAutoTips
+        [nzErrorTip]="errorDisplayTpl"
+      >
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input
+            nz-input
+            formControlName="userDefined3"
+            [nzAutocomplete]="auto"
+            (ngModelChange)="onChange($event)"
+          />
+          <nz-autocomplete
+            [nzDataSource]="timezones"
+            nzBackfill
+            #auto
+          ></nz-autocomplete>
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="9" [nzXs]="24">Flag CSS</nz-form-label>
+      <nz-form-control
+        [nzSm]="11"
+        [nzXs]="24"
+        nzDisableAutoTips
+        [nzErrorTip]="errorDisplayTpl"
+        nzExtra="ex: flag-icon flag-icon-xx"
+      >
+        <nz-input-group [nzSuffix]="suffixIconFlag">
+          <input nz-input formControlName="userDefined2" />
+        </nz-input-group>
+        <ng-template #suffixIconFlag>
+          <i
+            *ngIf="editForm.value.userDefined2"
+            [ngClass]="editForm.value.userDefined2"
+          ></i>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" (click)="destroyModal()">
+        Cancel
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="editForm.invalid"
+        [nzLoading]="loadingSaveCountry$ | async"
+        type="button"
+        (click)="onSubmit()"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+  <ng-template #errorDisplayTpl let-control>
+    <ng-container
+      *ngIf="control.hasError('required') || control.hasError('whitespace')"
+      >Required Field!</ng-container
+    >
+    <ng-container *ngIf="control.hasError('email')"
+      >Invalid Email!</ng-container
+    >
+    <ng-container *ngIf="control.hasError('min') || control.hasError('max')"
+      >Invalid Value!</ng-container
+    >
+  </ng-template>
+  <pre *ngIf="debug">{{ this.editForm.value | json }}</pre>
+</nz-spin>

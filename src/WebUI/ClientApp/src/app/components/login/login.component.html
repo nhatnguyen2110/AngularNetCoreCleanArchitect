@@ -64,6 +64,15 @@
                 <!-- <a class="login-form-forgot">Forgot password</a> -->
               </div>
             </div>
+            <nz-form-item *ngIf="enableRecaptcha">
+              <nz-form-control>
+                <re-captcha
+                  formControlName="recaptchaToken"
+                  [siteKey]="googleSiteKey"
+                >
+                </re-captcha>
+              </nz-form-control>
+            </nz-form-item>
             <button
               nz-button
               class="login-form-button login-form-margin"
@@ -73,6 +82,7 @@
               Log in
             </button>
           </form>
+          <pre *ngIf="debug">{{ validateForm.value | json }}</pre>
         </nz-tab>
         <nz-tab [nzTitle]="verificationLoginTitle">
           <ng-template #verificationLoginTitle>
@@ -154,6 +164,15 @@
                 </ng-template>
               </nz-form-control>
             </nz-form-item>
+            <nz-form-item *ngIf="enableRecaptcha">
+              <nz-form-control>
+                <re-captcha
+                  formControlName="recaptchaToken"
+                  [siteKey]="googleSiteKey"
+                >
+                </re-captcha>
+              </nz-form-control>
+            </nz-form-item>
             <button
               nz-button
               class="login-form-button login-form-margin"
@@ -163,32 +182,46 @@
               Log in
             </button>
           </form>
+          <pre *ngIf="debug">{{ verificationForm.value | json }}</pre>
         </nz-tab>
       </nz-tabset>
-      <div class="social-login-box">
-        <nz-space>
-          <button
-            *nzSpaceItem
-            nz-button
-            nzType="default"
-            nzShape="circle"
-            (click)="onFacebookLogin()"
-          >
-            <i nz-icon nzType="facebook"></i>
-          </button>
-          <button
-            *nzSpaceItem
-            nz-button
-            nzType="default"
-            nzShape="circle"
-            (click)="onGoogleLogin()"
-          >
-            <i nz-icon nzType="google"></i>
-          </button>
-          <button *nzSpaceItem nz-button nzType="default" nzShape="circle">
-            <i nz-icon nzType="twitter"></i>
-          </button>
-        </nz-space>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <a [routerLink]="['/home']"><i nz-icon nzType="home"></i> Home</a>
+        </div>
+        <div nz-col nzFlex="4" class="social-login-box">
+          <nz-space>
+            <button
+              *nzSpaceItem
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              (click)="onFacebookLogin()"
+              title="Facebook"
+            >
+              <i nz-icon nzType="facebook"></i>
+            </button>
+            <button
+              *nzSpaceItem
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              (click)="onGoogleLogin()"
+              title="Google"
+            >
+              <i nz-icon nzType="google"></i>
+            </button>
+            <button
+              *nzSpaceItem
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              title="Twitter"
+            >
+              <i nz-icon nzType="twitter"></i>
+            </button>
+          </nz-space>
+        </div>
       </div>
     </nz-spin>
   </nz-content>

@@ -1,0 +1,27 @@
+<nz-card>
+  <div nz-row>
+    <div nz-col>
+        <nz-page-header
+        nzTitle="JWT"
+        nzSubtitle="current"
+      ></nz-page-header>
+
+      <div>
+        <p>
+          This component demonstrates interacting with the authorization service
+          to retrieve your
+          <a href="https://jwt.io/" target="_blank">JSON web token (JWT)</a>.
+        </p>
+        <p id="tokenContent">{{ token }}</p>
+        <p>
+          <button nz-button (click)="copyToClipboard()">
+            <i nz-icon nzType="copy"></i>&nbsp;Copy
+          </button>
+        </p>
+        <p>
+          <span *ngIf="isCopied">Copied!</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</nz-card>

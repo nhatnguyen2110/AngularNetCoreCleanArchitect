@@ -22,11 +22,17 @@ export const accountLoginSubmit = createAction(
     password: string;
     keepLogin: boolean;
     returnUrl: string | null;
+    recaptchaToken: string | null;
   }>()
 );
 export const verificationLoginSubmit = createAction(
   AuthActions.VERIFICATIONLOGIN_SUBMIT,
-  props<{ email: string; verifyCode: string; returnUrl: string | null }>()
+  props<{
+    email: string;
+    verifyCode: string;
+    returnUrl: string | null;
+    recaptchaToken: string | null;
+  }>()
 );
 export const loginSuccess = createAction(
   AuthActions.LOGIN_SUCCESS,

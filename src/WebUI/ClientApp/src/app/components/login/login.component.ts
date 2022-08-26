@@ -1,7 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { ConfigService } from "src/app/services/config.service";
 import {
   accountLoginSubmit,
   loginInitial,
@@ -17,6 +23,7 @@ import {
   selectLoginFormLoading,
 } from "src/app/store/auth/auth.selectors";
 import { MyValidators } from "src/app/validators/ng-zorro.validator";
+import { ReCaptchaV3Service } from "ng-recaptcha";
 
 @Component({
   selector: "app-login",
@@ -34,6 +41,12 @@ export class LoginComponent implements OnInit {
   countdownStatus$ = this.store.select(selectCountdownStatus);
   countdownInSeconds$ = this.store.select(selectCountdownInSeconds);
 
+  enableRecaptcha: boolean;
+  googleSiteKey: string;
+  googleRecaptchaVersion: string;
+
+  debug = false;
+
   // current locale is key of the nzAutoTips
   // if it is not found, it will be searched again with `default`
   autoTips: Record<string, Record<string, string>> = {
@@ -48,8 +61,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private configService: ConfigService //private recaptchaV3Service: ReCaptchaV3Service
   ) {
+    this.enableRecaptcha = configService.systemConfig.enableGoogleReCaptcha;
+    this.googleSiteKey = configService.systemConfig.googleSiteKey;
+
     const { required, maxLength, minLength, email, mobile } = MyValidators;
     this.validateForm = this.fb.group({
       userName: [null, [required, email]],
@@ -60,6 +77,17 @@ export class LoginComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       verificationCode: [null, [Validators.required, Validators.minLength(6)]],
     });
+
+    if (this.enableRecaptcha) {
+      this.validateForm.addControl(
+        "recaptchaToken",
+        new FormControl(null, Validators.required)
+      );
+      this.verificationForm.addControl(
+        "recaptchaToken",
+        new FormControl(null, Validators.required)
+      );
+    }
   }
 
   ngOnInit(): void {
@@ -73,8 +101,15 @@ export class LoginComponent implements OnInit {
         password: this.validateForm.value.password,
         keepLogin: this.validateForm.value.keepLogin,
         returnUrl: returnUrl,
+        recaptchaToken: this.enableRecaptcha
+          ? this.validateForm.value.recaptchaToken
+          : null,
       })
     );
+    //reset recaptcha
+    if (this.enableRecaptcha) {
+      this.validateForm.controls.recaptchaToken.reset();
+    }
   }
   onSubmitVerificationLogin() {
     let returnUrl = this.activatedRoute.snapshot.queryParamMap.get("returnUrl");
@@ -83,8 +118,15 @@ export class LoginComponent implements OnInit {
         email: this.verificationForm.value.email,
         verifyCode: this.verificationForm.value.verificationCode,
         returnUrl: returnUrl,
+        recaptchaToken: this.enableRecaptcha
+          ? this.verificationForm.value.recaptchaToken
+          : null,
       })
     );
+    //reset recaptcha
+    if (this.enableRecaptcha) {
+      this.verificationForm.controls.recaptchaToken.reset();
+    }
   }
   onSendCode() {
     this.store.dispatch(
@@ -94,10 +136,6 @@ export class LoginComponent implements OnInit {
   onStopCountDown() {
     this.store.dispatch(sendCodeStopCountdown());
   }
-  onFacebookLogin() {
-    this.store.dispatch(sendCodeStartCountdown());
-  }
-  onGoogleLogin() {
-    this.onStopCountDown();
-  }
+  onFacebookLogin() {}
+  onGoogleLogin() {}
 }

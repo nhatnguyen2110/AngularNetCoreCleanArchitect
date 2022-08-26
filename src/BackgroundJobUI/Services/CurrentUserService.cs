@@ -13,4 +13,8 @@ public class CurrentUserService : ICurrentUserService
     }
 
     public string? UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    public string? Email => null;
+
+    public string? ExpireInMinutes => null;
 }

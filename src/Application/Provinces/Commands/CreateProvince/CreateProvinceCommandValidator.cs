@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
 
 namespace CleanArchitecture.Application.Provinces.Commands.CreateProvince;
 
@@ -7,9 +8,9 @@ public class CreateProvinceCommandValidator : AbstractValidator<CreateProvinceCo
     public CreateProvinceCommandValidator()
     {
         RuleFor(v => v.Name)
-            .Matches("^[^<>,<|>]+$")
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"))
             .NotEmpty();
         RuleFor(v => v.AliasName)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
     }
 }

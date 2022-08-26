@@ -25,5 +25,9 @@ public class ApplicationSettings
     public string? EmailVerificationCode_Subject { get; set; }
     public string? EmailVerificationCode_Content { get; set; }
     public bool EnableEncryptAuthorize { get; set; }
+    public bool EnableGoogleReCaptcha { get; set; }
+    public string? GoogleRecaptchaVersion { get; set; } = "v2"; //v2,v3
+    public string? GoogleSiteKey { get; set; }
+    public string? GoogleSecretKey { get; set; }
 
 }

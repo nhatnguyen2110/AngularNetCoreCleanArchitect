@@ -1,0 +1,103 @@
+<nz-card nzTitle="Location Settings">
+  <nz-table
+    [nzLoading]="loadingCountriesList$ | async"
+    #nestedTable
+    [nzData]="countriesList$ | async"
+    [nzFrontPagination]="false"
+    [nzBordered]="true"
+    nzTitle="Country List"
+  >
+    <thead>
+      <tr>
+        <th></th>
+        <th>Flag</th>
+        <th>Country Name</th>
+        <th>Language Name</th>
+        <th>Language Code</th>
+        <th>Timezone</th>
+        <th>
+          <button nz-button nzType="primary" (click)="onAddCountry()">
+            Add Country
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-country [ngForOf]="nestedTable.data">
+        <tr>
+          <td
+            [nzExpand]="expandSet.has(country.id)"
+            (nzExpandChange)="onExpandChange(country.id, $event)"
+          ></td>
+          <td>
+            <i
+              *ngIf="country.userDefined2"
+              class="{{ country.userDefined2 }}"
+            ></i>
+          </td>
+
+          <td>{{ country.name }}</td>
+          <td>{{ country.userDefined1 }}</td>
+          <td>{{ country.languageCode }}</td>
+          <td>{{ country.userDefined3 }}</td>
+          <td>
+            <a (click)="onEditCountry(country)">Edit</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure?"
+              (nzOnConfirm)="onDeleteCountry(country.id)"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(country.id)">
+          <nz-table
+            #innerTable
+            [nzData]="country.provinces"
+            nzSize="middle"
+            [nzFrontPagination]="false"
+          >
+            <thead>
+              <tr>
+                <th>Province Name</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    (click)="onAddProvince(country.id)"
+                  >
+                    Add Province
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let province of innerTable.data">
+                <td>{{ province.name }}</td>
+                <td>{{ province.longitude }}</td>
+                <td>{{ province.latitude }}</td>
+                <td>
+                  <span class="table-operation">
+                    <a class="operation" (click)="onEditProvince(province)"
+                      >Edit</a
+                    >
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a
+                      nz-popconfirm
+                      nzPopconfirmTitle="Are you sure?"
+                      (nzOnConfirm)="onDeleteProvince(province.id)"
+                      >Delete</a
+                    >
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </tr>
+      </ng-template>
+    </tbody>
+  </nz-table>
+</nz-card>

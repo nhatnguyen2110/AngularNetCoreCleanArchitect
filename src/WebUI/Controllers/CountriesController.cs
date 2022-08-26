@@ -5,11 +5,12 @@ using CleanArchitecture.Application.Countries.Commands.UpdateCountry;
 using CleanArchitecture.Application.Countries.Dtos;
 using CleanArchitecture.Application.Countries.Queries.GetCountriesWithPagination;
 using CleanArchitecture.Application.Countries.Queries.GetCountryById;
+using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
-[Authorize]
+[CustomAuthorize]
 public class CountriesController : ApiControllerBase
 {
     [AllowAnonymous]

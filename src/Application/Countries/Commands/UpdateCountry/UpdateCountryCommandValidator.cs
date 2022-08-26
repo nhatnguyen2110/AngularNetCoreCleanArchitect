@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
 
 namespace CleanArchitecture.Application.Countries.Commands.UpdateCountry;
 public class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
@@ -6,17 +7,17 @@ public class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryComm
     public UpdateCountryCommandValidator()
     {
         RuleFor(v => v.Name)
-            .Matches("^[^<>,<|>]+$")
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"))
             .NotEmpty();
         RuleFor(v => v.UserDefined1)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.UserDefined2)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.UserDefined3)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.IconUrl)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(v => v.LanguageCode)
-          .Matches("^[^<>,<|>]+$");
+          .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
     }
 }

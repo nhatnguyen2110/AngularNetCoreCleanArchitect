@@ -17,6 +17,7 @@ import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { TimerComponent } from "./timer/timer.component";
+import { RecaptchaModule, RecaptchaFormsModule } from "ng-recaptcha";
 
 @NgModule({
   declarations: [LoginComponent, TimerComponent],
@@ -37,6 +38,8 @@ import { TimerComponent } from "./timer/timer.component";
     NzSpaceModule,
     NzCheckboxModule,
     NzTypographyModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
 })
 export class LoginModule {}

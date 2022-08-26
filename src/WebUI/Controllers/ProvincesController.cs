@@ -3,12 +3,12 @@ using CleanArchitecture.Application.Provinces.Commands.CreateProvince;
 using CleanArchitecture.Application.Provinces.Dtos;
 using CleanArchitecture.Application.Provinces.Queries.GetProvinceById;
 using CleanArchitecture.Application.Provinces.Queries.GetProvincesWithPagination;
-using Microsoft.AspNetCore.Authorization;
+using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
 
-[Authorize]
+[CustomAuthorize]
 public class ProvincesController : ApiControllerBase
 {
     [HttpGet("{id}")]

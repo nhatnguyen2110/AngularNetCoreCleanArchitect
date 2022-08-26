@@ -11,6 +11,7 @@ public class SignInByEmailVerificationCodeCommand : IRequest<Response<SignInResu
 {
     public string Email { get; set; } = default!;
     public string Code { get; set; } = default!;
+    public string? RecaptchaToken { get; set; }
     public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class SignInByEmailVerificationCodeCommandHandler : BaseHandler<SignInByEmailVerificationCodeCommand, Response<SignInResultDto>>

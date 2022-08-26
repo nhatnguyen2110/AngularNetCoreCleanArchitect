@@ -19,3 +19,11 @@ export const ConfigInitializerProvider = {
   deps: [ConfigService],
   multi: true,
 };
+export const AccountInitializerProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: (configService: ConfigService) => {
+    return () => configService.loadCurrentAccount();
+  },
+  deps: [ConfigService],
+  multi: true,
+};

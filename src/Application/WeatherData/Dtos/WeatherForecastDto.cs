@@ -3,6 +3,7 @@ using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using OpenWeatherMapAPI.Models;
+using OpenWeatherMapAPI.Shared;
 
 namespace CleanArchitecture.Application.WeatherData.Dtos;
 
@@ -138,7 +139,8 @@ public class HourlyForecastWeatherDto : IMapFrom<OWPHourlyForecastWeather>
         profile.CreateMap<OWPHourlyForecastWeather, HourlyForecastWeatherDto>()
             .ForMember(d => d.Weather_id, opt => opt.MapFrom(s => s.weather.First().id))
             .ForMember(d => d.Weather_main, opt => opt.MapFrom(s => s.weather.First().main))
-            .ForMember(d => d.Weather_description, opt => opt.MapFrom(s => s.weather.First().description))
+            //.ForMember(d => d.Weather_description, opt => opt.MapFrom(s => s.weather.First().description))
+            .ForMember(d => d.Weather_description, opt => opt.MapFrom(s => OpenWeatherStorage.GetWeatherConditions().First(x => x.Id == s.weather.First().id).Description))
             .ForMember(d => d.Weather_icon, opt => opt.MapFrom(s => s.weather.First().icon))
             .ForMember(d => d.Weather_icon_url, opt => opt.Ignore())
             ;

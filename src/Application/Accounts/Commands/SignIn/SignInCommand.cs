@@ -12,6 +12,7 @@ public class SignInCommand : IRequest<Response<SignInResultDto>>
     public string Email { get; set; } = default!;
     public string Password { get; set; } = default!;
     public bool KeepLogin { get; set; } = false;
+    public string? RecaptchaToken { get; set; }
     public string requestId { get; set; } = Guid.NewGuid().ToString();
 }
 public class SignInCommandHandler : BaseHandler<SignInCommand, Response<SignInResultDto>>

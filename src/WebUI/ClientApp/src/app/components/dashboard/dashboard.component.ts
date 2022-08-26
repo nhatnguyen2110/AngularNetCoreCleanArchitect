@@ -1,15 +1,16 @@
-import { Component, OnInit } from "@angular/core";
 import {
-  CountriesClient,
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from "@angular/core";
+import {
   CountryDto,
   DailyForecastWeatherDto,
-  HourlyForecastWeatherDto,
   ProvinceDto,
-  WeatherClient,
 } from "src/app/web-api-client";
-import { Guid } from "guid-typescript";
 import * as moment from "moment-timezone";
-import { ChartData, ChartOptions } from "chart.js";
+import { ChartOptions } from "chart.js";
 import {
   faAngleDoubleDown,
   faTint,
@@ -22,34 +23,54 @@ import {
   faFile,
   faFileAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { Store } from "@ngrx/store";
+import {
+  selectCountriesList_Homepage,
+  selectLoadingCountriesList_Homepage,
+  selectSelectedCountry_Homepage,
+  selectSelectedProvince_Homepage,
+} from "src/app/store/location/location.selectors";
+import {
+  selectCurrentWeatherData,
+  selectHistoricalStats,
+  selectLoadingWeatherData,
+  selectWeatherData,
+  selectWeatherModalStatus,
+} from "src/app/store/weather/weather.selectors";
+import {
+  loadCountries_Hompage,
+  selectCountry_Homepage,
+  selectProvince_Homepage,
+} from "src/app/store/location/location.actions";
+import {
+  loadHistoricalStats,
+  loadWeatherConditions,
+  setCurrentWeather,
+  updateWeatherModalStatus,
+} from "src/app/store/weather/weather.actions";
+import { cloneDeep } from "lodash";
 import { ConfigService } from "src/app/services/config.service";
-export enum DayTime {
-  Morning,
-  Afternoon,
-  Evening,
-  Night,
-}
-export class WeatherInDay {
-  weatherId: number;
-  weatherDesc: string;
-  weatherIcon: string;
-  weatherMain: string;
-  weatherIconUrl: string;
-}
+import { NzModalService } from "ng-zorro-antd/modal";
+import { EditWeatherDataComponent } from "../edit-weather-data/edit-weather-data.component";
+
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
 })
-export class DashboardComponent implements OnInit {
-  countriesList?: CountryDto[];
-  selectedCountry: CountryDto;
-  selectedProvince: ProvinceDto;
-  currentDateTime: moment.Moment;
-  selectedTimezone: string;
-  weatherForecastData: DailyForecastWeatherDto[];
-  weatherHourlyForecastData: HourlyForecastWeatherDto[];
-  selectedDt: DailyForecastWeatherDto;
+export class DashboardComponent implements OnInit, AfterViewChecked {
+  countriesList$ = this.store.select(selectCountriesList_Homepage);
+  selectedCountry$ = this.store.select(selectSelectedCountry_Homepage);
+  selectedProvince$ = this.store.select(selectSelectedProvince_Homepage);
+  weatherForecastData$ = this.store.select(selectWeatherData);
+  loadingCountriesList$ = this.store.select(
+    selectLoadingCountriesList_Homepage
+  );
+  loadingWeatherData$ = this.store.select(selectLoadingWeatherData);
+  historicalData$ = this.store.select(selectHistoricalStats);
+  currentWeatherData$ = this.store.select(selectCurrentWeatherData);
+  currentAccount$;
+  displayWeatherModalStatus$ = this.store.select(selectWeatherModalStatus);
 
   faAngleDoubleDown = faAngleDoubleDown;
   faTint = faTint;
@@ -61,7 +82,7 @@ export class DashboardComponent implements OnInit {
   faSmog = faSmog;
   faFile = faFile;
   faFileAlt = faFileAlt;
-  salesData: ChartData<"bar">;
+
   chartOptions: ChartOptions = {
     responsive: true,
     plugins: {
@@ -75,356 +96,102 @@ export class DashboardComponent implements OnInit {
     },
   };
 
-  historicalWeatheData: DailyForecastWeatherDto[];
   constructor(
-    private countriesClient: CountriesClient,
-    private weatherClient: WeatherClient,
-    private configService: ConfigService
+    private store: Store,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private configService: ConfigService,
+    private modalService: NzModalService
   ) {}
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges(); // fix issue ExpressionChangedAfterItHasBeenCheckedError...
+    this.currentAccount$ = this.configService.accountSubject;
+  }
 
   ngOnInit(): void {
-    console.log(this.configService.systemConfig);
-    this.countriesClient
-      .getList(null, 1, 99, Guid.create().toString())
-      .subscribe(
-        (result) => {
-          this.countriesList = result.data.items;
-          if (this.countriesList.length) {
-            var selectedCountryId = localStorage.getItem("selectedCountryId");
-            if (selectedCountryId) {
-              this.selectedCountry = this.countriesList.find(
-                (x) => x.id == parseInt(selectedCountryId)
-              );
-            }
-            if (!this.selectedCountry) {
-              this.selectedCountry = this.countriesList[0];
-            }
-            if (this.selectedCountry && this.selectedCountry.provinces.length) {
-              var selectedProvinceId =
-                localStorage.getItem("selectedProvinceId");
-              if (selectedProvinceId) {
-                this.selectedProvince = this.selectedCountry.provinces.find(
-                  (x) => x.id == parseInt(selectedProvinceId)
-                );
-              }
-              if (!this.selectedProvince)
-                this.selectedProvince = this.selectedCountry.provinces[0];
-              this.getCurrentDateTime();
-              this.getForecastWeatherIn7Days();
-            }
-          }
-        },
-        (error) => console.error(error)
-      );
-  }
-  getCurrentDateTime() {
-    this.currentDateTime = this.getDateTime(new Date().getTime(), false);
+    this.store.dispatch(loadCountries_Hompage());
+    this.store.dispatch(setCurrentWeather({ data: null }));
   }
   onChangeCountry(item: CountryDto) {
     localStorage.setItem("selectedCountryId", item.id.toString());
     localStorage.removeItem("selectedProvinceId");
-    if (item.provinces) {
-      this.selectedProvince = item.provinces[0];
-    } else {
-      this.selectedProvince = null;
-    }
-    this.getCurrentDateTime();
-    this.getForecastWeatherIn7Days();
+    this.store.dispatch(setCurrentWeather({ data: null }));
+    this.store.dispatch(selectCountry_Homepage({ selectedCountry: item }));
   }
-  getForecastWeatherIn7Days() {
-    this.collapseForecastDetail();
-    if (this.selectedProvince) {
-      this.weatherClient
-        .getForecastWeatherIn7Days(
-          this.selectedProvince.id,
-          Guid.create().toString()
-        )
-        .subscribe((result) => {
-          this.weatherForecastData = result.data.daily;
-          this.weatherHourlyForecastData = result.data.hourly;
-          if (this.weatherForecastData && this.weatherHourlyForecastData) {
-            this.weatherForecastData.forEach((element) => {
-              let morningForecast = this.getDefaultWeatherForecast(
-                element.dt,
-                DayTime.Morning
-              );
-              if (morningForecast && element.weatherId_morn === 0) {
-                element.weatherId_morn = morningForecast.weatherId;
-                element.weatherDesc_morn = morningForecast.weatherDesc;
-                element.weatherMain_morn = morningForecast.weatherMain;
-                element.weatherIcon_day = morningForecast.weatherIcon;
-                element.weatherIcon_morn_url = morningForecast.weatherIconUrl;
-              }
+  onChangeProvince(item: ProvinceDto) {
+    localStorage.setItem("selectedProvinceId", item.id.toString());
+    this.store.dispatch(setCurrentWeather({ data: null }));
+    this.store.dispatch(selectProvince_Homepage({ selectedProvince: item }));
+  }
 
-              let afternoonForecast = this.getDefaultWeatherForecast(
-                element.dt,
-                DayTime.Afternoon
-              );
-              if (afternoonForecast && element.weatherId_day === 0) {
-                element.weatherId_day = afternoonForecast.weatherId;
-                element.weatherDesc_day = afternoonForecast.weatherDesc;
-                element.weatherMain_day = afternoonForecast.weatherMain;
-                element.weatherIcon_day = afternoonForecast.weatherIcon;
-                element.weatherIcon_day_url = afternoonForecast.weatherIconUrl;
-              }
-              let eveningForecast = this.getDefaultWeatherForecast(
-                element.dt,
-                DayTime.Evening
-              );
-              if (eveningForecast && element.weatherId_eve === 0) {
-                element.weatherId_eve = eveningForecast.weatherId;
-                element.weatherDesc_eve = eveningForecast.weatherDesc;
-                element.weatherMain_eve = eveningForecast.weatherMain;
-                element.weatherIcon_eve = eveningForecast.weatherIcon;
-                element.weatherIcon_eve_url = eveningForecast.weatherIconUrl;
-              }
-              let nightForecast = this.getDefaultWeatherForecast(
-                element.dt,
-                DayTime.Night
-              );
-              if (nightForecast && element.weatherId_night === 0) {
-                element.weatherId_night = nightForecast.weatherId;
-                element.weatherDesc_night = nightForecast.weatherDesc;
-                element.weatherMain_night = nightForecast.weatherMain;
-                element.weatherIcon_night = nightForecast.weatherIcon;
-                element.weatherIcon_night_url = nightForecast.weatherIconUrl;
-              }
-            });
-          }
-        });
-      localStorage.setItem(
-        "selectedProvinceId",
-        this.selectedProvince.id.toString()
-      );
-    }
+  showTimezone(country: CountryDto) {
+    return country.userDefined3 ?? moment.tz.guess();
   }
-  getDateTime(inputDt: number, isUnix: boolean = true): moment.Moment {
-    if (this.selectedCountry.userDefined3) {
-      this.selectedTimezone = this.selectedCountry.userDefined3;
-    } else {
-      this.selectedTimezone = moment.tz.guess();
-    }
-    if (isUnix) return moment.unix(inputDt).tz(this.selectedTimezone);
-    else return moment(inputDt).tz(this.selectedTimezone);
+  showCurrentTime(country: CountryDto) {
+    return moment(new Date().getTime())
+      .tz(country.userDefined3 ?? moment.tz.guess())
+      .format("LLL Z");
   }
-  loadForecastDetail(wfd: DailyForecastWeatherDto) {
-    if (this.selectedDt == wfd) {
-      this.collapseForecastDetail();
-    } else {
-      this.selectedDt = wfd;
+  showDate(country: CountryDto, inputDt: number) {
+    if (country == null) {
+      return null;
+    }
+    return moment
+      .unix(inputDt)
+      .tz(country.userDefined3 ?? moment.tz.guess())
+      .format("ddd, MMM D");
+  }
+  showTime(country: CountryDto, inputDt: number) {
+    if (country == null) {
+      return null;
+    }
+    return moment
+      .unix(inputDt)
+      .tz(country.userDefined3 ?? moment.tz.guess())
+      .format("hh:mmA");
+  }
+  loadWeatherDetail(wfd: DailyForecastWeatherDto, currentDt: number) {
+    this.store.dispatch(setCurrentWeather({ data: wfd }));
+    if (wfd.dt !== currentDt) {
       setTimeout(() => {
         document.getElementById("box-scrollmenu").scrollLeft =
           document.getElementById("dt-" + wfd.dt).getBoundingClientRect().left /
           3;
       }, 100);
-      this.loadHistoricalStats();
+      this.store.dispatch(
+        loadHistoricalStats({
+          currentWeatherData: wfd,
+        })
+      );
     }
   }
-  collapseForecastDetail() {
-    this.selectedDt = null;
-  }
-  getDefaultWeatherForecast(
-    currentDt: number,
-    dayTime: DayTime
-  ): WeatherInDay | null {
-    let currentMoment = this.getDateTime(currentDt, true);
-    if (this.weatherHourlyForecastData) {
-      switch (dayTime) {
-        case DayTime.Morning:
-          let topMorningTime =
-            new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              12,
-              0,
-              0,
-              0
-            ).getTime() / 1000;
-          let bottomMorningTime =
-            new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              6,
-              0,
-              0,
-              0
-            ).getTime() / 1000;
-          let listMornDt = this.weatherHourlyForecastData.filter(
-            (x) => x.dt <= topMorningTime && x.dt >= bottomMorningTime
-          );
 
-          if (listMornDt.length > 0) {
-            var morningForecast =
-              listMornDt[Math.ceil((listMornDt.length - 1) / 2)];
-            return {
-              weatherId: morningForecast.weather_id,
-              weatherDesc: morningForecast.weather_description,
-              weatherIcon: morningForecast.weather_icon,
-              weatherMain: morningForecast.weather_main,
-              weatherIconUrl: morningForecast.weather_icon_url,
-            };
-          }
-          break;
-        case DayTime.Afternoon:
-          let topAfternoonTime =
-            new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              17,
-              0,
-              0,
-              0
-            ).getTime() / 1000;
-          let bottomAfternoonTime =
-            new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              12,
-              0,
-              0,
-              0
-            ).getTime() / 1000;
-          let listAfternoonDt = this.weatherHourlyForecastData.filter(
-            (x) => x.dt <= topAfternoonTime && x.dt >= bottomAfternoonTime
-          );
-          if (listAfternoonDt.length > 0) {
-            var afternoonForecast =
-              listAfternoonDt[Math.ceil((listAfternoonDt.length - 1) / 2)];
-            return {
-              weatherId: afternoonForecast.weather_id,
-              weatherDesc: afternoonForecast.weather_description,
-              weatherIcon: afternoonForecast.weather_icon,
-              weatherMain: afternoonForecast.weather_main,
-              weatherIconUrl: afternoonForecast.weather_icon_url,
-            };
-          }
-          break;
-        case DayTime.Evening:
-          let topEveTime =
-            new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              21,
-              0,
-              0,
-              0
-            ).getTime() / 1000;
-          let bottomEveTime =
-            new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              17,
-              0,
-              0,
-              0
-            ).getTime() / 1000;
-          let listEveDt = this.weatherHourlyForecastData.filter(
-            (x) => x.dt <= topEveTime && x.dt >= bottomEveTime
-          );
-          if (listEveDt.length > 0) {
-            var eveForecast = listEveDt[Math.ceil((listEveDt.length - 1) / 2)];
-            return {
-              weatherId: eveForecast.weather_id,
-              weatherDesc: eveForecast.weather_description,
-              weatherIcon: eveForecast.weather_icon,
-              weatherMain: eveForecast.weather_main,
-              weatherIconUrl: eveForecast.weather_icon_url,
-            };
-          }
-          break;
-        case DayTime.Night:
-          let topNightTime =
-            (new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              6,
-              0,
-              0,
-              0
-            ).getTime() +
-              86400000) /
-            1000;
-          let bottomNightTime =
-            new Date(
-              currentMoment.year(),
-              currentMoment.month(),
-              currentMoment.date(),
-              21,
-              0,
-              0,
-              0
-            ).getTime() / 1000;
-          let listNightDt = this.weatherHourlyForecastData.filter(
-            (x) => x.dt <= topNightTime && x.dt >= bottomNightTime
-          );
-          if (listNightDt.length > 0) {
-            var nightForecast =
-              listNightDt[Math.ceil((listNightDt.length - 1) / 2)];
-            return {
-              weatherId: nightForecast.weather_id,
-              weatherDesc: nightForecast.weather_description,
-              weatherIcon: nightForecast.weather_icon,
-              weatherMain: nightForecast.weather_main,
-              weatherIconUrl: nightForecast.weather_icon_url,
-            };
-          }
-          break;
-      }
-    }
-    return null;
+  cloneData(data) {
+    return cloneDeep(data);
   }
-  loadHistoricalStats() {
-    if (this.selectedDt) {
-      this.weatherClient
-        .getLastLocalHistoricalWeatherQuery(
-          this.selectedProvince.id,
-          this.selectedDt.dt,
-          //1687885200,
-          4,
-          1,
-          99,
-          Guid.create().toString()
-        )
-        .subscribe(
-          (result) => {
-            this.historicalWeatheData = result.data.items;
-            let dataset = [];
-            this.historicalWeatheData.forEach((element) => {
-              dataset.push({
-                label: this.getDateTime(element.dt, true).format("MMM D,yyyy"),
-                data: [
-                  Math.ceil(element.temp_morn),
-                  Math.ceil(element.temp_day),
-                  Math.ceil(element.temp_eve),
-                  Math.ceil(element.temp_night),
-                ],
-              });
-            });
-            dataset.push({
-              label: this.getDateTime(this.selectedDt.dt, true).format(
-                "MMM D,yyyy"
-              ),
-              data: [
-                Math.ceil(this.selectedDt.temp_morn),
-                Math.ceil(this.selectedDt.temp_day),
-                Math.ceil(this.selectedDt.temp_eve),
-                Math.ceil(this.selectedDt.temp_night),
-              ],
-            });
-            this.salesData = {
-              labels: ["Morning", "Afternoon", "Evening", "Night"],
-              datasets: dataset,
-            };
-          },
-          (error) => console.error(error)
-        );
-    }
+  onShowHideWeatherModal(isShow: boolean) {
+    this.store.dispatch(updateWeatherModalStatus({ status: isShow }));
+  }
+  handleOk(data): void {
+    console.log(data);
+  }
+
+  handleCancel(): void {
+    this.onShowHideWeatherModal(false);
+  }
+  showWeatherData(
+    data: DailyForecastWeatherDto,
+    country: CountryDto,
+    province: ProvinceDto
+  ) {
+    this.store.dispatch(loadWeatherConditions());
+    this.modalService.create({
+      nzTitle: "Edit Weather Data",
+      nzContent: EditWeatherDataComponent,
+      nzComponentParams: {
+        weatherData: data,
+        country: country,
+        province: province,
+      },
+    });
   }
 }

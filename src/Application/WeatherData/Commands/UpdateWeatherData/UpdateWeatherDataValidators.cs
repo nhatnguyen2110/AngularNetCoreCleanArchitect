@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
 
 namespace CleanArchitecture.Application.WeatherData.Commands.UpdateWeatherData;
 
@@ -7,34 +8,34 @@ public class UpdateWeatherDataValidators : AbstractValidator<UpdateWeatherDataCo
     public UpdateWeatherDataValidators()
     {
         RuleFor(x => x.Weather_main)
-            .Matches("^[^<>,<|>]+$");
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.Weather_description)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.Weather_icon)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherMain_morn)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherDesc_morn)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherIcon_morn)
-            .Matches("^[^<>,<|>]+$");
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherMain_day)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherDesc_day)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherIcon_day)
-            .Matches("^[^<>,<|>]+$");
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherMain_eve)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherDesc_eve)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherIcon_eve)
-            .Matches("^[^<>,<|>]+$");
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherMain_night)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherDesc_night)
-           .Matches("^[^<>,<|>]+$");
+           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
         RuleFor(x => x.WeatherIcon_night)
-            .Matches("^[^<>,<|>]+$");
+            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
     }
 }
