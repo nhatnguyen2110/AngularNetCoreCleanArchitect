@@ -24,6 +24,7 @@ export interface IAccountClient {
     resetPassword(command: ResetPasswordCommand): Observable<ResponseOfUnit>;
     getProfile(requestId: string | null | undefined): Observable<ResponseOfAccountDto>;
     refreshToken(command: RefreshTokenCommand): Observable<ResponseOfSignInResultDto>;
+    facebookLogin(command: FacebookLoginCommand): Observable<ResponseOfSignInResultDto>;
 }
 
 @Injectable({
@@ -484,6 +485,58 @@ export class AccountClient implements IAccountClient {
     }
 
     protected processRefreshToken(response: HttpResponseBase): Observable<ResponseOfSignInResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfSignInResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfSignInResultDto>(<any>null);
+    }
+
+    facebookLogin(command: FacebookLoginCommand) : Observable<ResponseOfSignInResultDto> {
+        let url_ = this.baseUrl + "/api/Account/FacebookLogin";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFacebookLogin(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFacebookLogin(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processFacebookLogin(response: HttpResponseBase): Observable<ResponseOfSignInResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1861,6 +1914,7 @@ export interface IResponseOfSignInResultDto extends IResponse {
 export class SignInResultDto implements ISignInResultDto {
     accessToken?: string | undefined;
     account?: AccountDto | undefined;
+    loginProvider?: string;
 
     constructor(data?: ISignInResultDto) {
         if (data) {
@@ -1875,6 +1929,7 @@ export class SignInResultDto implements ISignInResultDto {
         if (_data) {
             this.accessToken = _data["accessToken"];
             this.account = _data["account"] ? AccountDto.fromJS(_data["account"]) : <any>undefined;
+            this.loginProvider = _data["loginProvider"];
         }
     }
 
@@ -1889,6 +1944,7 @@ export class SignInResultDto implements ISignInResultDto {
         data = typeof data === 'object' ? data : {};
         data["accessToken"] = this.accessToken;
         data["account"] = this.account ? this.account.toJSON() : <any>undefined;
+        data["loginProvider"] = this.loginProvider;
         return data; 
     }
 }
@@ -1896,6 +1952,7 @@ export class SignInResultDto implements ISignInResultDto {
 export interface ISignInResultDto {
     accessToken?: string | undefined;
     account?: AccountDto | undefined;
+    loginProvider?: string;
 }
 
 export class AccountDto implements IAccountDto {
@@ -2393,6 +2450,46 @@ export class RefreshTokenCommand implements IRefreshTokenCommand {
 
 export interface IRefreshTokenCommand {
     accessToken?: string | undefined;
+    requestId?: string;
+}
+
+export class FacebookLoginCommand implements IFacebookLoginCommand {
+    access_Token?: string;
+    requestId?: string;
+
+    constructor(data?: IFacebookLoginCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.access_Token = _data["access_Token"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): FacebookLoginCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new FacebookLoginCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["access_Token"] = this.access_Token;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface IFacebookLoginCommand {
+    access_Token?: string;
     requestId?: string;
 }
 
@@ -3161,6 +3258,8 @@ export class ConfigsDto implements IConfigsDto {
     enableGoogleReCaptcha?: boolean;
     googleRecaptchaVersion?: string | undefined;
     googleSiteKey?: string | undefined;
+    facebook_AppId?: string | undefined;
+    facebook_AppVer?: string | undefined;
 
     constructor(data?: IConfigsDto) {
         if (data) {
@@ -3179,6 +3278,8 @@ export class ConfigsDto implements IConfigsDto {
             this.enableGoogleReCaptcha = _data["enableGoogleReCaptcha"];
             this.googleRecaptchaVersion = _data["googleRecaptchaVersion"];
             this.googleSiteKey = _data["googleSiteKey"];
+            this.facebook_AppId = _data["facebook_AppId"];
+            this.facebook_AppVer = _data["facebook_AppVer"];
         }
     }
 
@@ -3197,6 +3298,8 @@ export class ConfigsDto implements IConfigsDto {
         data["enableGoogleReCaptcha"] = this.enableGoogleReCaptcha;
         data["googleRecaptchaVersion"] = this.googleRecaptchaVersion;
         data["googleSiteKey"] = this.googleSiteKey;
+        data["facebook_AppId"] = this.facebook_AppId;
+        data["facebook_AppVer"] = this.facebook_AppVer;
         return data; 
     }
 }
@@ -3208,6 +3311,8 @@ export interface IConfigsDto {
     enableGoogleReCaptcha?: boolean;
     googleRecaptchaVersion?: string | undefined;
     googleSiteKey?: string | undefined;
+    facebook_AppId?: string | undefined;
+    facebook_AppVer?: string | undefined;
 }
 
 export class ResponseOfWeatherForecastDto extends Response implements IResponseOfWeatherForecastDto {

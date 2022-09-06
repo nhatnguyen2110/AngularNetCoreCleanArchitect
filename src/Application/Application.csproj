@@ -25,6 +25,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Domain\Domain.csproj" />
         <ProjectReference Include="..\Modules\OpenWeatherMapAPI\OpenWeatherMapAPI.csproj" />
+        <ProjectReference Include="..\Modules\SocialNetworkAPI\SocialNetworkAPI.csproj" />
     </ItemGroup>
 
 </Project>

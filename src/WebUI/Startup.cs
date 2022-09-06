@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using OpenWeatherMapAPI;
 using OpenWeatherMapAPI.ApiClient;
 using Serilog;
+using SocialNetworkAPI;
+using SocialNetworkAPI.ApiClient;
 
 namespace CleanArchitecture.WebUI;
 
@@ -66,6 +68,7 @@ public class Startup
         services.AddCorsCustom(Configuration); // CORS
         services.AddSwaggerDocumentation(Configuration);
         services.AddOpenWeatherMapModule(Configuration);
+        services.AddSocialNetworkModule(Configuration);
 
         //load general configuration from appsettings.json
         services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
@@ -76,6 +79,7 @@ public class Startup
 
         // Register Polly retry policies when integrating
         services.AddHttpClient<IOpenWeatherMapClient, OpenWeatherMapClient>().AddPolicyHandlers("RetryPolicyConfig", LoggerFactoryInstance, Configuration);
+        services.AddHttpClient<ISocialNetworkClient, SocialNetworkClient>().AddPolicyHandlers("RetryPolicyConfig", LoggerFactoryInstance, Configuration);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

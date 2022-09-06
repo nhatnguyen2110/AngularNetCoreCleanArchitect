@@ -101,6 +101,7 @@ public class IdentityService : IIdentityService
         {
             case LoginMethod.Email_Password:
             case LoginMethod.Email_VerificationCode:
+            case LoginMethod.Social_Login:
                 //get account by email
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 _account = await _commonService.ApplicationDBContext.Accounts.FirstOrDefaultAsync(a => a.Email == emailOrPhoneNo.Trim().ToLower());
@@ -173,6 +174,8 @@ public class IdentityService : IIdentityService
                     throw new IdentityException($"Verification code is incorrect");
                 }
 
+                break;
+            case LoginMethod.Social_Login:
                 break;
             default:
                 throw new IdentityException("Login Method is not supported");

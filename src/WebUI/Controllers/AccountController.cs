@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Accounts.Commands.Activation;
+using CleanArchitecture.Application.Accounts.Commands.FacebookLogin;
 using CleanArchitecture.Application.Accounts.Commands.GetEmailVerificationCode;
 using CleanArchitecture.Application.Accounts.Commands.RefreshToken;
 using CleanArchitecture.Application.Accounts.Commands.ResetPassword;
@@ -121,6 +122,19 @@ public class AccountController : ApiControllerBase
     }
     [HttpPost("[action]")]
     public async Task<ActionResult<Response<SignInResultDto>>> RefreshToken([FromBody] RefreshTokenCommand command)
+    {
+        var result = await Mediator.Send(command);
+        if (result.Succeeded)
+        {
+            return result;
+        }
+        else
+        {
+            return BadRequest(result);
+        }
+    }
+    [HttpPost("[action]")]
+    public async Task<ActionResult<Response<SignInResultDto>>> FacebookLogin([FromBody] FacebookLoginCommand command)
     {
         var result = await Mediator.Send(command);
         if (result.Succeeded)

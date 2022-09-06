@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeatherMapAPI", "src\Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundJobUI", "src\BackgroundJobUI\BackgroundJobUI.csproj", "{CAB297F2-0FD8-4A30-B490-F68DD12251E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetworkAPI", "src\Modules\SocialNetworkAPI\SocialNetworkAPI.csproj", "{EFA42DFA-2BDB-40A6-BD8D-1335335155CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{CAB297F2-0FD8-4A30-B490-F68DD12251E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB297F2-0FD8-4A30-B490-F68DD12251E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB297F2-0FD8-4A30-B490-F68DD12251E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA42DFA-2BDB-40A6-BD8D-1335335155CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA42DFA-2BDB-40A6-BD8D-1335335155CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA42DFA-2BDB-40A6-BD8D-1335335155CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA42DFA-2BDB-40A6-BD8D-1335335155CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{EECBAC47-CCDD-4D10-98DD-9AA78E5BCE8E} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 		{6E5A2721-035F-44D9-930C-B8977656685C} = {EECBAC47-CCDD-4D10-98DD-9AA78E5BCE8E}
 		{CAB297F2-0FD8-4A30-B490-F68DD12251E3} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+		{EFA42DFA-2BDB-40A6-BD8D-1335335155CD} = {EECBAC47-CCDD-4D10-98DD-9AA78E5BCE8E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}

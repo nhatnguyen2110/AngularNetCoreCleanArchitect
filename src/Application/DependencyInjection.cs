@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.Configure<ApplicationSettings>(configuration.GetSection(nameof(ApplicationSettings)))
              .AddScoped(cnf => cnf.GetService<IOptionsSnapshot<ApplicationSettings>>().Value)
              ;
+
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
         return services;
     }

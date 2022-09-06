@@ -7,4 +7,7 @@ public class ConfigsDto
     public bool EnableGoogleReCaptcha { get; set; }
     public string? GoogleRecaptchaVersion { get; set; }
     public string? GoogleSiteKey { get; set; }
+    public string? Facebook_AppId { get; set; }
+    public string? Facebook_AppVer { get; set; }
+
 }

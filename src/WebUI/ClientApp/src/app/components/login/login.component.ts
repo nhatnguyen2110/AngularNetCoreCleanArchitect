@@ -44,6 +44,9 @@ export class LoginComponent implements OnInit {
   enableRecaptcha: boolean;
   googleSiteKey: string;
   googleRecaptchaVersion: string;
+  enableFacebookLogin = false;
+  enableGoogleLogin = false;
+  enableTwitterLogin = false;
 
   debug = false;
 
@@ -66,6 +69,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.enableRecaptcha = configService.systemConfig.enableGoogleReCaptcha;
     this.googleSiteKey = configService.systemConfig.googleSiteKey;
+    this.enableFacebookLogin = configService.systemConfig.facebook_AppId !== "";
 
     const { required, maxLength, minLength, email, mobile } = MyValidators;
     this.validateForm = this.fb.group({
@@ -136,6 +140,8 @@ export class LoginComponent implements OnInit {
   onStopCountDown() {
     this.store.dispatch(sendCodeStopCountdown());
   }
-  onFacebookLogin() {}
+  onFacebookLogin() {
+    this.configService.facebookLogin();
+  }
   onGoogleLogin() {}
 }

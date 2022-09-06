@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Configs.Dtos;
 using CleanArchitecture.Domain;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using SocialNetworkAPI.Shared;
 
 namespace CleanArchitecture.Application.Configs.Queries.GetSystemConfigs;
 public class GetSystemConfigsQuery : IRequest<Response<ConfigsDto>>
@@ -14,12 +15,15 @@ public class GetSystemConfigsQuery : IRequest<Response<ConfigsDto>>
 public class GetSystemConfigsQueryHandler : BaseHandler<GetSystemConfigsQuery, Response<ConfigsDto>>
 {
     private readonly ApplicationSettings _applicationSettings;
+    private readonly SocialNetworkConfig _socialNetworkConfig;
     public GetSystemConfigsQueryHandler(ICommonService commonService
         , ILogger<GetSystemConfigsQuery> logger,
-        ApplicationSettings applicationSettings
+        ApplicationSettings applicationSettings,
+        SocialNetworkConfig socialNetworkConfig
        ) : base(commonService, logger)
     {
         _applicationSettings = applicationSettings;
+        _socialNetworkConfig = socialNetworkConfig;
     }
     public async override Task<Response<ConfigsDto>> Handle(GetSystemConfigsQuery request, CancellationToken cancellationToken)
     {
@@ -31,7 +35,9 @@ public class GetSystemConfigsQueryHandler : BaseHandler<GetSystemConfigsQuery, R
                 PublicKeyEncode = _applicationSettings.PublicKeyEncode,
                 EnableGoogleReCaptcha = _applicationSettings.EnableGoogleReCaptcha,
                 GoogleRecaptchaVersion = _applicationSettings.GoogleRecaptchaVersion,
-                GoogleSiteKey = _applicationSettings.GoogleSiteKey
+                GoogleSiteKey = _applicationSettings.GoogleSiteKey,
+                Facebook_AppId = _socialNetworkConfig.Facebook_AppId,
+                Facebook_AppVer = _socialNetworkConfig.Facebook_AppVer,
             };
             await Task.CompletedTask;
             return Response<ConfigsDto>.Success(result, request.requestId);

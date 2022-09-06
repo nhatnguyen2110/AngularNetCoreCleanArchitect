@@ -298,6 +298,38 @@
         }
       }
     },
+    "/api/Account/FacebookLogin": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_FacebookLogin",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FacebookLoginCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfSignInResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Cache/ClearAll": {
       "delete": {
         "tags": [
@@ -1207,6 +1239,9 @@
                 "$ref": "#/components/schemas/AccountDto"
               }
             ]
+          },
+          "loginProvider": {
+            "type": "string"
           }
         }
       },
@@ -1432,6 +1467,18 @@
           "accessToken": {
             "type": "string",
             "nullable": true
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
+      "FacebookLoginCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "access_Token": {
+            "type": "string"
           },
           "requestId": {
             "type": "string"
@@ -1892,6 +1939,14 @@
             "nullable": true
           },
           "googleSiteKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "facebook_AppId": {
+            "type": "string",
+            "nullable": true
+          },
+          "facebook_AppVer": {
             "type": "string",
             "nullable": true
           }
