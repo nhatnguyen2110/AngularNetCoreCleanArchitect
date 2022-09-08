@@ -18,7 +18,7 @@ public class SocialNetworkClient : ApiHttpClient, ISocialNetworkClient
         content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
         request.Content = content_;
         request.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
+        client.DefaultRequestHeaders.Add("UserAgent", "My WebApplication");
         return Task.CompletedTask;
     }
     public async Task<FBMeResponse> GetFacebookProfileAsync(FBMeReq request, CancellationToken cancellationToken = default)
@@ -29,5 +29,15 @@ public class SocialNetworkClient : ApiHttpClient, ISocialNetworkClient
         var relativeUrl = $"{_socialNetworkConfig.Facebook_AppVer}/me?access_token={request.Access_Token}&fields=email,first_name,last_name,picture";
 
         return await this.SendRequestAsync<FBMeResponse>(null, relativeUrl, new { }, CleanArchitecture.Domain.Enums.HttpMethod.GET, cancellationToken);
+    }
+
+    public async Task<GoogleTokenInfoResponse> GetGoogleTokenInfoAsync(GoogleTokenInfoReq request, CancellationToken cancellationToken = default)
+    {
+        if (request == null)
+            throw new System.ArgumentNullException("request");
+        this.BaseUrl = "" + _socialNetworkConfig.Google_APIUrl;
+        var relativeUrl = $"tokeninfo?id_token={request.Access_Token}";
+
+        return await this.SendRequestAsync<GoogleTokenInfoResponse>(null, relativeUrl, new { }, CleanArchitecture.Domain.Enums.HttpMethod.POST, cancellationToken);
     }
 }

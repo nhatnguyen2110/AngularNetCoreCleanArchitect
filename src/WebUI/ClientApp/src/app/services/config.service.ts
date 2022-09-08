@@ -1,9 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
 import {
   AccountClient,
   AccountDto,
   ConfigsDto,
   FacebookLoginCommand,
+  GoogleLoginCommand,
   SystemClient,
 } from "src/app/web-api-client";
 import {
@@ -22,7 +23,7 @@ import { JSEncrypt } from "jsencrypt";
 import { ActivatedRoute, Router } from "@angular/router";
 
 declare const FB: any;
-
+declare const gapi: any;
 export enum LocalKeys {
   ACCESSTOKEN = "accessToken",
 }
@@ -32,11 +33,13 @@ export enum LocalKeys {
 export class ConfigService {
   systemConfig: ConfigsDto;
   accountSubject: BehaviorSubject<AccountDto>;
+  auth2: any;
   constructor(
     private systemClient: SystemClient,
     private router: Router,
     private route: ActivatedRoute,
-    private accountClient: AccountClient
+    private accountClient: AccountClient,
+    private zone: NgZone
   ) {
     this.accountSubject = new BehaviorSubject<AccountDto>(null);
   }
@@ -66,6 +69,30 @@ export class ConfigService {
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
           })(document, "script", "facebook-jssdk");
+        }
+        if (this.systemConfig.google_ClientID) {
+          let googleClientId = this.systemConfig.google_ClientID;
+          (<any>window)["googleSDKLoaded"] = () => {
+            gapi.load("auth2", () => {
+              this.auth2 = gapi.auth2.init({
+                client_id: googleClientId,
+                scope: "profile email",
+                plugin_name: "chat",
+              });
+            });
+          };
+          (function (d, s, id) {
+            var js,
+              fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+              return;
+            }
+            js = d.createElement("script");
+            js.id = id;
+            js.src =
+              "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
+            fjs?.parentNode?.insertBefore(js, fjs);
+          })(document, "script", "google-jssdk");
         }
       })
     );
@@ -143,6 +170,41 @@ export class ConfigService {
     //console.log(accessToken);
     return this.accountClient
       .facebookLogin(FacebookLoginCommand.fromJS({ access_Token: accessToken }))
+      .pipe(
+        map((res) => {
+          this.setAccessToken(res.data.accessToken);
+          this.setCurrentAccount(res.data.account);
+          return res;
+        })
+      );
+  }
+  googleLogin() {
+    //Login button reference
+    let element: any = document.getElementById("google-login-button");
+    this.auth2.attachClickHandler(
+      element,
+      {},
+      (googleUser: any) => {
+        this.googleAuthenticate(
+          googleUser.getAuthResponse().id_token
+        ).subscribe((res) => {
+          // get return url from query parameters or default to home page
+          const returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+          //this.router.navigateByUrl(returnUrl);
+          //console.log(res);
+          this.zone.run(() => {
+            this.router.navigateByUrl(returnUrl);
+          });
+        });
+      },
+      (error: any) => {
+        alert(JSON.stringify(error, undefined, 2));
+      }
+    );
+  }
+  googleAuthenticate(accessToken: string) {
+    return this.accountClient
+      .googleLogin(GoogleLoginCommand.fromJS({ access_Token: accessToken }))
       .pipe(
         map((res) => {
           this.setAccessToken(res.data.accessToken);

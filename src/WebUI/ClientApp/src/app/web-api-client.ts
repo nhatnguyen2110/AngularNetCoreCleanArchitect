@@ -25,6 +25,7 @@ export interface IAccountClient {
     getProfile(requestId: string | null | undefined): Observable<ResponseOfAccountDto>;
     refreshToken(command: RefreshTokenCommand): Observable<ResponseOfSignInResultDto>;
     facebookLogin(command: FacebookLoginCommand): Observable<ResponseOfSignInResultDto>;
+    googleLogin(command: GoogleLoginCommand): Observable<ResponseOfSignInResultDto>;
 }
 
 @Injectable({
@@ -537,6 +538,58 @@ export class AccountClient implements IAccountClient {
     }
 
     protected processFacebookLogin(response: HttpResponseBase): Observable<ResponseOfSignInResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseOfSignInResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ResponseOfSignInResultDto>(<any>null);
+    }
+
+    googleLogin(command: GoogleLoginCommand) : Observable<ResponseOfSignInResultDto> {
+        let url_ = this.baseUrl + "/api/Account/GoogleLogin";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGoogleLogin(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGoogleLogin(<any>response_);
+                } catch (e) {
+                    return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ResponseOfSignInResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGoogleLogin(response: HttpResponseBase): Observable<ResponseOfSignInResultDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2493,6 +2546,46 @@ export interface IFacebookLoginCommand {
     requestId?: string;
 }
 
+export class GoogleLoginCommand implements IGoogleLoginCommand {
+    access_Token?: string;
+    requestId?: string;
+
+    constructor(data?: IGoogleLoginCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.access_Token = _data["access_Token"];
+            this.requestId = _data["requestId"];
+        }
+    }
+
+    static fromJS(data: any): GoogleLoginCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new GoogleLoginCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["access_Token"] = this.access_Token;
+        data["requestId"] = this.requestId;
+        return data; 
+    }
+}
+
+export interface IGoogleLoginCommand {
+    access_Token?: string;
+    requestId?: string;
+}
+
 export class ResponseOfCountryDto extends Response implements IResponseOfCountryDto {
     data?: CountryDto | undefined;
 
@@ -3260,6 +3353,7 @@ export class ConfigsDto implements IConfigsDto {
     googleSiteKey?: string | undefined;
     facebook_AppId?: string | undefined;
     facebook_AppVer?: string | undefined;
+    google_ClientID?: string | undefined;
 
     constructor(data?: IConfigsDto) {
         if (data) {
@@ -3280,6 +3374,7 @@ export class ConfigsDto implements IConfigsDto {
             this.googleSiteKey = _data["googleSiteKey"];
             this.facebook_AppId = _data["facebook_AppId"];
             this.facebook_AppVer = _data["facebook_AppVer"];
+            this.google_ClientID = _data["google_ClientID"];
         }
     }
 
@@ -3300,6 +3395,7 @@ export class ConfigsDto implements IConfigsDto {
         data["googleSiteKey"] = this.googleSiteKey;
         data["facebook_AppId"] = this.facebook_AppId;
         data["facebook_AppVer"] = this.facebook_AppVer;
+        data["google_ClientID"] = this.google_ClientID;
         return data; 
     }
 }
@@ -3313,6 +3409,7 @@ export interface IConfigsDto {
     googleSiteKey?: string | undefined;
     facebook_AppId?: string | undefined;
     facebook_AppVer?: string | undefined;
+    google_ClientID?: string | undefined;
 }
 
 export class ResponseOfWeatherForecastDto extends Response implements IResponseOfWeatherForecastDto {

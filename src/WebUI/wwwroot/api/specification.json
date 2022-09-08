@@ -330,6 +330,38 @@
         }
       }
     },
+    "/api/Account/GoogleLogin": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_GoogleLogin",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleLoginCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOfSignInResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Cache/ClearAll": {
       "delete": {
         "tags": [
@@ -1485,6 +1517,18 @@
           }
         }
       },
+      "GoogleLoginCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "access_Token": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          }
+        }
+      },
       "ResponseOfCountryDto": {
         "allOf": [
           {
@@ -1947,6 +1991,10 @@
             "nullable": true
           },
           "facebook_AppVer": {
+            "type": "string",
+            "nullable": true
+          },
+          "google_ClientID": {
             "type": "string",
             "nullable": true
           }

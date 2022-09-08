@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Application.Accounts.Commands.Activation;
 using CleanArchitecture.Application.Accounts.Commands.FacebookLogin;
 using CleanArchitecture.Application.Accounts.Commands.GetEmailVerificationCode;
+using CleanArchitecture.Application.Accounts.Commands.GoogleLogin;
 using CleanArchitecture.Application.Accounts.Commands.RefreshToken;
 using CleanArchitecture.Application.Accounts.Commands.ResetPassword;
 using CleanArchitecture.Application.Accounts.Commands.SignIn;
@@ -135,6 +136,19 @@ public class AccountController : ApiControllerBase
     }
     [HttpPost("[action]")]
     public async Task<ActionResult<Response<SignInResultDto>>> FacebookLogin([FromBody] FacebookLoginCommand command)
+    {
+        var result = await Mediator.Send(command);
+        if (result.Succeeded)
+        {
+            return result;
+        }
+        else
+        {
+            return BadRequest(result);
+        }
+    }
+    [HttpPost("[action]")]
+    public async Task<ActionResult<Response<SignInResultDto>>> GoogleLogin([FromBody] GoogleLoginCommand command)
     {
         var result = await Mediator.Send(command);
         if (result.Succeeded)

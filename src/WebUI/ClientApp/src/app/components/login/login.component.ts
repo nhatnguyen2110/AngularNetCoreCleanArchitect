@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
     this.enableRecaptcha = configService.systemConfig.enableGoogleReCaptcha;
     this.googleSiteKey = configService.systemConfig.googleSiteKey;
     this.enableFacebookLogin = configService.systemConfig.facebook_AppId !== "";
+    this.enableGoogleLogin = configService.systemConfig.google_ClientID !== "";
 
     const { required, maxLength, minLength, email, mobile } = MyValidators;
     this.validateForm = this.fb.group({
@@ -143,5 +144,7 @@ export class LoginComponent implements OnInit {
   onFacebookLogin() {
     this.configService.facebookLogin();
   }
-  onGoogleLogin() {}
+  onGoogleLogin() {
+    this.configService.googleLogin();
+  }
 }

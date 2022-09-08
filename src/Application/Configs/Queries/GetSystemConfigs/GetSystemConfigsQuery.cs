@@ -38,6 +38,7 @@ public class GetSystemConfigsQueryHandler : BaseHandler<GetSystemConfigsQuery, R
                 GoogleSiteKey = _applicationSettings.GoogleSiteKey,
                 Facebook_AppId = _socialNetworkConfig.Facebook_AppId,
                 Facebook_AppVer = _socialNetworkConfig.Facebook_AppVer,
+                Google_ClientID = _socialNetworkConfig.Google_ClientID,
             };
             await Task.CompletedTask;
             return Response<ConfigsDto>.Success(result, request.requestId);
