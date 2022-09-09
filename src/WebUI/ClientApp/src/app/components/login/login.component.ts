@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit } from "@angular/core";
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
@@ -31,8 +31,8 @@ declare var google: any;
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-  validateForm!: FormGroup;
-  verificationForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
+  verificationForm!: UntypedFormGroup;
   title = "My Application";
   passwordVisible = false;
 
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     },
   };
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store: Store,
     private activatedRoute: ActivatedRoute,
     private configService: ConfigService //private recaptchaV3Service: ReCaptchaV3Service
@@ -86,11 +86,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if (this.enableRecaptcha) {
       this.validateForm.addControl(
         "recaptchaToken",
-        new FormControl(null, Validators.required)
+        new UntypedFormControl(null, Validators.required)
       );
       this.verificationForm.addControl(
         "recaptchaToken",
-        new FormControl(null, Validators.required)
+        new UntypedFormControl(null, Validators.required)
       );
     }
   }

@@ -48,7 +48,7 @@ import {
   setCurrentWeather,
   updateWeatherModalStatus,
 } from "src/app/store/weather/weather.actions";
-import { cloneDeep } from "lodash";
+import { cloneDeep } from "lodash-es";
 import { ConfigService } from "src/app/services/config.service";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { EditWeatherDataComponent } from "../edit-weather-data/edit-weather-data.component";

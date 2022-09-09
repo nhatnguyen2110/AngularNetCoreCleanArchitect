@@ -1,7 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -55,7 +57,8 @@
             "optimization": false,
             "namedChunks": true,
             "allowedCommonJsDependencies": [
-              "moment-timezone"
+              "moment-timezone",
+              "guid-typescript"
             ]
           },
           "configurations": {
@@ -177,6 +180,5 @@
         }
       }
     }
-  },
-  "defaultProject": "CleanArchitecture.WebUI"
+  }
 }

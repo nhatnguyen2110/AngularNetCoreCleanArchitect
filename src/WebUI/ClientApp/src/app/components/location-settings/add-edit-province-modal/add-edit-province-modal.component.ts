@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { NzModalRef } from "ng-zorro-antd/modal";
 import { saveProvince } from "src/app/store/location/location.actions";
@@ -14,13 +14,13 @@ import { ProvinceDto } from "src/app/web-api-client";
 })
 export class AddEditProvinceModalComponent implements OnInit {
   @Input() province: ProvinceDto;
-  editForm: FormGroup;
+  editForm: UntypedFormGroup;
   debug = false;
   loadingSaveProvince$ = this.store.select(selectLoadingSaveProvince);
   constructor(
     private store: Store,
     private modal: NzModalRef,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {
