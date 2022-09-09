@@ -4,7 +4,6 @@ using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,10 +31,10 @@ public static class DependencyInjection
 
         services.AddScoped<IDomainEventService, DomainEventService>();
 
-        services
-            .AddDefaultIdentity<ApplicationUser>()
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+        //services
+        //    .AddDefaultIdentity<ApplicationUser>()
+        //    .AddRoles<IdentityRole>()
+        //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
         //services.AddIdentityServer()
         //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();

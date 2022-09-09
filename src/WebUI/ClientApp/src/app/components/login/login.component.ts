@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -24,13 +24,13 @@ import {
 } from "src/app/store/auth/auth.selectors";
 import { MyValidators } from "src/app/validators/ng-zorro.validator";
 import { ReCaptchaV3Service } from "ng-recaptcha";
-
+declare var google: any;
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   validateForm!: FormGroup;
   verificationForm!: FormGroup;
   title = "My Application";
@@ -144,7 +144,21 @@ export class LoginComponent implements OnInit {
   onFacebookLogin() {
     this.configService.facebookLogin();
   }
-  onGoogleLogin() {
-    this.configService.googleLogin();
+
+  ngAfterViewInit(): void {
+    if (this.configService.systemConfig.google_ClientID) {
+      google.accounts.id.initialize({
+        client_id: this.configService.systemConfig.google_ClientID,
+        callback: (response: any) => this.handleGoogleSignIn(response),
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("googleButtonDiv"),
+        { size: "medium", type: "icon", shape: "pill" } // customization attributes
+      );
+    }
+  }
+  handleGoogleSignIn(response: any) {
+    //console.log(response.credential);
+    this.configService.googleAuthenticate(response.credential);
   }
 }

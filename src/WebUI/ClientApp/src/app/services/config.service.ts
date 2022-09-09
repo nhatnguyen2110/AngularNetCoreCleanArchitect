@@ -24,6 +24,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 declare const FB: any;
 declare const gapi: any;
+
 export enum LocalKeys {
   ACCESSTOKEN = "accessToken",
 }
@@ -71,16 +72,6 @@ export class ConfigService {
           })(document, "script", "facebook-jssdk");
         }
         if (this.systemConfig.google_ClientID) {
-          let googleClientId = this.systemConfig.google_ClientID;
-          (<any>window)["googleSDKLoaded"] = () => {
-            gapi.load("auth2", () => {
-              this.auth2 = gapi.auth2.init({
-                client_id: googleClientId,
-                scope: "profile email",
-                plugin_name: "chat",
-              });
-            });
-          };
           (function (d, s, id) {
             var js,
               fjs = d.getElementsByTagName(s)[0];
@@ -89,8 +80,7 @@ export class ConfigService {
             }
             js = d.createElement("script");
             js.id = id;
-            js.src =
-              "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
+            js.src = "https://accounts.google.com/gsi/client";
             fjs?.parentNode?.insertBefore(js, fjs);
           })(document, "script", "google-jssdk");
         }
@@ -178,39 +168,18 @@ export class ConfigService {
         })
       );
   }
-  googleLogin() {
-    //Login button reference
-    let element: any = document.getElementById("google-login-button");
-    this.auth2.attachClickHandler(
-      element,
-      {},
-      (googleUser: any) => {
-        this.googleAuthenticate(
-          googleUser.getAuthResponse().id_token
-        ).subscribe((res) => {
-          // get return url from query parameters or default to home page
-          const returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
-          //this.router.navigateByUrl(returnUrl);
-          //console.log(res);
-          this.zone.run(() => {
-            this.router.navigateByUrl(returnUrl);
-          });
-        });
-      },
-      (error: any) => {
-        alert(JSON.stringify(error, undefined, 2));
-      }
-    );
-  }
+
   googleAuthenticate(accessToken: string) {
     return this.accountClient
       .googleLogin(GoogleLoginCommand.fromJS({ access_Token: accessToken }))
-      .pipe(
-        map((res) => {
-          this.setAccessToken(res.data.accessToken);
-          this.setCurrentAccount(res.data.account);
-          return res;
-        })
-      );
+      .subscribe((res) => {
+        this.setAccessToken(res.data.accessToken);
+        this.setCurrentAccount(res.data.account);
+        // get return url from query parameters or default to home page
+        const returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+        this.zone.run(() => {
+          this.router.navigateByUrl(returnUrl);
+        });
+      });
   }
 }

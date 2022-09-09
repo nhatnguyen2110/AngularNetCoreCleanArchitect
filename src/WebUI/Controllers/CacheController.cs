@@ -3,11 +3,10 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Infrastructure.Identity;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
-[Authorize]
+
 public class CacheController : ApiControllerBase
 {
     private readonly ILogger<CacheController> _logger;
