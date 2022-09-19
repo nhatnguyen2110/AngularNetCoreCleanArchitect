@@ -8,17 +8,17 @@ public class CreateCountryCommandValidator : AbstractValidator<CreateCountryComm
     public CreateCountryCommandValidator()
     {
         RuleFor(v => v.Name)
-            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"))
+            .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline))
             .NotEmpty();
         RuleFor(v => v.UserDefined1)
-           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
+           .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline));
         RuleFor(v => v.UserDefined2)
-           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
+           .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline));
         RuleFor(v => v.UserDefined3)
-           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
+           .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline));
         RuleFor(v => v.IconUrl)
-           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
+           .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline));
         RuleFor(v => v.LanguageCode)
-          .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
+          .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline));
     }
 }

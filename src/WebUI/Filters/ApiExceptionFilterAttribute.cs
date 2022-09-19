@@ -51,9 +51,10 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         var exception = (ValidationException)context.Exception;
 
-        var details = new ValidationProblemDetails(exception.Errors)
+        var details = new CustomValidationProblemDetails(exception.Errors)
         {
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Message = String.Join(' ', exception.Errors.Select(x => String.Join(' ', x.Value.ToArray())).ToArray())
         };
 
         context.Result = new BadRequestObjectResult(details);
@@ -139,4 +140,9 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 
         context.ExceptionHandled = true;
     }
+}
+public class CustomValidationProblemDetails : ValidationProblemDetails
+{
+    public CustomValidationProblemDetails(IDictionary<string, string[]> errors) : base(errors) { }
+    public string? Message { get; set; }
 }

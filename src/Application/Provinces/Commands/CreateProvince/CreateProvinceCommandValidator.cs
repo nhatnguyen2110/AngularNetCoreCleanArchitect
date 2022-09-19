@@ -8,9 +8,9 @@ public class CreateProvinceCommandValidator : AbstractValidator<CreateProvinceCo
     public CreateProvinceCommandValidator()
     {
         RuleFor(v => v.Name)
-            .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"))
+            .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline))
             .NotEmpty();
         RuleFor(v => v.AliasName)
-           .Must(x => !Regex.IsMatch(x ?? "", "^<.+>+$"));
+           .Must(x => !Regex.IsMatch(x ?? "", "<([^>]+)>", RegexOptions.Multiline));
     }
 }
