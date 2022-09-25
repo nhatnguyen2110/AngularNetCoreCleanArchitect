@@ -3,12 +3,11 @@ using CleanArchitecture.Application.Provinces.Commands.CreateProvince;
 using CleanArchitecture.Application.Provinces.Dtos;
 using CleanArchitecture.Application.Provinces.Queries.GetProvinceById;
 using CleanArchitecture.Application.Provinces.Queries.GetProvincesWithPagination;
-using CleanArchitecture.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
-
-[CustomAuthorize]
+[Authorize]
 public class ProvincesController : ApiControllerBase
 {
     [HttpGet("{id}")]
@@ -75,5 +74,12 @@ public class ProvincesController : ApiControllerBase
         {
             return BadRequest(result);
         }
+    }
+    [Authorize(Roles = "Admin")]
+    [HttpGet("[action]")]
+    public IActionResult TestRole()
+    {
+        var user = User.Identity?.Name;
+        return Ok("Success");
     }
 }

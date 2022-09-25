@@ -9,8 +9,8 @@ using CleanArchitecture.Application.Accounts.Commands.SignUp;
 using CleanArchitecture.Application.Accounts.Dtos;
 using CleanArchitecture.Application.Accounts.Queries;
 using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Infrastructure.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
@@ -107,7 +107,7 @@ public class AccountController : ApiControllerBase
             return BadRequest(result);
         }
     }
-    [CustomAuthorize]
+    [Authorize]
     [HttpGet("[action]")]
     public async Task<ActionResult<Response<AccountDto>>> GetProfile([FromQuery] GetProfileQuery query)
     {

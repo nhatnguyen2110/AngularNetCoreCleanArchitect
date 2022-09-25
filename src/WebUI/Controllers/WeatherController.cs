@@ -5,7 +5,7 @@ using CleanArchitecture.Application.WeatherData.Commands.UpdateOrCreateWeatherDa
 using CleanArchitecture.Application.WeatherData.Dtos;
 using CleanArchitecture.Application.WeatherData.Queries.GetLocalDataHistoricalWeather;
 using CleanArchitecture.Application.WeatherData.Queries.GetWeatherForecastIn7Days;
-using CleanArchitecture.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
@@ -39,7 +39,7 @@ public class WeatherController : ApiControllerBase
         }
     }
 
-    [CustomAuthorize]
+    [Authorize]
     [HttpPost("[action]")]
     public async Task<ActionResult<Response<int>>> UpdateOrCreateWeatherData([FromBody] UpdateOrCreateWeatherDataCommand request)
     {
@@ -54,7 +54,7 @@ public class WeatherController : ApiControllerBase
         }
     }
 
-    [CustomAuthorize]
+    [Authorize]
     [HttpDelete("[action]")]
     public async Task<ActionResult<Response<MediatR.Unit>>> Delete([FromBody] DeleteWeatherDataCommand request)
     {
@@ -68,7 +68,7 @@ public class WeatherController : ApiControllerBase
             return BadRequest(response);
         }
     }
-    [CustomAuthorize]
+    [Authorize]
     [HttpGet("[action]")]
     public async Task<ActionResult<Response<WeatherConditionCollectionDto>>> GetWeatherConditions([FromQuery] GetWeatherConditionQuery request)
     {

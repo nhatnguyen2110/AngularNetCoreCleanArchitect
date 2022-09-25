@@ -1,8 +1,8 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
-using CleanArchitecture.Infrastructure.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
@@ -22,7 +22,7 @@ public class CacheController : ApiControllerBase
         _cacheService = cacheService;
         _dateTimeService = dateTimeService;
     }
-    [CustomAuthorize]
+    [Authorize]
     [HttpDelete("[action]")]
     public ActionResult ClearAll()
     {
@@ -37,7 +37,7 @@ public class CacheController : ApiControllerBase
             return BadRequest(new Response(false, Constants.GeneralErrorMessage, ex.Message, "Failed to clear all cache"));
         }
     }
-    [CustomAuthorize]
+    [Authorize]
     [HttpDelete("[action]")]
     public ActionResult ClearByKey([FromQuery] string key)
     {
