@@ -8,11 +8,11 @@ using static Testing;
 
 public class DeleteProvinceTests : TestBase
 {
-    
+
     [Test]
     public async Task ShouldDeleteProvince()
     {
-        var userId = await RunAsDefaultUserAsync();
+        //var userId = await RunAsDefaultUserAsync();
 
         var res = await SendAsync(new CreateProvinceCommand
         {

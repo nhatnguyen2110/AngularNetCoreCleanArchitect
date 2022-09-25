@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.Provinces.Commands.CreateProvince;
+﻿using CleanArchitecture.Application.Provinces.Commands.CreateProvince;
 using CleanArchitecture.Application.Provinces.Queries.GetProvincesWithPagination;
 using FluentAssertions;
 using NUnit.Framework;
@@ -12,7 +11,7 @@ public class GetProvincesTests : TestBase
     [Test]
     public async Task ShouldReturnProvinces()
     {
-        var userId = await RunAsDefaultUserAsync();
+        //var userId = await RunAsDefaultUserAsync();
 
         var res = await SendAsync(new CreateProvinceCommand
         {
