@@ -4,6 +4,7 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -73,6 +74,17 @@ public class SignUpCommandHandler : BaseHandler<SignUpCommand, Response<Unit>>
             }
             this._commonService.ApplicationDBContext.Accounts.Add(entity);
             await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
+            //assign member role
+            var memberRole = await _commonService.ApplicationDBContext.SysRoles.FirstOrDefaultAsync(x => x.Name == RoleList.Member.ToString());
+            if (memberRole != null)
+            {
+                this._commonService.ApplicationDBContext.AccountRoles.Add(new AccountRole()
+                {
+                    AccountId = entity.Id,
+                    RoleId = memberRole.Id
+                });
+                await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
+            }
             if (_applicationSettings.EnableEmailConfirmForRegister)
             {
 #pragma warning disable CS8604 // Possible null reference argument.

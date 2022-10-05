@@ -84,8 +84,7 @@ public class TokenService : ITokenService
         claims.Add(new Claim(ClaimTypes.Name, user.Id));
         claims.Add(new Claim(ClaimTypes.Email, user.Email));
         claims.Add(new Claim("expireInMinutes", user.ExpireInMinutes.ToString()));
-        //todo: add roles
-        claims.Add(new Claim(ClaimTypes.Role, "Member"));
+        claims.Add(new Claim(ClaimTypes.Role, String.Join(',', user.Roles)));
 
         return Task.FromResult(claims);
     }
@@ -101,7 +100,11 @@ public class TokenService : ITokenService
             int.TryParse(expireInMinutesString, out var expireInMinutes);
             user.ExpireInMinutes = expireInMinutes;
         }
-        //todo: add roles
+        var rolesString = claimsPrincipal.FindFirstValue("role");
+        if (!string.IsNullOrWhiteSpace(rolesString))
+        {
+            user.Roles = rolesString.Split(',').ToList();
+        }
         return Task.FromResult(user);
     }
 }

@@ -1,47 +1,31 @@
 ﻿using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Enums;
 
 namespace CleanArchitecture.Infrastructure.Persistence;
 
 public static class ApplicationDbContextSeed
 {
-    //public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
-    //{
-    //    var administratorRole = new IdentityRole("Administrator");
-
-    //    if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
-    //    {
-    //        await roleManager.CreateAsync(administratorRole);
-    //    }
-
-    //    var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
-
-    //    if (userManager.Users.All(u => u.UserName != administrator.UserName))
-    //    {
-    //        await userManager.CreateAsync(administrator, "Administrator1!");
-    //        await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
-    //    }
-    //}
 
     public static async Task SeedSampleDataAsync(ApplicationDbContext context)
     {
         //Add roles: Admin, Member, Guest
-        //if (!context.SysRoles.Any())
-        //{
-        //    context.SysRoles.AddRange(
-        //         new SysRole()
-        //         {
-        //             Name = "Administrator"
-        //         },
-        //        new SysRole()
-        //        {
-        //            Name = "Member"
-        //        },
-        //        new SysRole()
-        //        {
-        //            Name = "Guest"
-        //        }
-        //    );
-        //}
+        if (!context.SysRoles.Any())
+        {
+            context.SysRoles.AddRange(
+                 new SysRole()
+                 {
+                     Name = RoleList.Administrator.ToString()
+                 },
+                new SysRole()
+                {
+                    Name = RoleList.Member.ToString()
+                },
+                new SysRole()
+                {
+                    Name = RoleList.Guest.ToString()
+                }
+            );
+        }
 
         if (!context.Countries.Any())
         {

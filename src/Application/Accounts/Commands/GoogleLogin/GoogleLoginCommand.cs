@@ -2,7 +2,10 @@
 using CleanArchitecture.Application.Common.Handlers;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SocialNetworkAPI.ApiClient;
 
@@ -77,6 +80,17 @@ public class GoogleLoginCommandHandler : BaseHandler<GoogleLoginCommand, Respons
                 });
                 this._commonService.ApplicationDBContext.Accounts.Add(_account);
                 await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
+                //assign member role
+                var memberRole = await _commonService.ApplicationDBContext.SysRoles.FirstOrDefaultAsync(x => x.Name == RoleList.Member.ToString());
+                if (memberRole != null)
+                {
+                    this._commonService.ApplicationDBContext.AccountRoles.Add(new AccountRole()
+                    {
+                        AccountId = _account.Id,
+                        RoleId = memberRole.Id
+                    });
+                    await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
+                }
             }
             //generate jwt
             var result = await this._identityService.AuthorizeAsync("" + _account.Email, String.Empty, true, Domain.Enums.LoginMethod.Social_Login, cancellationToken);

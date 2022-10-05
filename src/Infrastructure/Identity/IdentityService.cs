@@ -12,86 +12,23 @@ namespace CleanArchitecture.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {
-    //private readonly UserManager<ApplicationUser> _userManager;
-    //private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
     private readonly ICommonService _commonService;
     private readonly IConfiguration _configuration;
     private readonly ITokenService _tokenService;
 
     public IdentityService(
-        //UserManager<ApplicationUser> userManager,
-        //IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService,
         ICommonService commonService,
         IConfiguration configuration,
         ITokenService tokenService
         )
     {
-        //_userManager = userManager;
-        //_userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
         _commonService = commonService;
         _configuration = configuration;
         _tokenService = tokenService;
     }
-
-    //public async Task<string> GetUserNameAsync(string userId)
-    //{
-    //    var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
-
-    //    return user.UserName;
-    //}
-
-    //public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
-    //{
-    //    var user = new ApplicationUser
-    //    {
-    //        UserName = userName,
-    //        Email = userName,
-    //    };
-
-    //    var result = await _userManager.CreateAsync(user, password);
-
-    //    return (result.ToApplicationResult(), user.Id);
-    //}
-
-    //public async Task<bool> IsInRoleAsync(string userId, string role)
-    //{
-    //    var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
-
-    //    return user != null && await _userManager.IsInRoleAsync(user, role);
-    //}
-
-    //public async Task<bool> AuthorizeAsync(string userId, string policyName)
-    //{
-    //    var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
-
-    //    if (user == null)
-    //    {
-    //        return false;
-    //    }
-
-    //    var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
-
-    //    var result = await _authorizationService.AuthorizeAsync(principal, policyName);
-
-    //    return result.Succeeded;
-    //}
-
-    //public async Task<Result> DeleteUserAsync(string userId)
-    //{
-    //    var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
-
-    //    return user != null ? await DeleteUserAsync(user) : Result.Success();
-    //}
-
-    //public async Task<Result> DeleteUserAsync(ApplicationUser user)
-    //{
-    //    var result = await _userManager.DeleteAsync(user);
-
-    //    return result.ToApplicationResult();
-    //}
 
     public async Task<SignInResultDto> AuthorizeAsync(string emailOrPhoneNo, string passcode, bool keepLogin, LoginMethod loginMethod, CancellationToken cancellationToken)
     {
@@ -103,7 +40,7 @@ public class IdentityService : IIdentityService
             case LoginMethod.Social_Login:
                 //get account by email
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                _account = await _commonService.ApplicationDBContext.Accounts.FirstOrDefaultAsync(a => a.Email == emailOrPhoneNo.Trim().ToLower());
+                _account = await _commonService.ApplicationDBContext.Accounts.Include(x => x.AccountRoles).ThenInclude(x => x.Role).FirstOrDefaultAsync(a => a.Email == emailOrPhoneNo);
                 if (_account == null)
                 {
                     throw new IdentityException("Cannot find Email");
@@ -191,12 +128,17 @@ public class IdentityService : IIdentityService
         }
         _account.LastLoginDate = DateTime.Now;
         await this._commonService.ApplicationDBContext.SaveChangesAsync(cancellationToken);
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         var jwtToken = await _tokenService.GenerateJWToken(new UserTokenModel
         {
             Id = _account.Id.ToString(),
             Email = "" + _account.Email,
-            ExpireInMinutes = int.Parse(keepLogin ? _configuration["JWTSettings:KeepLoginDurationInMinutes"] : _configuration["JWTSettings:DefaultDurationInMinutes"])
+            ExpireInMinutes = int.Parse(keepLogin ? _configuration["JWTSettings:KeepLoginDurationInMinutes"] : _configuration["JWTSettings:DefaultDurationInMinutes"]),
+            Roles = _account.AccountRoles.Select(x => x.Role.Name).ToList()
         });
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
         var response = new SignInResultDto
         {
             AccessToken = jwtToken,
