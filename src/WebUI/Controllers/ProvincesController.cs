@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
-[Authorize]
+[Authorize(Roles = "Administrator")]
 public class ProvincesController : ApiControllerBase
 {
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<Response<ProvinceDto>>> Get(int id)
     {
@@ -23,6 +24,7 @@ public class ProvincesController : ApiControllerBase
             return BadRequest(result);
         }
     }
+    [AllowAnonymous]
     [HttpGet("[action]")]
     public async Task<ActionResult<Response<PaginatedList<ProvinceDto>>>> GetList([FromQuery] GetProvincesWithPaginationQuery request)
     {
@@ -74,12 +76,5 @@ public class ProvincesController : ApiControllerBase
         {
             return BadRequest(result);
         }
-    }
-    [Authorize(Roles = "Admin")]
-    [HttpGet("[action]")]
-    public IActionResult TestRole()
-    {
-        var user = User.Identity?.Name;
-        return Ok("Success");
     }
 }

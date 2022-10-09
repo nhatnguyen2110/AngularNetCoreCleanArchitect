@@ -4,6 +4,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from "@angular/core";
+import { environment } from "src/environments/environment";
 import { Menu } from "../models/menu.model";
 import { ConfigService } from "../services/config.service";
 import { ThemeService, ThemeType } from "../services/theme.service";
@@ -24,46 +25,56 @@ export class LayoutComponent implements OnInit {
   fixHeader: boolean = false;
   currentTheme: string;
   currentAccount$;
-  menu: Menu = [
-    {
-      title: "Home",
-      icon: "bar-chart",
-      link: "/home",
-    },
-    {
-      title: "Admin",
-      icon: "setting",
-      subMenu: [
-        {
-          title: "Locations",
-          icon: "global",
-          link: "/location-settings",
-        },
-        {
-          title: "Users",
-          icon: "team",
-          link: "/users",
-        },
-      ],
-    },
-    {
-      title: "Token",
-      icon: "key",
-      link: "/token",
-    },
-    {
-      title: "API Swagger",
-      icon: "api",
-      link: "/api/index.html?url=/api/specification.json",
-      isExternal: true,
-      isOpenAsNewWindow: true,
-    },
-  ];
+  menu: Menu;
   constructor(
     private themeService: ThemeService,
     private configService: ConfigService
   ) {
     this.currentAccount$ = configService.accountSubject;
+    let currentAccount = configService.accountSubject.getValue();
+    this.menu = [
+      {
+        title: "Home",
+        icon: "bar-chart",
+        link: "/home",
+      },
+    ];
+    if (currentAccount?.roles) {
+      if (currentAccount.roles.indexOf("Administrator") > -1) {
+        this.menu.push({
+          title: "Admin",
+          icon: "setting",
+          subMenu: [
+            {
+              title: "Locations",
+              icon: "global",
+              link: "/location-settings",
+            },
+            {
+              title: "Users",
+              icon: "team",
+              link: "/users",
+            },
+          ],
+        });
+      }
+    }
+    if (this.configService.getAccessToken()) {
+      this.menu.push({
+        title: "Token",
+        icon: "key",
+        link: "/token",
+      });
+    }
+    if (!environment.production) {
+      this.menu.push({
+        title: "API Swagger",
+        icon: "api",
+        link: "/api/index.html?url=/api/specification.json",
+        isExternal: true,
+        isOpenAsNewWindow: true,
+      });
+    }
   }
 
   setDefaultTheme() {

@@ -1019,7 +1019,6 @@ export interface IProvincesClient {
     create(command: CreateProvinceCommand): Observable<ResponseOfInteger>;
     update(command: UpdateProvinceCommand): Observable<ResponseOfUnit>;
     delete(id: number): Observable<ResponseOfUnit>;
-    testRole(): Observable<FileResponse>;
 }
 
 @Injectable({
@@ -1299,52 +1298,6 @@ export class ProvincesClient implements IProvincesClient {
             }));
         }
         return _observableOf<ResponseOfUnit>(<any>null);
-    }
-
-    testRole() : Observable<FileResponse> {
-        let url_ = this.baseUrl + "/api/Provinces/TestRole";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/octet-stream"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processTestRole(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processTestRole(<any>response_);
-                } catch (e) {
-                    return <Observable<FileResponse>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<FileResponse>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processTestRole(response: HttpResponseBase): Observable<FileResponse> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<FileResponse>(<any>null);
     }
 }
 
@@ -2070,6 +2023,7 @@ export class AccountDto implements IAccountDto {
     country?: string | undefined;
     phone?: string | undefined;
     isFirstLogin?: boolean;
+    roles?: string[];
 
     constructor(data?: IAccountDto) {
         if (data) {
@@ -2096,6 +2050,11 @@ export class AccountDto implements IAccountDto {
             this.country = _data["country"];
             this.phone = _data["phone"];
             this.isFirstLogin = _data["isFirstLogin"];
+            if (Array.isArray(_data["roles"])) {
+                this.roles = [] as any;
+                for (let item of _data["roles"])
+                    this.roles!.push(item);
+            }
         }
     }
 
@@ -2122,6 +2081,11 @@ export class AccountDto implements IAccountDto {
         data["country"] = this.country;
         data["phone"] = this.phone;
         data["isFirstLogin"] = this.isFirstLogin;
+        if (Array.isArray(this.roles)) {
+            data["roles"] = [];
+            for (let item of this.roles)
+                data["roles"].push(item);
+        }
         return data; 
     }
 }
@@ -2141,6 +2105,7 @@ export interface IAccountDto {
     country?: string | undefined;
     phone?: string | undefined;
     isFirstLogin?: boolean;
+    roles?: string[];
 }
 
 export class SignInCommand implements ISignInCommand {

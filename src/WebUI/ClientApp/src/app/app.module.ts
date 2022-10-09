@@ -63,6 +63,7 @@ import { NZ_ICONS } from "ng-zorro-antd/icon";
 import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";
 import { IconDefinition } from "@ant-design/icons-angular";
 import * as AllIcons from "@ant-design/icons-angular/icons";
+import { PageForbiddenComponent } from './components/page-forbidden/page-forbidden.component';
 
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
@@ -78,6 +79,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     SliderMenuComponent,
     PageNotFoundComponent,
     TokenComponent,
+    PageForbiddenComponent,
   ],
   imports: [
     BrowserModule,

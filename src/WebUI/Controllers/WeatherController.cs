@@ -39,7 +39,7 @@ public class WeatherController : ApiControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Administrator,Member")]
     [HttpPost("[action]")]
     public async Task<ActionResult<Response<int>>> UpdateOrCreateWeatherData([FromBody] UpdateOrCreateWeatherDataCommand request)
     {
@@ -54,7 +54,7 @@ public class WeatherController : ApiControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Administrator,Member")]
     [HttpDelete("[action]")]
     public async Task<ActionResult<Response<MediatR.Unit>>> Delete([FromBody] DeleteWeatherDataCommand request)
     {

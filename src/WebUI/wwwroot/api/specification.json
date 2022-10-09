@@ -383,7 +383,9 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator"
+            ]
           }
         ]
       }
@@ -420,7 +422,9 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator"
+            ]
           }
         ]
       }
@@ -547,7 +551,9 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator"
+            ]
           }
         ]
       }
@@ -584,7 +590,9 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator"
+            ]
           }
         ]
       }
@@ -621,7 +629,9 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator"
+            ]
           }
         ]
       }
@@ -655,12 +665,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/Provinces/GetList": {
@@ -718,12 +723,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/Provinces/Create": {
@@ -758,7 +758,9 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator"
+            ]
           }
         ]
       }
@@ -795,7 +797,9 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator"
+            ]
           }
         ]
       }
@@ -832,34 +836,8 @@
         },
         "security": [
           {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/Provinces/TestRole": {
-      "get": {
-        "tags": [
-          "Provinces"
-        ],
-        "operationId": "Provinces_TestRole",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
             "JWT": [
-              "Admin"
+              "Administrator"
             ]
           }
         ]
@@ -1066,7 +1044,10 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator",
+              "Member"
+            ]
           }
         ]
       }
@@ -1103,7 +1084,10 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT": [
+              "Administrator",
+              "Member"
+            ]
           }
         ]
       }
@@ -1364,6 +1348,12 @@
           },
           "isFirstLogin": {
             "type": "boolean"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },

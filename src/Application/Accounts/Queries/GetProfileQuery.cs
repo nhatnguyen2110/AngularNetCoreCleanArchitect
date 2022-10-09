@@ -24,7 +24,7 @@ public class ResetPasswordCommandHandler : BaseHandler<GetProfileQuery, Response
         try
         {
             var userId = int.Parse(this._commonService.CurrentUserService.UserId ?? "0");
-            var result = await this._commonService.ApplicationDBContext.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId);
+            var result = await this._commonService.ApplicationDBContext.Accounts.Include(x => x.AccountRoles).ThenInclude(x => x.Role).AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId);
             if (result == null)
             {
                 return new Response<AccountDto>(false, "Cannot find user", $"Cannot find user (user id = {userId})", "Failed to get Profile", request.requestId);

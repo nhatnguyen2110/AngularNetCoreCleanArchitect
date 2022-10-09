@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
-[Authorize]
+[Authorize(Roles = "Administrator")]
 public class CountriesController : ApiControllerBase
 {
     [AllowAnonymous]

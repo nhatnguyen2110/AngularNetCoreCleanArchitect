@@ -158,7 +158,7 @@ public class IdentityService : IIdentityService
             throw new IdentityException("Invalid Token");
         }
         var _user = await _tokenService.GetUserToken(claimsPrincipal);
-        var _account = await _commonService.ApplicationDBContext.Accounts.FirstOrDefaultAsync(a => a.Id == int.Parse(_user.Id));
+        var _account = await _commonService.ApplicationDBContext.Accounts.Include(x => x.AccountRoles).ThenInclude(x => x.Role).FirstOrDefaultAsync(a => a.Id == int.Parse(_user.Id));
         if (_account == null)
         {
             throw new IdentityException("Invalid User");

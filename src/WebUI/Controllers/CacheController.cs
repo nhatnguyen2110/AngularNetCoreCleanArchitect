@@ -22,7 +22,7 @@ public class CacheController : ApiControllerBase
         _cacheService = cacheService;
         _dateTimeService = dateTimeService;
     }
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [HttpDelete("[action]")]
     public ActionResult ClearAll()
     {
@@ -37,7 +37,7 @@ public class CacheController : ApiControllerBase
             return BadRequest(new Response(false, Constants.GeneralErrorMessage, ex.Message, "Failed to clear all cache"));
         }
     }
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [HttpDelete("[action]")]
     public ActionResult ClearByKey([FromQuery] string key)
     {
